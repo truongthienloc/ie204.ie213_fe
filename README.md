@@ -31,22 +31,52 @@ Write something...
 
 ## Team members
 
-Add table of teams members
-|Name|
-|---|
-|Trương Thiên Lộc|
+| Họ và tên          | Mã số sinh viên |
+|--------------------|-----------------|
+| Trương Thiên Lộc   | 21520330        |
+| Phan Đình Thế Trung| 21520504        |
+| Phan Thanh Dương   | 21520762        |
+| Trần Đình Khánh    | 21520984        |
+| Phạm Thanh Duy     | 21522008        |
+| Hồ Nhật Huy        | 21522140        |
 
 ## Project management
 
 ### Git workflow
 
-Write something...
+- **main**: Không được phép push trực tiếp vào nhánh này mà phải thông qua PR. Nhánh này chỉ nhận PR từ nhánh **release/\***. Được sử dụng để deploy sản phẩm.
+- **develop**: Không được phép push trực tiếp vào nhánh này mà phải thông qua PR.
+- Các nhánh khác phải đặt tên dưới dạng: *{type}/{name}*. Trong đó:
+  - *type:* feature | fixbug | release | doc | hotfix | ...
+  - *name:* Một cái tên ngắn gọn về công việc thực hiện (Ví dụ: HomePage | home-page | home_page).
+
+![git workflow](./docs/images/git-workflow.svg)
 
 ### Github project
 
-Write something...
+Ý nghĩa các bảng:
+
+- *Backlog:* chứa các task hoặc yêu cầu được sắp xếp sẵn để tiếp tục phát triển trong tương lai.
+- *Ready:* chứa các task từ bảng Backlog đã được chấp nhận và sẵn sàng để bắt đầu thực hiện.
+- *In progress:* chứa các task mà nhóm đang hoặc đã bắt đầu thực hiện. Các task trong bảng này đang trong quá trình phát triển hoặc triển khai và đang chờ được hoàn thành.
+- *In review:* chứa các task mà task đã hoàn thành và đang được xem xét hoặc kiểm tra.
+- *Done:* chứa các task đã hoàn thành và được chấp nhận.
+
+Quy tắc:
+
+- *Backlog* -> *Ready* và *In review* -> *Done*: sẽ do **PM** thực hiện.
+- *Ready* -> *In progress* -> *In review*: sẽ do **Dev** thực hiện.
+
+Quy ước:
+
+- *Backlog* -> *Ready* -> *In progress*: sẽ được thực hiện **thủ công**.
+- *In review* -> *Done*: sẽ được thực hiện **tự động**.
 
 ### Folder structure
+
+
+
+### Process
 
 Write something...
 
