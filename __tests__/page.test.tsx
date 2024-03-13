@@ -1,4 +1,6 @@
-import '@testing-library/jest-dom'
+/**
+ * @jest-environment jsdom
+ */
 import { render, screen } from '@testing-library/react'
 import Page from '../src/app/page'
 
