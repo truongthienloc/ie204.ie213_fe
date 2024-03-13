@@ -27,5 +27,6 @@ jobs:
     - run: rm -rf yarn.lock
     - run: npm i
     - run: npm run lint
+    - run: npm run format:check
     - run: npm run build
     - run: npm test
