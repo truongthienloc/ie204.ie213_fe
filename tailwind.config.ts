@@ -55,6 +55,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        'second': 'var(--secondary)',
         'third': '#FFFFFF',
         'fourth': '#FFF8EE',
         'link': '#4BFF3C',
