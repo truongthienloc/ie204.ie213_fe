@@ -2,13 +2,14 @@
 
 import 'froala-editor/css/froala_style.min.css'
 import 'froala-editor/css/froala_editor.pkgd.min.css'
-import 'froala-editor/js/plugins.pkgd.min.js'
 import React, { useState } from 'react'
-import FroalaEditorComponent from 'react-froala-wysiwyg'
+import dynamic from 'next/dynamic'
 import TextField from '@mui/material/TextField'
 import Chip from '@mui/material/Chip'
 import { toast } from 'react-toastify'
 import useBlog from '~/hooks/useBlog.hook'
+
+const FroalaEditorComponent = dynamic(() => import('~/components/Froala/FroalaEditorComponent'))
 
 type Props = {}
 
