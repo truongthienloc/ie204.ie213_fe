@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
-import { Inter, Roboto } from 'next/font/google'
+import { Roboto } from 'next/font/google'
+import { ToastContainer } from 'react-toastify'
+
 import './globals.scss'
+import 'react-toastify/dist/ReactToastify.css'
 
 const roboto = Roboto({ subsets: ['vietnamese'], weight: ['400'] })
 
@@ -16,7 +19,21 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={roboto.className}>{children}</body>
+            <body className={roboto.className}>
+                {children}
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover={false}
+                    theme="light"
+                />
+            </body>
         </html>
     )
 }
