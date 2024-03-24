@@ -68,7 +68,7 @@ export default function AdminSidebar() {
     }
 
     return (
-        <div className="pl-8 pr-4 pt-8 mb-20 h-full bg-[#f8f8f8] flex flex-col gap-10">
+        <div className="pl-8 pr-4 w-[300px] pt-8 mb-20 h-full bg-[#f8f8f8] flex flex-col gap-10">
             <div className=" flex gap-5 ">
                 <img src={'/icons/admin-sidebar/element-3.svg'} alt="" />
                 <p className="font-normal text-primary text-2xl">Admin</p>
@@ -82,7 +82,7 @@ export default function AdminSidebar() {
                             key={item.href}
                             href={item.href}
                             className={
-                                'px-[5px] py-4 flex gap-4 text-lg text-second font-normal hover:text-primary rounded-sm'
+                                'px-[5px] py-4 flex gap-4 text-lg text-second font-normal hover:text-primary rounded-sm text-nowrap'
                             }
                         >
                             <img
