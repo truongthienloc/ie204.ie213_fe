@@ -1,17 +1,21 @@
 import Link from 'next/link'
+import { NavbarItem } from '~/types/NavbarItem'
 
 type NavItemProps = {
-    href: string
-    text: string
+    item: NavbarItem
+    active?: boolean
+    className: string
 }
 
-export default function NavItem({ href, text }: NavItemProps) {
+export default function NavItem({ item, active, className }: NavItemProps) {
     return (
-        <Link
-            href={href}
-            className="uppercase text-secondary text-center text-nowrap font-bold hover:text-primary [&.active]:text-primary"
-        >
-            {text}
-        </Link>
+        <li className={className}>
+            <Link
+                href={item?.href}
+                className="uppercase text-secondary text-center text-nowrap font-bold hover:text-primary"
+            >
+                {item?.text}
+            </Link>
+        </li>
     )
 }
