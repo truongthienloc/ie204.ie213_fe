@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import CircularProgress from '@mui/material/CircularProgress'
 // import { toast } from 'react-toastify'
 import { AdminSidebar } from '~/components/AdminSidebar'
 import { ScrollToTopButton } from '~/components/ScrollToTop'
@@ -13,15 +14,24 @@ type Props = {
 
 export default function AdminLayout({ children }: Props) {
     const { isAdmin } = useAuth()
+    const [isLoading, setIsLoading] = useState(true)
     const router = useRouter()
 
     useEffect(() => {
         if (!isAdmin) {
             router.replace('/admin/login')
-        } else {
-            router.replace('/admin/manage-client')
         }
-    }, [isAdmin, router])
+
+        setIsLoading(false)
+    }, [isAdmin, router, setIsLoading])
+
+    if (isLoading) {
+        return (
+            <div className="flex h-dvh">
+                <CircularProgress className="m-auto" />
+            </div>
+        )
+    }
 
     return (
         <div className="flex flex-col bg-[#fafafa] text-second">
