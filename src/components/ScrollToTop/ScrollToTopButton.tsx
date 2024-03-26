@@ -8,13 +8,13 @@ const ScrollToTopButton = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 20) {
+            if (window.scrollY > 80) {
                 setIsVisible(true)
             } else {
                 setIsVisible(false)
             }
         }
-        // document.body.addEventListener('scroll', handleScroll, { capture: true })
+
         window.addEventListener('scroll', handleScroll)
 
         return () => {
@@ -33,12 +33,14 @@ const ScrollToTopButton = () => {
         <>
             {isVisible && (
                 <button
-                    className="w-10 h-10 rounded-[50%] bg-primary fixed bottom-6 right-6 animate-fadeIn outline-none grid place-items-center p-0 hover:border-none focus:outline-none focus-visible:outline-none"
+                    className="w-14 h-14 rounded-[50%] fixed bottom-6 right-6 animate-fadeIn outline-none grid place-items-center p-0 hover:border-none focus:outline-none focus-visible:outline-none"
                     id="scrollToTopBtn"
+                    style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
                     onClick={scrollToTop}
-                    // style={{ display: isVisible ? 'block' : 'none' }}
                 >
-                    <KeyboardArrowUpIcon />
+                    <KeyboardArrowUpIcon
+                        style={{ width: '34px', height: '34px', color: 'rgba(0,0,0,0.5)' }}
+                    />
                 </button>
             )}
         </>

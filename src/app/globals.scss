@@ -35,6 +35,7 @@
         --ring: 222.2 84% 4.9%;
 
         --radius: 0.5rem;
+        --header-height: 80px;
     }
 
     .dark {
@@ -74,5 +75,17 @@
     }
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+.inner {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 769px) {
+    .inner {
+        padding: 0 16px;
     }
 }

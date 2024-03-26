@@ -11,48 +11,21 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
+import CloseIcon from '@mui/icons-material/Close'
+import Login from '@mui/icons-material/Login'
+import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import MenuIcon from '@mui/icons-material/Menu'
 import Link from 'next/link'
-import HomeIcon from '@mui/icons-material/Home'
-import RestaurantIcon from '@mui/icons-material/Restaurant'
-import BookOnlineIcon from '@mui/icons-material/BookOnline'
-import InfoIcon from '@mui/icons-material/Info'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import Image from 'next/image'
 
-const NavItemList = [
-    {
-        id: 1,
-        href: '/home',
-        text: 'TRANG CHỦ',
-        icon: <HomeIcon />,
-    },
-    {
-        id: 2,
-        href: '/product',
-        text: 'SẢN PHẨM',
-        icon: <RestaurantIcon />,
-    },
-    {
-        id: 3,
-        href: '/reservation',
-        text: 'ĐẶT BÀN',
-        icon: <BookOnlineIcon />,
-    },
-    {
-        id: 4,
-        href: '/about',
-        text: 'GIỚI THIỆU',
-        icon: <InfoIcon />,
-    },
-]
+import styles from '../../styles/navbar.module.scss'
+import { navbarItems } from '~/data'
+import { NavbarItem } from '~/types/NavbarItem'
 
-type NavDrawerProps = {
-    className: string
-}
-
-export default function NavDrawer({ className }: NavDrawerProps) {
+export default function NavDrawer() {
     const [isOpen, setIsOpen] = useState(false)
-    const isAuth = false
+    const isAuth = false // lấy từ store
 
     const handleOpen = () => setIsOpen(true)
     const handleClose = () => setIsOpen(false)
@@ -62,21 +35,32 @@ export default function NavDrawer({ className }: NavDrawerProps) {
             <Button
                 className={cn(
                     'border border-solid border-gray-500 transition-colors hover:border-primary [&_*]:hover:text-primary',
-                    className,
+                    styles.bar,
                 )}
                 onClick={handleOpen}
             >
                 <MenuIcon className="text-black transition-colors" />
             </Button>
             <Drawer anchor="right" open={isOpen} onClose={handleClose}>
-                <Box sx={{ width: 250 }} role="presentation" onClick={handleClose}>
+                <div className={styles.closeDrawer}>
+                    <button onClick={handleClose}>
+                        <CloseIcon className={styles.icon} />
+                    </button>
+                </div>
+
+                <Box sx={{ width: 260 }} role="presentation" onClick={handleClose}>
                     <List>
-                        {NavItemList.map((value) => (
-                            <ListItem key={value.id} disablePadding>
-                                <Link className="w-[inherit]" href={value.href}>
+                        {navbarItems.map((item: NavbarItem) => (
+                            <ListItem key={item?.id} disablePadding>
+                                <Link className="w-[inherit]" href={item?.href}>
                                     <ListItemButton>
-                                        <ListItemIcon>{value.icon}</ListItemIcon>
-                                        <ListItemText primary={value.text} />
+                                        <ListItemIcon className={styles.icon}>
+                                            {item?.icon}
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary={item?.text}
+                                            className={styles.text}
+                                        />
                                     </ListItemButton>
                                 </Link>
                             </ListItem>
@@ -89,38 +73,53 @@ export default function NavDrawer({ className }: NavDrawerProps) {
                         <ListItem disablePadding>
                             <Link className="w-[inherit]" href={'/cart'}>
                                 <ListItemButton>
-                                    <ListItemIcon>
+                                    <ListItemIcon className={styles.icon}>
                                         <ShoppingCartIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary={'GIỎ HÀNG'} />
+                                    <ListItemText primary={'GIỎ HÀNG'} className={styles.text} />
                                 </ListItemButton>
                             </Link>
                         </ListItem>
-                        <ListItem disablePadding>
-                            {isAuth ? (
+
+                        {isAuth ? (
+                            <ListItem disablePadding>
                                 <Link className="w-[inherit]" href={'/user'}>
                                     <ListItemButton>
                                         <ListItemIcon>
-                                            <div className="w-[40px] h-[40px] rounded-full border-primary border flex items-center justify-center overflow-hidden">
-                                                <img
-                                                    src={'' || '/images/default_profile_image.svg'}
-                                                    alt="Profile Image"
-                                                    className="w-full h-full object-contain"
-                                                />
-                                            </div>
+                                            <Image
+                                                src={'' || '/images/default_profile_image.svg'}
+                                                alt="User Avatar"
+                                                width={10}
+                                                height={10}
+                                                className={styles.avatar}
+                                            />
                                         </ListItemIcon>
-                                        <ListItemText primary={'HỒ SƠ'} />
+                                        <ListItemText primary={'HỒ SƠ'} className={styles.text} />
                                     </ListItemButton>
                                 </Link>
-                            ) : (
-                                <Link
-                                    className="py-1 px-3 mx-auto bg-primary text-center text-white font-bold rounded-lg transition-opacity hover:opacity-40 hover:text-white"
-                                    href={'/login'}
-                                >
-                                    Đăng nhập
-                                </Link>
-                            )}
-                        </ListItem>
+                            </ListItem>
+                        ) : (
+                            <>
+                                <ListItem disablePadding>
+                                    <Link
+                                        className={cn(styles.btn, styles.drawerBtn)}
+                                        href={'/login'}
+                                    >
+                                        <Login className={styles.icon} />
+                                        <span className={styles.text}>Đăng nhập</span>
+                                    </Link>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                    <Link
+                                        className={cn(styles.btn, styles.drawerBtn)}
+                                        href={'/login'}
+                                    >
+                                        <PersonAddIcon className={styles.icon} />
+                                        <span className={styles.text}>Đăng ký</span>
+                                    </Link>
+                                </ListItem>
+                            </>
+                        )}
                     </List>
                 </Box>
             </Drawer>
