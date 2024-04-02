@@ -19,12 +19,10 @@ function NavBar() {
             <div className={styles.inner}>
                 <div className={clsx(styles.part)}>
                     <Link href={'/'} className={styles.logoLink}>
-                        <Image
+                        <img
                             className={styles.logoImage}
-                            src={'/logos/bepuit_logo.svg'}
+                            src={'logos/bepuit_logo.svg'}
                             alt="Bếp UIT logo"
-                            width={100}
-                            height={100}
                         />
                     </Link>
                     <ul className={styles.navigation}>
@@ -55,8 +53,7 @@ function NavBar() {
                             <>
                                 <Link
                                     className={clsx(
-                                        'py-2 px-4 bg-primary text-center text-white font-bold rounded-lg',
-                                        styles.btn,
+                                        'py-2 px-4 text-center font-bold rounded-lg hover:text-primary',
                                     )}
                                     href={'/login'}
                                 >
@@ -64,7 +61,8 @@ function NavBar() {
                                 </Link>
                                 <Link
                                     className={clsx(
-                                        'py-2 px-4 text-center text-secondary font-bold rounded-lg hover:text-primary',
+                                        'py-2 px-4 text-center text-secondary font-bold rounded-lg',
+                                        styles.btn,
                                     )}
                                     href={'/signup'}
                                 >

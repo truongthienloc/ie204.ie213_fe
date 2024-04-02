@@ -78,14 +78,47 @@
     }
 }
 
+// Responsive CSS
 .inner {
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
+    display: block;
 }
 
-@media screen and (max-width: 769px) {
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+.col {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+@media screen and (min-width: 769px) {
+    .inner .col.lg-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+
+@media screen and (max-width: 768px) and (min-width: 540px) {
     .inner {
-        padding: 0 16px;
+        width: 90vw;
+    }
+
+    .inner .col.md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+@media screen and (max-width: 539px) {
+    .inner .col.sm-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }

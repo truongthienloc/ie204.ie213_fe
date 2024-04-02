@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useState } from 'react'
+import { ChangeEventHandler, FocusEventHandler, useState } from 'react'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
@@ -11,6 +11,7 @@ type InputProps = {
     type: string
     className?: string
     value: string
+    handleOnFocus?: FocusEventHandler<HTMLInputElement>
     handleOnChange?: ChangeEventHandler<HTMLInputElement>
 }
 
@@ -21,6 +22,7 @@ function InputField({
     name,
     value,
     id,
+    handleOnFocus = () => {},
     handleOnChange = () => {},
 }: InputProps) {
     const [isShowContent, setIsShowContent] = useState<boolean>(false)
@@ -35,6 +37,7 @@ function InputField({
                     name={name}
                     placeholder={placeholder}
                     onChange={handleOnChange}
+                    onFocus={handleOnFocus}
                     value={value}
                 />
                 {type === 'password' && (

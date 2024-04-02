@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function Footer() {
     return (
-        <footer className="flex flex-col font-roboto text-white tracking-wider bg-primary">
+        <footer className="flex flex-col font-roboto text-#ccc tracking-wider border-top bg-#f5f5f5 border-t-4 border-primary">
             <div className="justify-evenly inner">
                 <div className="w-primary mx-auto max-w-full flex flex-row py-4 gap-8 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 max-md:gap-8 max-[400px]:p-2">
                     <div className="flex flex-col mt-4">
@@ -22,7 +22,10 @@ export default function Footer() {
                             LIÊN HỆ VỚI CHÚNG TÔI
                         </h2>
                         <div className="flex flex-row gap-5 mt-4 max-sm:justify-center">
-                            <a href="#" className="rounded-md overflow-hidden">
+                            <a
+                                href="https://www.facebook.com/people/B%E1%BA%BFp-UIT/61557416318657"
+                                className="rounded-md overflow-hidden"
+                            >
                                 <Image
                                     src={'/logos/facebook.svg'}
                                     alt="facebook icon"
@@ -80,21 +83,27 @@ export default function Footer() {
                             Bếp UIT - HỆ THỐNG WEBSITE ĐẶT THỨC ĂN
                         </h2>
                         <ul className="grid grid-cols-2 max-sm:text-center mt-4 gap-x-5 gap-y-2 leading-5 max-xl:grid-cols-1 max-lg:m-0">
-                            <li>Điều khoản chung</li>
-                            <li>Hướng dẫn đặt bàn</li>
-                            <li>Điều khoản giao dịch</li>
-                            <li>Tuyển dụng</li>
-                            <li>Chính sách thanh toán</li>
-                            <li>Liên hệ</li>
-                            <li>Chính sách bảo mật</li>
+                            <li className="hover:text-primary cursor-pointer">Điều khoản chung</li>
+                            <li className="hover:text-primary cursor-pointer">Hướng dẫn đặt bàn</li>
+                            <li className="hover:text-primary cursor-pointer">
+                                Điều khoản giao dịch
+                            </li>
+                            <li className="hover:text-primary cursor-pointer">Tuyển dụng</li>
+                            <li className="hover:text-primary cursor-pointer">
+                                Chính sách thanh toán
+                            </li>
+                            <li className="hover:text-primary cursor-pointer">Liên hệ</li>
+                            <li className="hover:text-primary cursor-pointer">
+                                Chính sách bảo mật
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div className="flex justify-center py-2 items-center font-normal bg-secondary max-[400px]:p-1">
-                <p className="max-[400px]:text-center select-none">
-                    Copyright © 2023 | Bản quyền thuộc về Bếp UIT
+            <div className="flex justify-center py-1 items-center font-normal bg-primary max-[400px]:p-1">
+                <p className="max-[400px]:text-center select-none text-white">
+                    Copyright © 2024 | Bản quyền thuộc về Bếp UIT
                 </p>
             </div>
         </footer>

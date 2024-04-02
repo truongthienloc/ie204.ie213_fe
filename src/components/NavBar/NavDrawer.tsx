@@ -112,7 +112,7 @@ export default function NavDrawer() {
                                 <ListItem disablePadding>
                                     <Link
                                         className={cn(styles.btn, styles.drawerBtn)}
-                                        href={'/login'}
+                                        href={'/signup'}
                                     >
                                         <PersonAddIcon className={styles.icon} />
                                         <span className={styles.text}>Đăng ký</span>

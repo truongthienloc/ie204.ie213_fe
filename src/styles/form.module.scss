@@ -3,6 +3,7 @@
     padding: 16px;
     border-radius: 6px;
     overflow: hidden;
+    flex: 1;
     max-width: 460px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     background-color: #ffefd5;
@@ -41,15 +42,21 @@
     }
 
     &:focus-within {
-        border: 1px solid var(--primary);
+        border: 1px solid var(--secondary);
     }
 
     & input {
         padding: 16px;
+        background-color: transparent;
         width: 100%;
         flex: 1;
         border: none;
         outline: none;
+    }
+
+    &.error {
+        border: 1px solid red;
+        display: flex;
     }
 }
 
@@ -160,4 +167,12 @@
     &:active {
         transform: scale(0.8);
     }
+}
+
+.error {
+    font-size: 0.8rem;
+    user-select: none;
+    display: block;
+    margin-top: 4px;
+    color: red;
 }
