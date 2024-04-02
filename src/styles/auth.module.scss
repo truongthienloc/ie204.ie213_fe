@@ -1,0 +1,25 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.logo__section {
+    max-width: 500px;
+    width: 100%;
+}
+
+.image {
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+@media screen and (max-width: 786px) {
+    .logo__section,
+    .image {
+        display: none;
+    }
+}
