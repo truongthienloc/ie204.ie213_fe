@@ -9,6 +9,9 @@ function HomePage() {
         <>
             <Slider />
             <section className={styles.section}>
+                <h1 className="text-center text-5xl font-bold text-primary">
+                    Bếp UIT - Let us cook
+                </h1>
                 {/* <h2 className={styles.title}>Món Ăn Phổ Biến</h2> */}
                 <h2 className={styles.title}>Thực Đơn Của Chúng Tôi</h2>
                 <div className="row mt-10">
