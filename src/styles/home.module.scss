@@ -1,0 +1,55 @@
+// Slider CSS
+.slider__container {
+    overflow: hidden;
+    margin-top: 16px;
+    position: relative;
+    height: fit-content;
+    max-height: 460px;
+}
+
+.slider-image {
+    width: auto;
+    height: auto;
+}
+
+.slider__btn--next,
+.slider__btn--prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 4px;
+    display: none;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: all ease-in 0.1s;
+}
+
+.slider__container:hover .slider__btn--next,
+.slider__container:hover .slider__btn--prev {
+    display: block;
+    opacity: 1;
+}
+
+.slider__btn--prev {
+    left: 0;
+}
+
+.slider__btn--next {
+    right: 0;
+}
+
+.section {
+    padding: 18px 0;
+}
+
+.title {
+    font-size: 36px;
+    user-select: none;
+    font-weight: 600;
+    color: var(--secondary);
+    text-align: center;
+}
