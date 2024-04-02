@@ -1,5 +1,5 @@
 'use client'
-import { LegacyRef, useRef } from 'react'
+import { useRef } from 'react'
 import styles from '~/styles/home.module.scss'
 import Slider from 'react-slick'
 import Image from 'next/image'
@@ -11,7 +11,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import { sliderBanners } from '~/data'
 
 function HomeSlider() {
-    const sliderRef: LegacyRef<Slider> | undefined = useRef(null)
+    const sliderRef = useRef<any>(null)
 
     const handleNextSlide = () => {
         sliderRef.current?.slickNext()

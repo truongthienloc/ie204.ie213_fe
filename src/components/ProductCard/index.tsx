@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import StarIcon from '@mui/icons-material/Star'
+import React from 'react'
 
 import styles from '~/styles/product_card.module.scss'
 import { formatCurrency } from '~/lib/utils'
@@ -41,7 +42,9 @@ function ProductCard({ product, href }: Props) {
                             <span style={{ display: 'inline-block', marginRight: '4px' }}>
                                 {product?.dishRating}/5
                             </span>
-                            {handleDisplayRating(product?.dishRating)}
+                            {handleDisplayRating(product?.dishRating)?.map((star, index) => (
+                                <React.Fragment key={index}>{star}</React.Fragment>
+                            ))}
                         </div>
 
                         <span>{product?.dishTotalOrder} lượt mua</span>

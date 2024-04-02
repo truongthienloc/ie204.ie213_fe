@@ -17,7 +17,7 @@ function HomePage() {
                 <div className="row mt-10">
                     {mockProducts.map((product) => (
                         <div key={product?.id} className="col lg-3 md-6 sm-12">
-                            <ProductCard product={product} href="#" />
+                            <ProductCard key={product?.id} product={product} href="#" />
                         </div>
                     ))}
                 </div>
