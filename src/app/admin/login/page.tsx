@@ -60,7 +60,6 @@ export default function LoginAdminPage({}: Props) {
             auth.login({ isAdmin: true })
             router.replace('/admin/manage-client')
         } catch (error: any) {
-            console.log(error)
             if (error.response) {
                 const status = error.response.status
                 if (status === 400) {
@@ -85,7 +84,7 @@ export default function LoginAdminPage({}: Props) {
         <div className="flex min-h-screen w-full flex-col gap-48 bg-third">
             {/* chỗ này tui hard code gap, ae nào biết chỉ với */}
             <div className="mx-auto flex w-full max-w-full flex-row justify-center bg-primary text-white">
-                <p>4Food's Administrator</p>
+                <p>4Food&#39;s Administrator</p>
             </div>
             <div className="flex w-full justify-center ">
                 <form className="flex h-[390px] w-[420px] flex-col items-center rounded-xl border-2 border-solid border-primary bg-[#FFEFD5]">

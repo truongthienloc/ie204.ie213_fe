@@ -4,7 +4,7 @@ import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import blogAction from '~/services/axios/actions/blog.action'
 import Skeleton from '@mui/material/Skeleton'
-import BlogItem from './BlogItem'
+import BlogItem from '../../../BlogItem/BlogItem'
 
 type Props = {}
 
