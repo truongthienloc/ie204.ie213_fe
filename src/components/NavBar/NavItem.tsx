@@ -12,7 +12,7 @@ export default function NavItem({ item, active, className }: NavItemProps) {
         <li className={className}>
             <Link
                 href={item?.href}
-                className="uppercase text-secondary text-center text-nowrap font-bold hover:text-primary"
+                className="text-nowrap text-center font-bold uppercase text-secondary hover:text-primary"
             >
                 {item?.text}
             </Link>

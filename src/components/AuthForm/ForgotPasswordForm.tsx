@@ -67,7 +67,7 @@ function ForgotPasswordForm() {
                         }
                     />
                     {errors?.email && <span className={styles.error}>{errors?.email}</span>}
-                    <p className="text-center mt-4 select-none text-lg">
+                    <p className="mt-4 select-none text-center text-lg">
                         Mật khẩu mới sẽ được gửi đến email của bạn!
                     </p>
                 </div>

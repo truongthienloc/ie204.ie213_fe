@@ -41,6 +41,10 @@ export default class ClientRequest {
         return this.client
     }
 
+    public setAccessToken(accessToken: string) {
+        localStorage.setItem('access_token', accessToken)
+    }
+
     public hasAccessToken(): boolean {
         return localStorage.getItem('access_token') !== null
     }

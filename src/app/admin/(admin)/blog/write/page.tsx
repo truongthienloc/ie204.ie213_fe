@@ -8,6 +8,9 @@ import TextField from '@mui/material/TextField'
 import Chip from '@mui/material/Chip'
 import { toast } from 'react-toastify'
 import useBlog from '~/hooks/useBlog.hook'
+import blogAction from '~/services/axios/actions/blog.action'
+import { validateBlogData } from '~/helpers/validators/blog.validator'
+import { useRouter } from 'next/navigation'
 
 const FroalaEditorComponent = dynamic(() => import('~/components/Froala/FroalaEditorComponent'))
 
@@ -35,6 +38,7 @@ export default function BlogCreatingPage({}: Props) {
         setContent,
     } = useBlog()
     const [keyword, setKeyword] = useState('')
+    const router = useRouter()
 
     const handleKeywordKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key !== 'Enter') {
@@ -55,8 +59,32 @@ export default function BlogCreatingPage({}: Props) {
         setKeywords(newKeywords)
     }
 
+    const handleSubmit = async () => {
+        const blogData = {
+            title: title,
+            header: header,
+            description: description,
+            keywords: keywords,
+            content: content,
+            blogImages: [],
+        }
+        if (!validateBlogData(blogData)) {
+            toast.error('Invalid blog')
+        }
+
+        try {
+            const res = await toast.promise(blogAction.postNewBlog(blogData), {
+                pending: 'Đang đăng bài',
+                success: 'Đăng bài thành công',
+                error: 'Đăng bài thất bại',
+            })
+
+            router.push('/admin/blog')
+        } catch (error) {}
+    }
+
     return (
-        <div className="container pt-4 flex flex-col gap-4">
+        <div className="container flex flex-col gap-4 pt-4">
             <div className="flex flex-col gap-1">
                 <label htmlFor="" className="text-lg">
                     Title
@@ -114,7 +142,7 @@ export default function BlogCreatingPage({}: Props) {
                     onChange={(e) => setKeyword(e.target.value)}
                     onKeyDown={handleKeywordKeyDown}
                 />
-                <div className="w-full flex flex-row gap-1 flex-wrap">
+                <div className="flex w-full flex-row flex-wrap gap-1">
                     {keywords.length > 0 &&
                         keywords.map((key) => (
                             <Chip
@@ -135,7 +163,12 @@ export default function BlogCreatingPage({}: Props) {
             />
 
             <div className="flex flex-row items-center">
-                <button className="bg-primary text-white px-3 py-2 rounded-md">Đăng bài</button>
+                <button
+                    className="rounded-md bg-primary px-3 py-2 text-white"
+                    onClick={handleSubmit}
+                >
+                    Đăng bài
+                </button>
             </div>
         </div>
     )

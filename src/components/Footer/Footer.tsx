@@ -2,14 +2,14 @@ import Image from 'next/image'
 
 export default function Footer() {
     return (
-        <footer className="flex flex-col font-roboto text-#ccc tracking-wider border-top bg-#f5f5f5 border-t-4 border-primary">
-            <div className="justify-evenly inner">
-                <div className="w-primary mx-auto max-w-full flex flex-row py-4 gap-8 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 max-md:gap-8 max-[400px]:p-2">
-                    <div className="flex flex-col mt-4">
-                        <h2 className="text-lg font-bold max-sm:text-center text-secondary select-none">
+        <footer className="text-#ccc border-top bg-#f5f5f5 flex flex-col border-t-4 border-primary font-roboto tracking-wider">
+            <div className="inner justify-evenly">
+                <div className="mx-auto flex w-primary max-w-full flex-row gap-8 py-4 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 max-md:gap-8 max-[400px]:p-2">
+                    <div className="mt-4 flex flex-col">
+                        <h2 className="select-none text-lg font-bold text-secondary max-sm:text-center">
                             CHĂM SÓC KHÁCH HÀNG
                         </h2>
-                        <ul className="my-3 text-nowrap max-[400px]:m-0 max-sm:text-center">
+                        <ul className="my-3 text-nowrap max-sm:text-center max-[400px]:m-0">
                             <li>
                                 <a href="tel:+84344444404">Điện thoại liên hệ: +84 344444404</a>
                             </li>
@@ -18,13 +18,13 @@ export default function Footer() {
                             </li>
                             <li>Giờ làm việc: 7.30 AM - 9.30 PM</li>
                         </ul>
-                        <h2 className="text-lg font-bold max-sm:text-center text-secondary select-none">
+                        <h2 className="select-none text-lg font-bold text-secondary max-sm:text-center">
                             LIÊN HỆ VỚI CHÚNG TÔI
                         </h2>
-                        <div className="flex flex-row gap-5 mt-4 max-sm:justify-center">
+                        <div className="mt-4 flex flex-row gap-5 max-sm:justify-center">
                             <a
                                 href="https://www.facebook.com/people/B%E1%BA%BFp-UIT/61557416318657"
-                                className="rounded-md overflow-hidden"
+                                className="overflow-hidden rounded-md"
                             >
                                 <Image
                                     src={'/logos/facebook.svg'}
@@ -33,7 +33,7 @@ export default function Footer() {
                                     height={40}
                                 />
                             </a>
-                            <a href="#" className="rounded-md overflow-hidden">
+                            <a href="#" className="overflow-hidden rounded-md">
                                 <Image
                                     src={'/logos/zalo.svg'}
                                     alt="zalo icon"
@@ -41,7 +41,7 @@ export default function Footer() {
                                     height={40}
                                 />
                             </a>
-                            <a href="#" className="rounded-md overflow-hidden">
+                            <a href="#" className="overflow-hidden rounded-md">
                                 <Image
                                     src={'/logos/instagram.svg'}
                                     alt="instagram icon"
@@ -49,7 +49,7 @@ export default function Footer() {
                                     height={40}
                                 />
                             </a>
-                            <a href="#" className="rounded-md overflow-hidden">
+                            <a href="#" className="overflow-hidden rounded-md">
                                 <Image
                                     src={'/logos/gmail.svg'}
                                     alt="gmail icon"
@@ -60,11 +60,11 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col mt-4">
-                        <h2 className="text-lg font-bold max-sm:text-center text-secondary select-none">
+                    <div className="mt-4 flex flex-col">
+                        <h2 className="select-none text-lg font-bold text-secondary max-sm:text-center">
                             CHẤP NHẬN THANH TOÁN
                         </h2>
-                        <div className="flex flex-row gap-8 mt-5 max-sm:justify-center">
+                        <div className="mt-5 flex flex-row gap-8 max-sm:justify-center">
                             <Image src={'/logos/momo.svg'} alt="momo icon" width={40} height={40} />
                             <Image
                                 src={'/logos/viettelpay.svg'}
@@ -76,24 +76,24 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    <div className="max-lg:hidden w-[2px] bg-white"></div>
+                    <div className="w-[2px] bg-white max-lg:hidden"></div>
 
-                    <div className="flex-1 flex flex-col mt-4">
-                        <h2 className="text-lg max-sm:text-center font-bold text-secondary select-none">
+                    <div className="mt-4 flex flex-1 flex-col">
+                        <h2 className="select-none text-lg font-bold text-secondary max-sm:text-center">
                             Bếp UIT - HỆ THỐNG WEBSITE ĐẶT THỨC ĂN
                         </h2>
-                        <ul className="grid grid-cols-2 max-sm:text-center mt-4 gap-x-5 gap-y-2 leading-5 max-xl:grid-cols-1 max-lg:m-0">
-                            <li className="hover:text-primary cursor-pointer">Điều khoản chung</li>
-                            <li className="hover:text-primary cursor-pointer">Hướng dẫn đặt bàn</li>
-                            <li className="hover:text-primary cursor-pointer">
+                        <ul className="mt-4 grid grid-cols-2 gap-x-5 gap-y-2 leading-5 max-xl:grid-cols-1 max-lg:m-0 max-sm:text-center">
+                            <li className="cursor-pointer hover:text-primary">Điều khoản chung</li>
+                            <li className="cursor-pointer hover:text-primary">Hướng dẫn đặt bàn</li>
+                            <li className="cursor-pointer hover:text-primary">
                                 Điều khoản giao dịch
                             </li>
-                            <li className="hover:text-primary cursor-pointer">Tuyển dụng</li>
-                            <li className="hover:text-primary cursor-pointer">
+                            <li className="cursor-pointer hover:text-primary">Tuyển dụng</li>
+                            <li className="cursor-pointer hover:text-primary">
                                 Chính sách thanh toán
                             </li>
-                            <li className="hover:text-primary cursor-pointer">Liên hệ</li>
-                            <li className="hover:text-primary cursor-pointer">
+                            <li className="cursor-pointer hover:text-primary">Liên hệ</li>
+                            <li className="cursor-pointer hover:text-primary">
                                 Chính sách bảo mật
                             </li>
                         </ul>
@@ -101,8 +101,8 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="flex justify-center py-1 items-center font-normal bg-primary max-[400px]:p-1">
-                <p className="max-[400px]:text-center select-none text-white">
+            <div className="flex items-center justify-center bg-primary py-1 font-normal max-[400px]:p-1">
+                <p className="select-none text-white max-[400px]:text-center">
                     Copyright © 2024 | Bản quyền thuộc về Bếp UIT
                 </p>
             </div>
