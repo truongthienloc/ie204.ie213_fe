@@ -23,7 +23,7 @@ function HomePage() {
                 </div>
                 <Link
                     href="/product"
-                    className="m-auto mt-4 block text-center w-[100px] hover:text-primary"
+                    className="m-auto mt-4 block w-[100px] text-center hover:text-primary"
                 >
                     Xem thêm
                 </Link>

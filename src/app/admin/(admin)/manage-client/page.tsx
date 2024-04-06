@@ -28,10 +28,10 @@ export default function ManageClientPage() {
     // }, [])
 
     return (
-        <div className="pt-9 w-[1200px] pl-10 h-full bg-[#f8f8f8]">
+        <div className="h-full w-[1200px] bg-[#f8f8f8] pl-10 pt-9">
             <div className="mb-8">
                 <div className="flex justify-between">
-                    <p className="text-primary text-2xl font-normal">Thông tin khách hàng</p>
+                    <p className="text-2xl font-normal text-primary">Thông tin khách hàng</p>
                     {/* <Link href='/admin/notification'>
 						<img
 							// src={iconNotification}
@@ -45,8 +45,8 @@ export default function ManageClientPage() {
                         <p>Mã khách hàng</p>
                         <input
                             type="text"
-                            className="  placeholder:opacity-90
-					 placeholder:text-second w-[264px] h-[48px] border-2 py-[18px] pl-6 pr-[30px] rounded-lg outline-0"
+                            className="  h-[48px]
+					 w-[264px] rounded-lg border-2 py-[18px] pl-6 pr-[30px] outline-0 placeholder:text-second placeholder:opacity-90"
                             placeholder="Nhập tên khách hàng"
                         />
                     </div>
@@ -55,7 +55,7 @@ export default function ManageClientPage() {
                         <input
                             type="text"
                             placeholder="Nhập mã khách hàng"
-                            className="placeholder:opacity-90 placeholder:text-second w-[264px] h-[48px] border-2 py-[18px] pl-6 pr-[30px] rounded-lg outline-0"
+                            className="h-[48px] w-[264px] rounded-lg border-2 py-[18px] pl-6 pr-[30px] outline-0 placeholder:text-second placeholder:opacity-90"
                         />
                     </div>
                     <div className="flex flex-col gap-5 ">
@@ -63,13 +63,13 @@ export default function ManageClientPage() {
                         <input
                             type="text"
                             placeholder="Nhập số điện thoại"
-                            className=" placeholder:opacity-90
-					 placeholder:text-second w-[264px] h-[48px] border-2 py-[18px] pl-6 pr-[30px] rounded-lg outline-0"
+                            className=" h-[48px]
+					 w-[264px] rounded-lg border-2 py-[18px] pl-6 pr-[30px] outline-0 placeholder:text-second placeholder:opacity-90"
                         />
                     </div>
                     <div className="flex items-end">
                         <button
-                            className="px-4 py-3 h-min bg-primary text-white rounded-xl transition-opacity hover:opacity-80"
+                            className="h-min rounded-xl bg-primary px-4 py-3 text-white transition-opacity hover:opacity-80"
                             onClick={() => toast.info('Chức năng chưa được hỗ trợ')}
                         >
                             LỌC
@@ -78,24 +78,24 @@ export default function ManageClientPage() {
                 </div>
             </div>
 
-            <div className="rounded-3xl border-third border-8 px-3 bg-third mb-16">
+            <div className="mb-16 rounded-3xl border-8 border-third bg-third px-3">
                 <div className="grid ">
-                    <table className="text-lg bg-third ">
+                    <table className="bg-third text-lg ">
                         <thead className="text-primary ">
                             <tr>
-                                <th className="py-4 pl-4 text-left border-b border-gray-200">
+                                <th className="border-b border-gray-200 py-4 pl-4 text-left">
                                     Mã khách hàng
                                 </th>
-                                <th className="py-4 px-4 text-left border-b border-gray-200">
+                                <th className="border-b border-gray-200 px-4 py-4 text-left">
                                     <center>Họ Tên</center>
                                 </th>
-                                <th className="py-4 px-4 text-left border-b border-gray-200">
+                                <th className="border-b border-gray-200 px-4 py-4 text-left">
                                     <center>Điểm thành viên</center>
                                 </th>
-                                <th className="py-4 px-4 text-left border-b border-gray-200">
+                                <th className="border-b border-gray-200 px-4 py-4 text-left">
                                     <center>Số lần ăn tại quán </center>
                                 </th>
-                                <th className="py-4 px-4 text-left border-b border-gray-200">
+                                <th className="border-b border-gray-200 px-4 py-4 text-left">
                                     <center>Số điện thoại</center>
                                 </th>
                             </tr>
