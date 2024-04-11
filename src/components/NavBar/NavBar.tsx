@@ -15,7 +15,7 @@ function NavBar() {
     const [isAuthentication, setIsAuthentication] = useState<boolean>(false)
 
     return (
-        <header className={clsx('w-full flex flex-col shadow-md bg-third', styles.header)}>
+        <header className={clsx('flex w-full flex-col bg-third shadow-md', styles.header)}>
             <div className={styles.inner}>
                 <div className={clsx(styles.part)}>
                     <Link href={'/'} className={styles.logoLink}>
@@ -53,7 +53,7 @@ function NavBar() {
                             <>
                                 <Link
                                     className={clsx(
-                                        'py-2 px-4 text-center font-bold rounded-lg hover:text-primary',
+                                        'rounded-lg px-4 py-2 text-center font-bold hover:text-primary',
                                     )}
                                     href={'/login'}
                                 >
@@ -61,7 +61,7 @@ function NavBar() {
                                 </Link>
                                 <Link
                                     className={clsx(
-                                        'py-2 px-4 text-center text-secondary font-bold rounded-lg',
+                                        'rounded-lg px-4 py-2 text-center font-bold text-secondary',
                                         styles.btn,
                                     )}
                                     href={'/signup'}

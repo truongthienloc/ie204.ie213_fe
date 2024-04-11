@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { ToastContainer } from 'react-toastify'
 import Script from 'next/script'
+import { TanstackProvider } from '~/components/TanstackProvider'
 
 import './globals.scss'
 import { contact, actions } from '~/data/jsonLDConfig'
@@ -23,7 +24,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={roboto.className}>
-                {children}
+                <TanstackProvider>{children}</TanstackProvider>
                 <ToastContainer
                     position="top-right"
                     autoClose={3000}

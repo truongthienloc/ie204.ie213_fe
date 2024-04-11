@@ -68,10 +68,10 @@ export default function AdminSidebar() {
     }
 
     return (
-        <div className="pl-8 pr-4 w-[300px] pt-8 mb-20 h-full bg-[#f8f8f8] flex flex-col gap-10">
+        <div className="mb-20 flex h-full w-[300px] flex-col gap-10 bg-[#f8f8f8] pl-8 pr-4 pt-8">
             <div className=" flex gap-5 ">
                 <img src={'/icons/admin-sidebar/element-3.svg'} alt="" />
-                <p className="font-normal text-primary text-2xl">Admin</p>
+                <p className="text-2xl font-normal text-primary">Admin</p>
             </div>
 
             <div className="flex flex-col">
@@ -82,11 +82,11 @@ export default function AdminSidebar() {
                             key={item.href}
                             href={item.href}
                             className={
-                                'px-[5px] py-4 flex gap-4 text-lg text-second font-normal hover:text-primary rounded-sm text-nowrap'
+                                'flex gap-4 text-nowrap rounded-sm px-[5px] py-4 text-lg font-normal text-second hover:text-primary'
                             }
                         >
                             <img
-                                className="w-[25px] aspect-square"
+                                className="aspect-square w-[25px]"
                                 src={item.src}
                                 alt={item.label}
                             />
@@ -98,7 +98,7 @@ export default function AdminSidebar() {
 
             <button
                 className={
-                    'px-[5px] py-[10px] flex gap-4 text-lg text-second font-normal hover:text-primary rounded-sm'
+                    'flex gap-4 rounded-sm px-[5px] py-[10px] text-lg font-normal text-second hover:text-primary'
                 }
                 onClick={() => setShowLogoutModal(true)}
             >

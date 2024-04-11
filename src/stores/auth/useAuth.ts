@@ -14,11 +14,11 @@ type AuthAction = {
 }
 
 type AuthLogin = {
-    id: string
-    username: string
-    email: string
-    avatar: string
-    isAdmin: boolean
+    id?: string
+    username?: string
+    email?: string
+    avatar?: string
+    isAdmin?: boolean
 }
 
 const initialState: AuthState = {
@@ -26,7 +26,7 @@ const initialState: AuthState = {
     username: null,
     email: null,
     avatar: null,
-    isAdmin: true,
+    isAdmin: false,
     isLogin: false,
 }
 

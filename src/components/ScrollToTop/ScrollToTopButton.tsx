@@ -33,7 +33,7 @@ const ScrollToTopButton = () => {
         <>
             {isVisible && (
                 <button
-                    className="w-14 h-14 rounded-[50%] fixed bottom-6 right-6 animate-fadeIn outline-none grid place-items-center p-0 hover:border-none focus:outline-none focus-visible:outline-none"
+                    className="fixed bottom-6 right-6 grid h-14 w-14 animate-fadeIn place-items-center rounded-[50%] p-0 outline-none hover:border-none focus:outline-none focus-visible:outline-none"
                     id="scrollToTopBtn"
                     style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
                     onClick={scrollToTop}
