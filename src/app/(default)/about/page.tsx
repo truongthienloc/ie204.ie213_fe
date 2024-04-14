@@ -5,16 +5,19 @@ function AboutPage() {
     return (
         <div>
             <div
-                className={clsx(
-                    'mb-5 mt-6 flex h-[160px] items-center justify-center bg-cover bg-no-repeat',
-                )}
+                className="mb-5 mt-6 flex h-[160px] items-center justify-center bg-cover bg-no-repeat"
                 style={{ backgroundImage: `url('/images/about-heading.svg')` }}
             >
                 <p className="text-3xl font-bold uppercase text-third">Giới thiệu</p>
             </div>
             <div className="flex flex-col items-center">
                 <div className="flex flex-row gap-7 rounded-2xl border-4 border-primary py-8 pl-6">
-                    <Image src="/images/about-title1.svg" alt="" width={520} height={290}></Image>
+                    <Image
+                        src="/images/about-title1.svg"
+                        alt="Thành viên"
+                        width={520}
+                        height={290}
+                    ></Image>
                     <div className="my-7 flex flex-col gap-5 pr-8 text-lg font-normal leading-6 text-second">
                         <p>
                             Được xây dựng từ những sinh viên năm 3 lớp CNTT2021.
@@ -48,7 +51,7 @@ function AboutPage() {
                     <div className="flex-2 flex items-center">
                         <Image
                             src="/images/about-title2.svg"
-                            alt=""
+                            alt="Tìm kiếm dễ dàng"
                             width={520}
                             height={294}
                         ></Image>
@@ -59,7 +62,7 @@ function AboutPage() {
                     <div className="flex-2 flex items-center">
                         <Image
                             src="/images/about-title3.svg"
-                            alt=""
+                            alt="Phân loại sản phẩm"
                             width={520}
                             height={294}
                         ></Image>
@@ -92,18 +95,12 @@ function AboutPage() {
                     <div className="flex-2 flex items-center">
                         <Image
                             src="/images/about-title4.svg"
-                            alt=""
+                            alt="Đánh giá và bình luận"
                             width={520}
                             height={294}
                         ></Image>
                     </div>
                 </div>
-            </div>
-
-            <div className="m-14 flex flex-row justify-center gap-3">
-                <Image src="/images/about-card1.svg" alt="" width={380} height={500}></Image>
-                <Image src="/images/about-card1-1.svg" alt="" width={380} height={500}></Image>
-                <Image src="/images/about-card1-2.svg" alt="" width={380} height={500}></Image>
             </div>
         </div>
     )

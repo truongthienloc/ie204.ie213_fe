@@ -33,7 +33,10 @@ export default function Footer() {
                                     height={40}
                                 />
                             </a>
-                            <a href="#" className="overflow-hidden rounded-md">
+                            <a
+                                href="https://oa.zalo.me/bepuit"
+                                className="overflow-hidden rounded-md"
+                            >
                                 <Image
                                     src={'/logos/zalo.svg'}
                                     alt="zalo icon"
@@ -41,15 +44,21 @@ export default function Footer() {
                                     height={40}
                                 />
                             </a>
-                            <a href="#" className="overflow-hidden rounded-md">
+                            <a
+                                href="https://www.youtube.com/@BepUIT"
+                                className="overflow-hidden rounded-md"
+                            >
                                 <Image
-                                    src={'/logos/instagram.svg'}
-                                    alt="instagram icon"
+                                    src={'/logos/youtube.svg'}
+                                    alt="youtube icon"
                                     width={40}
                                     height={40}
                                 />
                             </a>
-                            <a href="#" className="overflow-hidden rounded-md">
+                            <a
+                                href="mailto:21520984@gm.uit.edu.vn"
+                                className="overflow-hidden rounded-md"
+                            >
                                 <Image
                                     src={'/logos/gmail.svg'}
                                     alt="gmail icon"
