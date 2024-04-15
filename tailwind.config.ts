@@ -97,7 +97,9 @@ const config = {
         'borderLine': 'rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px',
         'floating': 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
       },
-
+      backgroundImage: {
+        
+      },
 
     },
   },
