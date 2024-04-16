@@ -6,7 +6,7 @@ export function getBlogs() {
     return new Promise<Blogs>(async (resolve, reject) => {
         try {
             const res = await server(blogEndpoint.blog, { cache: 'no-store' })
-            const data = res.data as Blogs
+            const data = (await res.data) as Blogs
             resolve(data)
         } catch (error) {
             // throw new Error()

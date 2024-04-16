@@ -45,7 +45,7 @@ export default function Footer() {
                                 />
                             </a>
                             <a
-                                href="https://www.youtube.com/@BepUIT"
+                                href="https://www.youtube.com/@bep_uit"
                                 className="overflow-hidden rounded-md"
                             >
                                 <Image

@@ -1,13 +1,29 @@
+'use client'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import styles from '~/styles/home.module.scss'
 import Slider from '~/components/HomeSlider'
 import ProductCard from '~/components/ProductCard'
-import { Menu, Product } from '~/interfaces/product.type'
-import { getMenu, getProducts } from '~/services/axios/actions/product.action'
+import { Product } from '~/interfaces/product.type'
+import { getProducts } from '~/services/axios/actions/product.action'
 
-async function HomePage() {
-    const products: Product[] = await getProducts()
+function HomePage() {
+    const [products, setProducts] = useState<Product[]>([])
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const data = await getProducts()
+                setProducts(data)
+            } catch (err) {
+                console.error(err)
+                setProducts([])
+            }
+        }
+
+        fetchProducts()
+    }, [])
 
     return (
         <>
@@ -18,7 +34,7 @@ async function HomePage() {
                 </h1>
                 <h2 className={styles.title}>Thực Đơn Hôm Nay</h2>
                 <div className="row mt-10">
-                    {products?.splice(0, 8).map((product) => (
+                    {products?.slice(0, 8).map((product) => (
                         <div key={product?._id} className="col lg-3 md-6 sm-12">
                             <ProductCard product={product} />
                         </div>
