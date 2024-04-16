@@ -1,0 +1,159 @@
+// Blog home CSS
+.heading {
+    font-size: 2.8rem;
+    text-align: center;
+    color: var(--secondary);
+    user-select: none;
+}
+
+.card {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    transition: all ease-in 0.2s;
+
+    &:hover {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.card__image {
+    display: block;
+    width: 200px;
+    height: 100%;
+    overflow: hidden;
+    min-height: 160px;
+
+    & img {
+        object-fit: cover;
+        height: 100%;
+        object-position: center;
+    }
+}
+
+.card__info {
+    padding: 4px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    height: 100%;
+}
+
+.card__desc {
+    font-size: 1rem;
+    flex: 1;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.8);
+    text-align: justify;
+}
+
+// Blog detail CSS
+.wrapper {
+    padding: 20px 0 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+
+    & p {
+        font-size: 1.4rem;
+        text-align: justify;
+        line-height: 1.6;
+        margin-top: 20px;
+    }
+
+    & img {
+        width: 100%;
+        min-height: 100px;
+        max-height: 500px;
+        border-radius: 6px;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    & figure {
+        width: 100%;
+        margin: 0;
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    & figcaption {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px;
+        min-height: 40px;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        width: 100%;
+        margin-top: 8px;
+        user-select: none;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+    }
+
+    & iframe {
+        margin-top: 20px;
+        border-radius: 6px;
+    }
+}
+
+.top {
+    display: flex;
+    margin-top: 16px;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.6);
+
+    & .date {
+        font-size: 1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    & button svg {
+        font-size: 1.4rem;
+    }
+
+    & button svg + svg {
+        margin-left: 16px;
+    }
+}
+
+.breadcrum {
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.8);
+    user-select: none;
+
+    & a:hover {
+        color: var(--primary);
+    }
+}
+
+.title {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.4rem;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .wrapper {
+        padding: 20px 16px 40px;
+
+        & p {
+            font-size: 1.2rem;
+        }
+    }
+}

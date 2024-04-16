@@ -18,6 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Link from 'next/link'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 import styles from '../../styles/navbar.module.scss'
 import { navbarItems } from '~/data'
@@ -25,6 +26,7 @@ import { NavbarItem } from '~/types/NavbarItem'
 
 export default function NavDrawer() {
     const [isOpen, setIsOpen] = useState(false)
+    const pathname = usePathname()
     const isAuth = false // lấy từ store
 
     const handleOpen = () => setIsOpen(true)
@@ -50,21 +52,28 @@ export default function NavDrawer() {
 
                 <Box sx={{ width: 260 }} role="presentation" onClick={handleClose}>
                     <List>
-                        {navbarItems.map((item: NavbarItem) => (
-                            <ListItem key={item?.id} disablePadding>
-                                <Link className="w-[inherit]" href={item?.href}>
-                                    <ListItemButton>
-                                        <ListItemIcon className={styles.icon}>
-                                            {item?.icon}
-                                        </ListItemIcon>
-                                        <ListItemText
-                                            primary={item?.text}
-                                            className={styles.text}
-                                        />
-                                    </ListItemButton>
-                                </Link>
-                            </ListItem>
-                        ))}
+                        {navbarItems.map((item: NavbarItem) => {
+                            let isActive = pathname.startsWith(item?.href)
+                            if (item?.href === '/' && pathname !== '/') isActive = false
+
+                            return (
+                                <ListItem key={item?.id} disablePadding>
+                                    <Link className="w-[inherit]" href={item?.href}>
+                                        <ListItemButton>
+                                            <ListItemIcon
+                                                className={`${styles.icon} ${isActive ? styles.active : ''}`}
+                                            >
+                                                {item?.icon}
+                                            </ListItemIcon>
+                                            <ListItemText
+                                                primary={item?.text}
+                                                className={`${styles.text} ${isActive ? styles.active : ''}`}
+                                            />
+                                        </ListItemButton>
+                                    </Link>
+                                </ListItem>
+                            )
+                        })}
                     </List>
 
                     <Divider />

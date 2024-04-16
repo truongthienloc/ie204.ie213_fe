@@ -6,6 +6,7 @@ import NavItem from './NavItem'
 import NavDrawer from './NavDrawer'
 import Image from 'next/image'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 import { navbarItems } from '~/data'
 import styles from '../../styles/navbar.module.scss'
@@ -13,6 +14,7 @@ import { NavbarItem } from '~/types/NavbarItem'
 
 function NavBar() {
     const [isAuthentication, setIsAuthentication] = useState<boolean>(false)
+    const pathname = usePathname()
 
     return (
         <header className={clsx('flex w-full flex-col bg-third shadow-md', styles.header)}>
@@ -26,9 +28,19 @@ function NavBar() {
                         />
                     </Link>
                     <ul className={styles.navigation}>
-                        {navbarItems.map((item: NavbarItem) => (
-                            <NavItem key={item.id} item={item} className={styles.item} />
-                        ))}
+                        {navbarItems.map((item: NavbarItem) => {
+                            let isActive = pathname.startsWith(item?.href)
+                            if (item?.href === '/' && pathname !== '/') isActive = false
+
+                            return (
+                                <NavItem
+                                    key={item.id}
+                                    item={item}
+                                    className={styles.item}
+                                    isActive={isActive}
+                                />
+                            )
+                        })}
                     </ul>
                 </div>
 
@@ -53,7 +65,7 @@ function NavBar() {
                             <>
                                 <Link
                                     className={clsx(
-                                        'rounded-lg px-4 py-2 text-center font-bold hover:text-primary',
+                                        'rounded-lg px-4 py-2 text-center font-bold text-secondary hover:text-primary',
                                     )}
                                     href={'/login'}
                                 >

@@ -78,9 +78,14 @@
     }
 }
 
+html {
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
 // Responsive CSS
 .inner {
-    max-width: 1200px;
+    max-width: 1120px;
     width: 100%;
     margin: 0 auto;
     display: block;
@@ -103,6 +108,11 @@
         flex: 0 0 25%;
         max-width: 25%;
     }
+
+    .inner .col.lg-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
 }
 
 @media screen and (max-width: 768px) and (min-width: 540px) {
@@ -114,9 +124,18 @@
         flex: 0 0 50%;
         max-width: 50%;
     }
+
+    .inner .col.md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
 
 @media screen and (max-width: 539px) {
+    .inner {
+        padding: 0 16px;
+    }
+
     .inner .col.sm-12 {
         flex: 0 0 100%;
         max-width: 100%;
