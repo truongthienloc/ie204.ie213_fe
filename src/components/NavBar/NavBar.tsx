@@ -23,7 +23,7 @@ function NavBar() {
                     <Link href={'/'} className={styles.logoLink}>
                         <img
                             className={styles.logoImage}
-                            src={'logos/bepuit_logo.svg'}
+                            src={'/logos/bepuit_logo.svg'}
                             alt="Bếp UIT logo"
                         />
                     </Link>
