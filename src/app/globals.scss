@@ -132,6 +132,10 @@ html {
 }
 
 @media screen and (max-width: 539px) {
+    .inner {
+        padding: 0 16px;
+    }
+
     .inner .col.sm-12 {
         flex: 0 0 100%;
         max-width: 100%;

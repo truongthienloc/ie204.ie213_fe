@@ -59,7 +59,7 @@ async function BlogDetailPage({ params: { slug } }: Props) {
                     <ShareOutlinedIcon />
                 </button>
             </div>
-            <h1 className={styles.title}>{blog?.title}</h1>
+            <h1 className={styles.title}>{blog?.header}</h1>
             {htmlParser(blog?.content)}
         </div>
     )

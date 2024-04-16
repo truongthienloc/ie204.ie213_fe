@@ -1,7 +1,10 @@
-function ProductPage() {
+import ProductCard from '~/components/ProductCard'
+import styles from '~/styles/products.module.scss'
+
+async function ProductPage() {
     return (
         <>
-            <div>Show products</div>
+            <h1>Products page</h1>
         </>
     )
 }
