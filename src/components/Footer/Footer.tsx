@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function Footer() {
     return (
-        <footer className="text-#ccc border-top bg-#f5f5f5 flex flex-col border-t-4 border-primary font-roboto tracking-wider">
+        <footer className="text-#ccc border-top bg-#f5f5f5 flex flex-col border-t-4 border-primary tracking-wider">
             <div className="inner justify-evenly">
                 <div className="mx-auto flex w-primary max-w-full flex-row gap-8 py-4 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 max-md:gap-8 max-[400px]:p-2">
                     <div className="mt-4 flex flex-col">

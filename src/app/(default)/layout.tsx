@@ -10,7 +10,7 @@ function DefaultLayout({ children }: DefaultLayoutProps) {
     return (
         <>
             <NavBar />
-            <main className="inner mt-header-height box-border min-h-screen overflow-x-hidden font-roboto text-second">
+            <main className="inner mt-header-height box-border min-h-screen overflow-x-hidden text-second">
                 {children}
             </main>
             <Footer />
