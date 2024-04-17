@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import clsx from 'clsx'
 
@@ -11,7 +13,7 @@ export default function ReservationGroup({ title, data, onTableClick }: Props) {
     return (
         <div className="flex w-96 flex-col items-center gap-4 border border-primary p-4 pb-8">
             <p className="font-bold">{title}</p>
-            <div className="flex flex-row flex-wrap justify-center gap-5">
+            <div className="grid grid-cols-4 flex-wrap justify-center gap-5">
                 {data.map((value) => (
                     <ReservationItem
                         key={value.id}
