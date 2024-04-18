@@ -7,10 +7,12 @@ type AuthState = {
     avatar: string | null
     isAdmin: boolean | null
     isLogin: boolean
+    isLoading: boolean
 }
 
 type AuthAction = {
     login: (user: AuthLogin) => void
+    logout: () => void
 }
 
 type AuthLogin = {
@@ -28,15 +30,16 @@ const initialState: AuthState = {
     avatar: null,
     isAdmin: false,
     isLogin: false,
+    isLoading: true,
 }
 
 const useAuth = create<AuthState & AuthAction>((set) => ({
     ...initialState,
     login(user: AuthLogin) {
-        set({ ...user, isLogin: true })
+        set({ ...user, isLogin: true, isLoading: false })
     },
     logout() {
-        set({ ...initialState })
+        set({ ...initialState, isLoading: false })
     },
 }))
 
