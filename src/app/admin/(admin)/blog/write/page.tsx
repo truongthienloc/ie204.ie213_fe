@@ -49,7 +49,7 @@ export default function BlogCreatingPage({}: Props) {
         setDescription(blogData.description)
         setKeywords(blogData.keywords)
         setContent(blogData.content)
-    }, [])
+    }, [setTitle, setHeader, setDescription, setKeywords, setContent])
 
     const handleKeywordKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key !== 'Enter') {

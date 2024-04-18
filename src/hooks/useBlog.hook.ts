@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import debounce from 'lodash/debounce'
 
 export default function useBlog() {
@@ -8,19 +8,20 @@ export default function useBlog() {
     const [keywords, setKeywords] = useState<string[]>([])
     const [content, setContent] = useState('')
 
-    const autoSave = useCallback(
-        debounce(({ title, header, description, keywords, content }) => {
-            localStorage.setItem(
-                'blog',
-                JSON.stringify({
-                    title,
-                    header,
-                    description,
-                    keywords,
-                    content,
-                }),
-            )
-        }, 2500),
+    const autoSave = useMemo(
+        () =>
+            debounce(({ title, header, description, keywords, content }) => {
+                localStorage.setItem(
+                    'blog',
+                    JSON.stringify({
+                        title,
+                        header,
+                        description,
+                        keywords,
+                        content,
+                    }),
+                )
+            }, 2500),
         [],
     )
 
@@ -47,7 +48,7 @@ export default function useBlog() {
 
     useEffect(() => {
         autoSave({ title, header, description, keywords, content })
-    }, [title, header, description, keywords, content])
+    }, [title, header, description, keywords, content, autoSave])
 
     return {
         title,
