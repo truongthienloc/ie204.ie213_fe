@@ -2,7 +2,7 @@
 
 import 'froala-editor/css/froala_style.min.css'
 import 'froala-editor/css/froala_editor.pkgd.min.css'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import TextField from '@mui/material/TextField'
 import Chip from '@mui/material/Chip'
@@ -11,15 +11,11 @@ import useBlog from '~/hooks/useBlog.hook'
 import blogAction from '~/services/axios/actions/blog.action'
 import { validateBlogData } from '~/helpers/validators/blog.validator'
 import { useRouter } from 'next/navigation'
+import generateFroalaConfig from '~/components/Froala/froala.config'
 
 const FroalaEditorComponent = dynamic(() => import('~/components/Froala/FroalaEditorComponent'))
 
 type Props = {}
-
-const froalaConfig = {
-    placeholderText: 'Edit Your Content Here!',
-    saveInterval: 2500,
-}
 
 const MAX_TITLE = 70
 const MAX_DESCRIPTION = 160
@@ -39,6 +35,8 @@ export default function BlogCreatingPage({}: Props) {
     } = useBlog()
     const [keyword, setKeyword] = useState('')
     const router = useRouter()
+
+    const froalaConfig = useMemo(() => generateFroalaConfig(), [generateFroalaConfig])
 
     const handleKeywordKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key !== 'Enter') {
