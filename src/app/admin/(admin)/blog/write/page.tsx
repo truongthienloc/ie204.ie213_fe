@@ -2,24 +2,21 @@
 
 import 'froala-editor/css/froala_style.min.css'
 import 'froala-editor/css/froala_editor.pkgd.min.css'
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 import TextField from '@mui/material/TextField'
 import Chip from '@mui/material/Chip'
 import { toast } from 'react-toastify'
 import useBlog from '~/hooks/useBlog.hook'
 import blogAction from '~/services/axios/actions/blog.action'
 import { validateBlogData } from '~/helpers/validators/blog.validator'
-import { useRouter } from 'next/navigation'
+import generateFroalaConfig from '~/components/Froala/froala.config'
+import ClearAllIcon from '@mui/icons-material/ClearAll'
 
 const FroalaEditorComponent = dynamic(() => import('~/components/Froala/FroalaEditorComponent'))
 
 type Props = {}
-
-const froalaConfig = {
-    placeholderText: 'Edit Your Content Here!',
-    saveInterval: 2500,
-}
 
 const MAX_TITLE = 70
 const MAX_DESCRIPTION = 160
@@ -36,9 +33,23 @@ export default function BlogCreatingPage({}: Props) {
         setKeywords,
         content,
         setContent,
+        clearAll,
     } = useBlog()
     const [keyword, setKeyword] = useState('')
     const router = useRouter()
+
+    const froalaConfig = useMemo(() => generateFroalaConfig(), [])
+
+    useEffect(() => {
+        const blog = localStorage.getItem('blog')
+        if (!blog) return
+        const blogData = JSON.parse(blog)
+        setTitle(blogData.title)
+        setHeader(blogData.header)
+        setDescription(blogData.description)
+        setKeywords(blogData.keywords)
+        setContent(blogData.content)
+    }, [setTitle, setHeader, setDescription, setKeywords, setContent])
 
     const handleKeywordKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key !== 'Enter') {
@@ -83,8 +94,21 @@ export default function BlogCreatingPage({}: Props) {
         } catch (error) {}
     }
 
+    const handleClearAll = () => {
+        clearAll()
+    }
+
     return (
         <div className="container flex flex-col gap-4 pt-4">
+            <div className="flex flex-row justify-end">
+                <button
+                    className="flex flex-row items-center gap-2 rounded-sm border border-black bg-white px-4 py-2 text-black shadow-md"
+                    onClick={handleClearAll}
+                >
+                    <ClearAllIcon />
+                    <span>Clear All</span>
+                </button>
+            </div>
             <div className="flex flex-col gap-1">
                 <label htmlFor="" className="text-lg">
                     Title

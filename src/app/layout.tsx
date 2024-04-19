@@ -3,11 +3,12 @@ import { Roboto } from 'next/font/google'
 import { ToastContainer } from 'react-toastify'
 import Script from 'next/script'
 import { TanstackProvider } from '~/components/TanstackProvider'
-import keyword from '../config/BrandKeywords'
+import keyword from '../configs/BrandKeywords'
 import './globals.scss'
 import { contact, actions } from '~/data/jsonLDConfig'
 import 'react-toastify/dist/ReactToastify.css'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { AutoLogin } from '~/stores/auth'
 
 const roboto = Roboto({ subsets: ['vietnamese'], weight: ['400'] })
 
@@ -31,6 +32,7 @@ export default function RootLayout({
             </head>
             <body className={roboto.className}>
                 <TanstackProvider>{children}</TanstackProvider>
+                <AutoLogin />
                 <ToastContainer
                     position="top-right"
                     autoClose={3000}
