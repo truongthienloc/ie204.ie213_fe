@@ -30,7 +30,7 @@ function HomePage() {
             <Slider />
             <section className={styles.section}>
                 <h1 className="text-center text-5xl font-bold text-primary">
-                    Bếp UIT - Let us cook
+                    Bếp UIT - Let Us Cook
                 </h1>
                 <h2 className={styles.title}>Thực Đơn Hôm Nay</h2>
                 <div className="row mt-10">
