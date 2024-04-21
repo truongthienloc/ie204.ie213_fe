@@ -86,7 +86,7 @@ export default function BlogCreatingPage({}: Props) {
         try {
             const res = await toast.promise(blogAction.postNewBlog(blogData), {
                 pending: 'Đang đăng bài',
-                success: 'Đăng bài thành công',
+                success: 'Đăng bài thành công', // Post success
                 error: 'Đăng bài thất bại',
             })
 
