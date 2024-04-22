@@ -4,9 +4,10 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { toast } from 'react-toastify'
 import { clientInstance } from '~/services/axios'
-import authAction from '~/services/axios/actions/auth.action'
+import authAction, { LoginResponse } from '~/services/axios/actions/auth.action'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '~/stores/auth'
+import { setAccessToken } from './action'
 
 type Props = {}
 
@@ -25,8 +26,12 @@ export default function LoginAdminPage({}: Props) {
     }
 
     useEffect(() => {
-        clientInstance.removeAccessToken()
-    }, [])
+        if (auth.isAdmin) {
+            router.replace('/admin/manage-client')
+        } else {
+            clientInstance.removeAccessToken()
+        }
+    }, [auth, router])
 
     const handleSubmit = async () => {
         if (email === '') {
@@ -41,7 +46,7 @@ export default function LoginAdminPage({}: Props) {
 
         try {
             const res = await toast.promise(
-                new Promise(async (resolve, reject) => {
+                new Promise<LoginResponse>(async (resolve, reject) => {
                     try {
                         const res = await authAction.loginAdminAccount(email, password)
 
@@ -57,6 +62,7 @@ export default function LoginAdminPage({}: Props) {
                 },
             )
 
+            setAccessToken(res.accessToken)
             auth.login({ isAdmin: true })
             router.replace('/admin/manage-client')
         } catch (error: any) {

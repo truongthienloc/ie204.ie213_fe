@@ -1,4 +1,5 @@
 import { clientInstance } from '~/services/axios'
+import blogImageEvent from '~/services/EventEmitter/blogImage.event'
 
 function generateFroalaConfig() {
     return {
@@ -39,6 +40,7 @@ function generateFroalaConfig() {
                 const imgUrl = json.data[0].url
                 // @ts-ignore
                 this.image.insert(imgUrl, false, null, this.image.get(), response)
+                blogImageEvent.emit('uploaded', json.data[0])
 
                 return false
             },
