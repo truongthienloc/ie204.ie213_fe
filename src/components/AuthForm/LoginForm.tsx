@@ -5,20 +5,27 @@ import Typography from '@mui/material/Typography'
 import Link from 'next/link'
 import { FormEvent } from 'react'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 import InputField from './InputField'
 import NavigationStatement from './NavigationStatement'
 import InputValue from '~/types/InputValue'
-
+import { useAuth } from '~/stores/auth'
+import authActions from '~/services/axios/actions/auth.action'
 import styles from '../../styles/form.module.scss'
 import clsx from 'clsx'
+import { getCurrentUser } from '~/services/axios/actions/user.action'
+import { User } from '~/interfaces/user.type'
 
 function LoginForm() {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [errors, setErrors] = useState<InputValue>({})
+    const { login } = useAuth()
+    const router = useRouter()
 
-    const handleValidateForm = () => {
+    const handleValidateForm = async () => {
         const errors: InputValue = {}
         const emailRegex = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/
 
@@ -37,8 +44,36 @@ function LoginForm() {
         setErrors(errors)
 
         if (!Object.keys(errors).length) {
-            // call API here
-            console.log('Form submit successfully')
+            try {
+                const res = await toast.promise(
+                    new Promise(async (resolve, reject) => {
+                        try {
+                            const res = await authActions.loginUserAccount(email, password)
+                            resolve(res)
+                        } catch (error) {
+                            reject(error)
+                        }
+                    }),
+                    {
+                        pending: 'Đang đăng nhập',
+                        success: 'Đăng nhập thành công',
+                        error: 'Đăng nhập thất bại',
+                    },
+                )
+
+                const user: User = await getCurrentUser()
+
+                login({
+                    id: user?._id,
+                    avatar: user?.avatar.link,
+                    email: user?.email,
+                    username: user?.username,
+                    isAdmin: false,
+                })
+                router.replace('/')
+            } catch (error: any) {
+                toast.error('Email hoặc password không chính xác')
+            }
         }
     }
 

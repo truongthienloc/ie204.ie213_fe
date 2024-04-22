@@ -1,4 +1,4 @@
-type ProductImage = {
+export type ProductImage = {
     _id: string
     id?: string
     link: string
@@ -21,4 +21,16 @@ export type Product = {
 export type Menu = {
     _id: string
     menuName: string
+}
+
+export type ProductComment = {
+    _id: string
+    content: string
+    userId: string
+    dishId: string
+    rating: number
+    level: number
+    replies?: ProductComment[]
+    createdAt?: string
+    updatedAt?: string
 }

@@ -12,22 +12,23 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import CloseIcon from '@mui/icons-material/Close'
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
 import Login from '@mui/icons-material/Login'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import MenuIcon from '@mui/icons-material/Menu'
 import Link from 'next/link'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 import styles from '../../styles/navbar.module.scss'
 import { navbarItems } from '~/data'
 import { NavbarItem } from '~/types/NavbarItem'
+import { useAuth } from '~/stores/auth'
 
 export default function NavDrawer() {
     const [isOpen, setIsOpen] = useState(false)
     const pathname = usePathname()
-    const isAuth = false // lấy từ store
+    const { isLogin, avatar } = useAuth()
 
     const handleOpen = () => setIsOpen(true)
     const handleClose = () => setIsOpen(false)
@@ -74,41 +75,52 @@ export default function NavDrawer() {
                                 </ListItem>
                             )
                         })}
-                    </List>
-
-                    <Divider />
-
-                    <List>
-                        <ListItem disablePadding>
-                            <Link className="w-[inherit]" href={'/cart'}>
-                                <ListItemButton>
-                                    <ListItemIcon className={styles.icon}>
-                                        <ShoppingCartIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'GIỎ HÀNG'} className={styles.text} />
-                                </ListItemButton>
-                            </Link>
-                        </ListItem>
-
-                        {isAuth ? (
-                            <ListItem disablePadding>
-                                <Link className="w-[inherit]" href={'/user'}>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                            <Image
-                                                src={'' || '/images/default_profile_image.svg'}
+                        {isLogin ? (
+                            <>
+                                <ListItem disablePadding>
+                                    <Link className="w-[inherit]" href={'/cart'}>
+                                        <ListItemButton>
+                                            <ListItemIcon className={styles.icon}>
+                                                <ShoppingCartIcon />
+                                            </ListItemIcon>
+                                            <ListItemText
+                                                primary={'GIỎ HÀNG'}
+                                                className={styles.text}
+                                            />
+                                        </ListItemButton>
+                                    </Link>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                    <Link className="w-[inherit]" href={'/user'}>
+                                        <ListItemButton>
+                                            <img
+                                                src={avatar || '/images/default_user.png'}
                                                 alt="User Avatar"
                                                 width={10}
                                                 height={10}
                                                 className={styles.avatar}
                                             />
-                                        </ListItemIcon>
-                                        <ListItemText primary={'HỒ SƠ'} className={styles.text} />
-                                    </ListItemButton>
-                                </Link>
-                            </ListItem>
+                                            <ListItemText
+                                                primary={'HỒ SƠ'}
+                                                className={styles.text}
+                                            />
+                                        </ListItemButton>
+                                    </Link>
+                                </ListItem>
+
+                                <Divider />
+
+                                <ListItem disablePadding>
+                                    <button className={cn(styles.btn, styles.drawerBtn)}>
+                                        <LogoutOutlinedIcon className={styles.icon} />
+                                        <span className={styles.text}>Đăng xuất</span>
+                                    </button>
+                                </ListItem>
+                            </>
                         ) : (
                             <>
+                                <Divider />
+
                                 <ListItem disablePadding>
                                     <Link
                                         className={cn(styles.btn, styles.drawerBtn)}
