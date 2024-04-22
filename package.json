@@ -11,6 +11,7 @@
     "format:check": "prettier --config .prettierrc --check src/**/*.{ts,tsx,css,scss,json}",
     "prepare": "husky",
     "test": "jest",
+    "test:clear_cache": "jest --clearCache",
     "test:watch": "jest --watch"
   },
   "dependencies": {
@@ -56,7 +57,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-slick": "^0.23.13",
-    "@types/react-toastify": "^4.1.0",
+    "@types/react-toastify": "4.1.0",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
