@@ -17,8 +17,7 @@ import { formatCurrency } from '~/lib/utils'
 import { Product, ProductComment } from '~/interfaces/product.type'
 import ProductCard from '~/components/ProductCard'
 
-// just for testing
-const mockComments: ProductComment = [
+const mockComments: ProductComment[] = [
     {
         _id: '1',
         dishId: '1',
@@ -27,6 +26,7 @@ const mockComments: ProductComment = [
         replies: [],
         level: 1,
         createdAt: '04/23/24',
+        rating: 5,
     },
     {
         _id: '2',
@@ -36,6 +36,7 @@ const mockComments: ProductComment = [
         replies: [],
         level: 1,
         createdAt: '04/21/24',
+        rating: 5,
     },
 ]
 
