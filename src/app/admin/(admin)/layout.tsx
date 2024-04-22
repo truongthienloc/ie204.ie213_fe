@@ -13,17 +13,20 @@ type Props = {
 }
 
 export default function AdminLayout({ children }: Props) {
-    const { isAdmin } = useAuth()
-    const [isLoading, setIsLoading] = useState(true)
+    const { isAdmin, isLoading } = useAuth()
     const router = useRouter()
 
     useEffect(() => {
+        if (isLoading) {
+            return
+        }
+
         if (!isAdmin) {
             router.replace('/admin/login')
         }
 
-        setIsLoading(false)
-    }, [isAdmin, router, setIsLoading])
+        // setIsLoading(false)
+    }, [isAdmin, router, isLoading])
 
     if (isLoading) {
         return (

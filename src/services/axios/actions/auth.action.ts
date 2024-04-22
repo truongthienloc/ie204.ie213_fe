@@ -1,7 +1,7 @@
 import { api, clientInstance } from '..'
 import authEndpoint from '../endpoints/auth.endpoint'
 
-type LoginResponse = {
+export type LoginResponse = {
     accessToken: string
     refreshToken: string
 }

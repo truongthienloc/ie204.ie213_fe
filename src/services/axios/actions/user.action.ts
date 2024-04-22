@@ -13,3 +13,9 @@ export async function getCurrentUser(): Promise<User> {
         }
     })
 }
+
+const userAction = {
+    getCurrentUser,
+}
+
+export default userAction

@@ -7,6 +7,8 @@ import keywords from '../config/BrandKeywords'
 import './globals.scss'
 import { contact, actions } from '~/data/jsonLDConfig'
 import 'react-toastify/dist/ReactToastify.css'
+import { GoogleAnalytics } from '@next/third-parties/google'
+import { AutoLogin } from '~/stores/auth'
 
 const roboto = Roboto({ subsets: ['vietnamese'], weight: ['400'] })
 
@@ -29,6 +31,7 @@ export default function RootLayout({
             </head>
             <body className={roboto.className}>
                 <TanstackProvider>{children}</TanstackProvider>
+                <AutoLogin />
                 <ToastContainer
                     position="top-right"
                     autoClose={3000}
@@ -54,6 +57,7 @@ export default function RootLayout({
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(actions) }}
                 />
             </body>
+            <GoogleAnalytics gaId="G-XWLJFZT5Z7" />
         </html>
     )
 }
