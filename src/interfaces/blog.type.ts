@@ -1,4 +1,4 @@
-type BlogImageData = {
+export type BlogImageData = {
     url: string
     publicId: string
 }
@@ -10,6 +10,7 @@ export type BlogData = {
     keywords: string[]
     content: string
     blogImages: BlogImageData[]
+    thumbnailImage: string
 }
 
 export type Blog = BlogData & {

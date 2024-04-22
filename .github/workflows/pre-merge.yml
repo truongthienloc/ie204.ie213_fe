@@ -24,7 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         
-    - run: rm -rf yarn.lock
+    - run: rm -rf package-lock.json
     - run: npm i
     - run: npm run lint
     - run: npm run format:check

@@ -25,10 +25,12 @@ export default function AutoLogin({}: Props) {
                     id: res._id,
                     email: res.email,
                     username: res.username,
-                    avatar: res.avatar.link,
+                    avatar: res.avatar?.link,
                     isAdmin: res.role === 'admin',
                 })
             } catch (error) {
+                // console.log('logout from auto login');
+                // throw new Error(error)
                 auth.logout()
             }
         }

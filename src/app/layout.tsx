@@ -7,6 +7,7 @@ import keyword from '../configs/BrandKeywords'
 import './globals.scss'
 import { contact, actions } from '~/data/jsonLDConfig'
 import 'react-toastify/dist/ReactToastify.css'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { AutoLogin } from '~/stores/auth'
 
 const roboto = Roboto({ subsets: ['vietnamese'], weight: ['400'] })
@@ -57,6 +58,7 @@ export default function RootLayout({
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(actions) }}
                 />
             </body>
+            <GoogleAnalytics gaId="G-XWLJFZT5Z7" />
         </html>
     )
 }
