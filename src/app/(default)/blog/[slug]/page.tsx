@@ -7,6 +7,7 @@ import dayjs from 'dayjs'
 
 import { getBlogDetail } from '../action'
 import { Blog } from '~/interfaces/blog.type'
+import SocialsShare from '~/components/SocialsShare'
 import styles from '~/styles/blog.module.scss'
 
 type Props = {
@@ -50,14 +51,11 @@ async function BlogDetailPage({ params: { slug } }: Props) {
                 <span>{blog?.title.toLowerCase()}</span>
             </div>
             <div className={styles.top}>
-                <div className={styles.date}>
+                <time dateTime={blog?.createdAt} className={styles.date}>
                     <CalendarMonthOutlinedIcon />
-                    <span>{dayjs(blog?.createdAt).format('DD/MM/YYYY')}</span>
-                </div>
-                <button>
-                    <FavoriteBorderOutlinedIcon />
-                    <ShareOutlinedIcon />
-                </button>
+                    {dayjs(blog?.createdAt).format('DD/MM/YYYY')}
+                </time>
+                <SocialsShare />
             </div>
             <h1 className={styles.title}>{blog?.header}</h1>
             {htmlParser(blog?.content)}

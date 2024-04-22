@@ -1,7 +1,14 @@
 import Image from 'next/image'
+import { Metadata } from 'next'
 
 import LoginForm from '~/components/AuthForm/LoginForm'
 import styles from '~/styles/auth.module.scss'
+
+export function generateMetadata(): Metadata {
+    return {
+        title: 'Bếp UIT - Đăng nhập',
+    }
+}
 
 function UserLoginPage() {
     return (

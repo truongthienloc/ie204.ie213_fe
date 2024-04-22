@@ -107,8 +107,9 @@
 }
 
 .avatar {
-    width: 36px;
-    height: 36px;
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
     cursor: pointer;
     border-radius: 50%;
     object-fit: contain;
@@ -128,7 +129,7 @@
 .icon {
     color: var(--secondary);
     min-width: 36px;
-    height: 32px;
+    height: 36px;
     display: inline-block;
 }
 

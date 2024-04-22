@@ -7,6 +7,9 @@ import styles from '../../styles/form.module.scss'
 import InputField from './InputField'
 import NavigationStatement from './NavigationStatement'
 import InputValue from '~/types/InputValue'
+import authAction from '~/services/axios/actions/auth.action'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 function SignupForm() {
     const [email, setEmail] = useState('')
@@ -14,8 +17,9 @@ function SignupForm() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState<InputValue>({})
+    const router = useRouter()
 
-    const handleValidateForm = () => {
+    const handleValidateForm = async () => {
         const errors: InputValue = {}
         const emailRegex = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/
 
@@ -40,8 +44,34 @@ function SignupForm() {
         setErrors(errors)
 
         if (!Object.keys(errors).length) {
-            // call API here
-            console.log('Form submit successfully')
+            try {
+                const res = await toast.promise(
+                    new Promise(async (resolve, reject) => {
+                        try {
+                            const res = await authAction.registerUserAccount(
+                                email,
+                                username,
+                                password,
+                            )
+
+                            resolve(res)
+                        } catch (error) {
+                            reject(error)
+                        }
+                    }),
+                    {
+                        pending: 'Đang đăng ký',
+                        success: 'Đăng ký tài khoản mới thành công',
+                        error: 'Đăng ký thất bại',
+                    },
+                )
+
+                router.replace('/login')
+            } catch (error: any) {
+                if (error.response) {
+                    error?.response?.message?.map((item: string) => toast.error(item))
+                }
+            }
         }
     }
 

@@ -28,15 +28,15 @@ function ProductCard({ product }: Props) {
 
     return (
         <>
-            <Link href={`product/${product?.slugName}`} className={styles.card}>
+            <Link href={`/product/${product?.slugName}`} className={styles.card}>
                 <div className={styles['card__image']}>
                     <img src={product?.dishImages[0]?.link} alt={product?.dishName} />
                 </div>
                 <div className={styles.wrapper}>
                     <h4 className={styles.name}>{product?.dishName}</h4>
                     <p className={styles.desc}>
-                        {product?.dishDescription.length > 100
-                            ? product?.dishDescription.substring(0, 100) + '...'
+                        {product?.dishDescription.length > 110
+                            ? product?.dishDescription.substring(0, 110) + '...'
                             : product?.dishDescription}
                     </p>
                     <p className={styles.price}>{`${formatCurrency(product?.dishPrice)} VNĐ`}</p>

@@ -3,7 +3,7 @@ import { Roboto } from 'next/font/google'
 import { ToastContainer } from 'react-toastify'
 import Script from 'next/script'
 import { TanstackProvider } from '~/components/TanstackProvider'
-import keyword from '../config/BrandKeywords'
+import keywords from '../config/BrandKeywords'
 import './globals.scss'
 import { contact, actions } from '~/data/jsonLDConfig'
 import 'react-toastify/dist/ReactToastify.css'
@@ -14,8 +14,7 @@ export const metadata: Metadata = {
     title: 'Bếp UIT - Let us cook',
     description:
         'Bếp UIT - Nhà hàng đạt chuẩn 4food đầu tiên tại Việt Nam. Chúng tôi mang đến cho bạn những món ăn truyền thống Việt Nam, đậm đà hương vị quê hương. Với không gian ấm cúng và phục vụ chuyên nghiệp, chúng tôi cam kết mang đến cho quý khách hàng một trải nghiệm ẩm thực độc đáo và tuyệt vời nhất.',
-
-    keywords: keyword,
+    keywords,
 }
 
 export default function RootLayout({

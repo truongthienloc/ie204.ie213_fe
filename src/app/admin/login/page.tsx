@@ -82,7 +82,6 @@ export default function LoginAdminPage({}: Props) {
 
     return (
         <div className="flex min-h-screen w-full flex-col gap-48 bg-third">
-            {/* chỗ này tui hard code gap, ae nào biết chỉ với */}
             <div className="mx-auto flex w-full max-w-full flex-row justify-center bg-primary text-white">
                 <p>4Food&#39;s Administrator</p>
             </div>

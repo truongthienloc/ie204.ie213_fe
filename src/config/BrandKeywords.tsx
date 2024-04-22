@@ -76,6 +76,13 @@ const keywords = [
     'bpe uit',
     'bpees uit',
     'bpế uit',
+    'Nhà hàng bếp uit',
+    'Nhà hàng bếp UIT',
+    'nha hang bep uit',
+    'Chuẩn 4food',
+    '4food',
+    'let us cook',
+    'Let us cook',
 ]
 
 export default keywords

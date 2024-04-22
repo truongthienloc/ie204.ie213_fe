@@ -4,17 +4,16 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import Link from 'next/link'
 import NavItem from './NavItem'
 import NavDrawer from './NavDrawer'
-import Image from 'next/image'
-import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 
 import { navbarItems } from '~/data'
 import styles from '../../styles/navbar.module.scss'
 import { NavbarItem } from '~/types/NavbarItem'
+import { useAuth } from '~/stores/auth'
 
 function NavBar() {
-    const [isAuthentication, setIsAuthentication] = useState<boolean>(false)
     const pathname = usePathname()
+    const { isLogin, avatar } = useAuth()
 
     return (
         <header className={clsx('flex w-full flex-col bg-third shadow-md', styles.header)}>
@@ -45,21 +44,23 @@ function NavBar() {
                 </div>
 
                 <div className={styles.part}>
-                    <Link className={styles.cart} href={'/cart'}>
+                    <Link className={styles.cart} href={isLogin ? '/cart' : '/login'}>
                         <ShoppingCartOutlinedIcon className={styles.cartIcon} />
                         <span className={styles.cartBadge}>0</span>
                     </Link>
 
                     <div className={styles.account}>
-                        {isAuthentication ? (
+                        {isLogin ? (
                             <>
-                                <Image
-                                    src={'' || '/images/default_profile_image.svg'}
-                                    alt="Profile Image"
-                                    width={10}
-                                    height={10}
-                                    className={styles.avatar}
-                                />
+                                <Link href="/user">
+                                    <img
+                                        src={avatar || '/images/default_user.png'}
+                                        alt="Profile Image"
+                                        width={10}
+                                        height={10}
+                                        className={styles.avatar}
+                                    />
+                                </Link>
                             </>
                         ) : (
                             <>

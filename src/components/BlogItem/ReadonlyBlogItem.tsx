@@ -33,17 +33,11 @@ export default function ReadonlyBlogItem({
                 </Link>
                 <p className={styles['card__desc']}>{description}</p>
                 <div className="mt-6 flex flex-row items-center justify-between">
-                    <time
-                        className="flex items-center gap-1 text-sm text-gray-400"
-                        dateTime={createdAt}
-                    >
+                    <time className={styles.date} dateTime={createdAt}>
                         <CalendarMonthOutlinedIcon />
                         {dayjs(createdAt).format('DD/MM/YYYY')}
                     </time>
-                    <Link
-                        href={`/blog/${slug}`}
-                        className="text-xs font-medium hover:font-bold hover:underline"
-                    >
+                    <Link href={`/blog/${slug}`} className={styles.readmore}>
                         Xem thêm
                     </Link>
                 </div>
