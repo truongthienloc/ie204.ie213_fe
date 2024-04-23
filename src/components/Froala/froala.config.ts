@@ -39,7 +39,7 @@ function generateFroalaConfig() {
                 const json = JSON.parse(response)
                 const imgUrl = json.data[0].url
                 // @ts-ignore
-                this.image.insert(imgUrl, false, null, this.image.get(), response)
+                this.image.insert(imgUrl, false, { style: '' }, this.image.get(), response)
                 blogImageEvent.emit('uploaded', json.data[0])
 
                 return false
