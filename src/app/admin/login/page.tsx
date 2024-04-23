@@ -122,6 +122,7 @@ export default function LoginAdminPage({}: Props) {
                     <button
                         className="mt-10 h-[50px] w-[150px] rounded-[10px] bg-primary text-third"
                         onClick={handleSubmit}
+                        type="button"
                     >
                         Đăng nhập
                     </button>
