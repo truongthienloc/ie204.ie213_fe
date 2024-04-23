@@ -141,3 +141,17 @@ html {
         max-width: 100%;
     }
 }
+
+@media screen and (max-width: 1052px) {
+    .inner {
+        padding: 0 32px;
+    }
+    .inner .col.md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .inner .mx_10 {
+        margin: 10px 0px;
+    }
+}

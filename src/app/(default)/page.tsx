@@ -10,7 +10,6 @@ import { getProducts } from '~/services/axios/actions/product.action'
 
 function HomePage() {
     const [products, setProducts] = useState<Product[]>([])
-
     useEffect(() => {
         const fetchProducts = async () => {
             try {
