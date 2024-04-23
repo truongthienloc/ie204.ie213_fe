@@ -9,6 +9,8 @@ import styles from '~/styles/blog.module.scss'
 export async function generateMetadata(): Promise<Metadata> {
     return {
         title: 'Bếp UIT - Bài viết của chúng tôi',
+        description:
+            'Bạn sẽ được chìm đắm trong không gian ẩm thực độc đáo, cảm nhận sự tâm huyết và nỗ lực của đầu bếp tại Bếp UIT trong việc tạo ra những trải nghiệm ẩm thực đáng nhớ. Hãy cùng chúng tôi bước vào hành trình khám phá văn hóa ẩm thực Việt Nam và chia sẻ những hương vị tuyệt vời qua những bài viết chân thành và đầy cảm xúc của chúng tôi. Hãy để Bếp UIT là điểm đến lý tưởng của bạn, nơi bạn tìm thấy những bí quyết ẩm thực độc đáo và những trải nghiệm không thể quên!',
     }
 }
 

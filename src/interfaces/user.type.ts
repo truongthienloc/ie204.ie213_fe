@@ -5,7 +5,9 @@ export type User = {
     username: string
     email: string
     role: string
+    tables?: []
+    discounts?: []
+    createdAt?: string
+    updatedAt?: string
     avatar: Image
-    createdAt: string
-    updatedAt: string
 }

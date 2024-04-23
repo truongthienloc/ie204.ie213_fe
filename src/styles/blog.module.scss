@@ -7,8 +7,9 @@
 }
 
 .card {
+    min-height: 210px;
     display: flex;
-    height: 100%;
+    position: relative;
     overflow: hidden;
     justify-content: space-between;
     align-items: center;
@@ -19,37 +20,70 @@
     &:hover {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
+
+    & .date {
+        display: flex;
+        align-items: center;
+        gap: 6;
+        font-size: 0.8rem;
+        color: #a19f9f;
+    }
+
+    & .card__desc {
+        font-size: 1rem;
+        flex: 1;
+        line-height: 1.4;
+        color: rgba(0, 0, 0, 0.8);
+        text-align: justify;
+    }
+
+    & .readmore {
+        display: block;
+        font-size: 0.9rem;
+        text-align: right;
+        transition: all ease-in 0.2s;
+
+        &:hover {
+            text-decoration: underline;
+            font-weight: bold;
+        }
+    }
 }
 
 .card__image {
     display: block;
-    width: 200px;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
     overflow: hidden;
-    min-height: 160px;
+    width: min(200px, 50%);
+    height: 100%;
 
     & img {
-        object-fit: cover;
+        display: block;
         height: 100%;
+        object-fit: cover;
         object-position: center;
+    }
+
+    & img:hover {
+        filter: brightness(0.8);
+        transition: all ease-in 0.2s;
     }
 }
 
 .card__info {
-    padding: 4px 8px;
+    height: 100%;
+    margin-left: min(200px, 50%);
+    padding: 8px 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
-    height: 100%;
-}
 
-.card__desc {
-    font-size: 1rem;
-    flex: 1;
-    line-height: 1.4;
-    color: rgba(0, 0, 0, 0.8);
-    text-align: justify;
+    & h2 {
+        font-weight: bold;
+    }
 }
 
 // Blog detail CSS
@@ -58,11 +92,12 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
 
-    & p {
+    & p,
+    & p span {
+        margin: 20px 0 0;
         font-size: 1.4rem;
         text-align: justify;
         line-height: 1.6;
-        margin-top: 20px;
     }
 
     & img {
@@ -76,7 +111,7 @@
 
     & figure {
         width: 100%;
-        margin: 0;
+        margin: 0 auto;
         overflow: hidden;
         margin-top: 20px;
     }
@@ -100,6 +135,25 @@
     & iframe {
         margin-top: 20px;
         border-radius: 6px;
+    }
+
+    & .title {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 2.4rem;
+        font-weight: 500;
+    }
+
+    & ul,
+    ol {
+        padding: 0;
+    }
+
+    & li,
+    & h2 {
+        margin: 20px 0 0;
+        font-size: 1.8rem;
+        font-weight: 600;
     }
 }
 
@@ -137,13 +191,6 @@
     }
 }
 
-.title {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 2.4rem;
-    font-weight: 500;
-}
-
 @media screen and (max-width: 768px) {
     .title {
         font-size: 2rem;
@@ -155,5 +202,20 @@
         & p {
             font-size: 1.2rem;
         }
+    }
+}
+
+@media screen and (max-width: 539px) {
+    .heading {
+        font-size: 2rem;
+    }
+
+    .card .date {
+        display: none;
+    }
+
+    .card .readmore {
+        width: 100%;
+        text-align: right;
     }
 }

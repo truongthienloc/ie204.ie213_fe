@@ -1,7 +1,15 @@
+import { Metadata } from 'next'
+
 import SignupForm from '~/components/AuthForm/SignupForm'
 import Image from 'next/image'
 
 import styles from '~/styles/auth.module.scss'
+
+export function generateMetadata(): Metadata {
+    return {
+        title: 'Bếp UIT - Đăng ký',
+    }
+}
 
 function SignUpPage() {
     return (

@@ -8,7 +8,7 @@ export const contact = {
         width: 1080,
         height: 1080,
     },
-    telephone: '0344444404',
+    telephone: '0947263479',
     url: 'https://bepuit.com/',
     address: {
         '@type': 'PostalAddress',
@@ -37,10 +37,10 @@ export const contact = {
     ],
     geo: {
         '@type': 'GeoCoordinates',
-        latitude: '10.87026089964817',
-        longitude: '106.80327378026887',
+        latitude: '10.870942577963625',
+        longitude: '106.80270298836135',
     },
-    location: 'Khu pho 6, Linh Trung, Thu Duc, Ho Chi Minh',
+    location: 'Đường Hàn Thuyên, Khu Phố 6, Thủ Đức, Thành phố Hồ Chí Minh',
 }
 
 export const actions = {
