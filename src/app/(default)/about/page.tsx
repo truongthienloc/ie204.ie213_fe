@@ -1,107 +1,174 @@
-import Image from 'next/image'
+'use client'
+import React, { useRef, useEffect, useState } from 'react'
+import styles from '~/styles/about.module.scss'
 import clsx from 'clsx'
+import { useInView } from 'react-intersection-observer'
+import { useSpring, animated } from 'react-spring'
 
 function AboutPage() {
+    const [ref1, inView1] = useInView({ threshold: 0.3 })
+    const [ref2, inView2] = useInView({ threshold: 0.3 })
+    const [ref3, inView3] = useInView({ threshold: 0.3 })
+    const [ref4, inView4] = useInView({ threshold: 0.3 })
+    const [ref5, inView5] = useInView({ threshold: 0.3 })
+    const [ref6, inView6] = useInView({ threshold: 0.3 })
+
+    const springProps1 = useSpring({ opacity: inView1 ? 1 : 0, marginTop: inView1 ? 0 : -10 })
+    const springProps2 = useSpring({ opacity: inView2 ? 1 : 0, marginTop: inView2 ? 0 : -10 })
+    const springProps3 = useSpring({ opacity: inView3 ? 1 : 0, marginTop: inView3 ? 0 : -10 })
+    const springProps4 = useSpring({ opacity: inView4 ? 1 : 0, marginTop: inView4 ? 0 : -10 })
+    const springProps5 = useSpring({ opacity: inView5 ? 1 : 0, marginTop: inView5 ? 0 : -10 })
+    const springProps6 = useSpring({ opacity: inView6 ? 1 : 0, marginTop: inView5 ? 0 : -10 })
+
     return (
-        <div>
-            <div
-                className="mb-5 mt-6 flex h-[160px] items-center justify-center bg-cover bg-no-repeat"
-                style={{ backgroundImage: `url('/images/about-heading.svg')` }}
+        <div className="pt-12">
+            <animated.section ref={ref1} style={springProps1} className={clsx(styles.wrap, 'row')}>
+                <div className="col lg-6 md-12 text-justify text-xl leading-9 ">
+                    <p>Được xây dựng từ những sinh viên năm 3 lớp CNTT2021</p>
+                    <p>
+                        Bếp UIT là cộng đồng tin cậy cho mọi người có thể tìm kiếm, đánh giá, bình
+                        luận các món ăn, thức uống tại UIT - từ website. Tất cả thành viên từ Web
+                        đến Data, Foody kết nối những thực khách đến với nới ăn uống lớn nhất UIT.
+                    </p>
+                    <p>
+                        Đến thời điểm hiện tại, Bếp UIT với hàng ngàn địa điểm và hàng chục ngàn
+                        bình luận, hình ảnh tại UIT, ở hầu hết các tỉnh thành. Bếp UIT là nơi ngon
+                        nhất để bạn có thể thưởng thức và lựa chọn địa điểm tốt nhất cho mình và bạn
+                        bè.
+                    </p>
+                </div>
+                <div className="col lg-6 md-12 flex justify-center ">
+                    <img
+                        src="http://res.cloudinary.com/ddexbqgmg/image/upload/v1713799897/bepUIT-blogImages/o18l9ijefeclo6ouozsm.jpg"
+                        alt="img_about"
+                        className={clsx(styles.img, 'mx_10')}
+                    />
+                </div>
+            </animated.section>
+
+            <animated.section ref={ref2} style={springProps2} className={clsx(styles.wrap, 'row')}>
+                <div className="col lg-6 md-12 flex justify-center ">
+                    <img
+                        src="http://res.cloudinary.com/ddexbqgmg/image/upload/v1713799807/bepUIT-blogImages/s0fidr7ch6csdsln6unx.jpg"
+                        alt="img_about"
+                        className={clsx(styles.img, styles.img__height, 'mx_10')}
+                    />
+                </div>
+                <div className="col lg-6 md-12 text-justify text-xl leading-9">
+                    <center>
+                        <p className={clsx(styles.title, 'mt-5 uppercase ')}>đặt bàn nhanh chóng</p>
+                    </center>
+                    <p className="mt-4">
+                        Với tính năng đặt bàn online, quý khách chỉ cần một vài thao tác đơn giản
+                        trên trang web của Bếp UIT để đặt bàn một cách dễ dàng và tiện lợi. Quý
+                        khách có thể chọn ngày và giờ muốn đến, số lượng người tham dự và yêu cầu
+                        đặc biệt khác. Hệ thống sẽ tự động xác nhận thông tin đặt bàn của quý khách
+                        qua email hoặc tin nhắn, và đảm bảo chỗ ngồi sẽ sẵn sàng trong lúc quý khách
+                        đến.
+                    </p>
+                    <p className="mt-8">
+                        Tính năng đặt bàn online không chỉ giúp quý khách tiết kiệm thời gian mà còn
+                        tăng cường sự linh hoạt trong việc lựa chọn chỗ ngồi. Quý khách có thể xem
+                        trực tiếp thông tin của bàn và chọn vị trí phù hợp theo ý muốn. Đồng thời,
+                        quý khách cũng có thể xem trước thực đơn và các món ăn đặc biệt để chuẩn bị
+                        trước.
+                    </p>
+                </div>
+            </animated.section>
+            <animated.section ref={ref3} style={springProps3} className={clsx(styles.wrap, 'row')}>
+                <div>
+                    <center>
+                        <p className={clsx(styles.title, 'mt-5 uppercase')}>Tìm kiếm dễ dàng</p>
+                        <div className="w-[80%] text-justify">
+                            <p className="mt-4 text-xl leading-9">
+                                Khách hàng dễ dàng tìm thấy Bếp UIT nhờ vào việc chúng mình đã đăng
+                                ký địa điểm nhà hàng trên Google Maps. Bằng cách này, chỉ cần một
+                                vài thao tác đơn giản trên điện thoại di động hoặc máy tính, khách
+                                hàng có thể tìm thấy vị trí chính xác của Bếp UIT trên bản đồ và
+                                nhận hướng dẫn chi tiết để đến đến từ bất kỳ nơi nào. Điều này tạo
+                                ra trải nghiệm thuận lợi và tiện ích, giúp khách hàng dễ dàng tiếp
+                                cận và khám phá các dịch vụ của Bếp UIT một cách nhanh chóng và dễ
+                                dàng.
+                            </p>
+                        </div>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244.8893953109887!2d106.80243476745908!3d10.870078600000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175275be3beba59%3A0xdd0a3df386d69024!2zTmjDoCBow6BuZyBC4bq_cCBVSVQ!5e0!3m2!1sen!2s!4v1713797236824!5m2!1sen!2s"
+                            width="80%"
+                            height="450"
+                            allowFullScreen
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            className="rounded-xl"
+                        ></iframe>
+                    </center>
+                </div>
+            </animated.section>
+            <animated.section ref={ref4} style={springProps4} className={clsx(styles.wrap, 'row')}>
+                <div className="col lg-6 md-12 text-xl leading-9 ">
+                    <center>
+                        <p className={clsx(styles.title, 'mt-5 uppercase')}>phân loại rõ ràng</p>
+                    </center>
+                    <p className="mt-4 text-justify text-xl leading-9">
+                        Bếp UIT phân loại các địa điểm ra rất chi tiết: loại hình, món ăn, giá cả,
+                        loại ẩm thực, gần nơi bạn nhất... Điều này giúp cộng đồng lọc địa điểm theo
+                        mục đích của mình rất nhanh chóng.
+                    </p>
+                </div>
+                <div className="col lg-6 md-12 flex justify-center ">
+                    <img
+                        src="http://res.cloudinary.com/ddexbqgmg/image/upload/v1713799643/bepUIT-blogImages/wpkf4jew1cxywivfnjol.jpg"
+                        alt="img_about"
+                        className={clsx(styles.img, 'mx_10')}
+                    />
+                </div>
+            </animated.section>
+            <animated.section ref={ref5} style={springProps5} className={clsx(styles.wrap, 'row')}>
+                <div className="col lg-6 md-12 flex justify-center ">
+                    <img
+                        src="http://res.cloudinary.com/ddexbqgmg/image/upload/v1713799745/bepUIT-blogImages/tfnxskgf5iswjkuer5ha.jpg"
+                        alt="img_about"
+                        className={clsx(styles.img, 'mx_10')}
+                    />
+                </div>
+                <div className="col lg-6 md-12 text-justify text-xl leading-9 ">
+                    <center>
+                        <p className={clsx(styles.title, 'mt-5 uppercase')}>
+                            bình luận và đánh giá
+                        </p>
+                    </center>
+                    <p className="mt-4 text-xl leading-9">
+                        Bếp UIT cho phép thành viên đánh giá quán ăn với 5 tiêu chí: Món ăn, Vị trí,
+                        Không gian, Giá cả và Dịch vụ, điều này giúp cộng đồng có cái nhìn tổng quan
+                        về các tiêu chí của mỗi địa điểm. Với tiêu chí luôn đặt khách hàng lên hàng
+                        đầu, chúng mình luôn đánh giá cao các bình luận và nhận xét để xây dựng Bếp
+                        UIT ngày càng phát triển và làm hài lòng tất cả mọi người.
+                    </p>
+                </div>
+            </animated.section>
+            <animated.section
+                ref={ref6}
+                style={springProps6}
+                className={clsx(styles.wrap, 'row justify-center')}
             >
-                <p className="text-3xl font-bold uppercase text-third">Giới thiệu</p>
-            </div>
-            <div className="flex flex-col items-center">
-                <div className="flex flex-row gap-7 rounded-2xl border-4 border-primary py-8 pl-6">
-                    <Image
-                        src="/images/about-title1.svg"
-                        alt="Thành viên"
-                        width={520}
-                        height={290}
-                    ></Image>
-                    <div className="my-7 flex flex-col gap-5 pr-8 text-lg font-normal leading-6 text-second">
-                        <p>
-                            Được xây dựng từ những sinh viên năm 3 lớp CNTT2021.
-                            <br />
-                            Bếp UIT là cộng đồng tin cậy cho mọi người có thể tìm kiếm, đánh giá,
-                            bình luận các món ăn, thức uống tại UIT - từ website. Tất cả thành viên
-                            từ Web đến Data, Foody kết nối những thực khách đến với nới ăn uống lớn
-                            nhất UIT.
-                        </p>
-                        <p>
-                            Đến thời điểm hiện tại, Bếp UIT với hàng ngàn địa điểm và hàng chục ngàn
-                            bình luận, hình ảnh tại UIT, ở hầu hết các tỉnh thành. Bếp UIT là nơi
-                            ngon nhất để bạn có thể thưởng thức và lựa chọn địa điểm tốt nhất cho
-                            mình và bạn bè.
-                        </p>
-                    </div>
+                <div className="w-[100%]">
+                    <center>
+                        <div className={clsx(styles.title, 'mt-5 uppercase')}>
+                            Không gian đỉnh của chóp tại Bếp UIT
+                        </div>
+                        <div className="mt-4 w-[100%]  overflow-hidden">
+                            <iframe
+                                width="100%"
+                                height="620"
+                                src="https://www.youtube.com/embed/QQWcHxfdMB0?"
+                                title="khong-gian-dinh-cua-chop-tai-bep-uit"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerPolicy="strict-origin-when-cross-origin"
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    </center>
                 </div>
-
-                <div className="my-16 flex flex-row gap-7 rounded-2xl border-4 border-primary px-16 py-8 ">
-                    <div className="flex-1 justify-center ">
-                        <p className="mb-5 flex justify-center text-4xl font-bold text-primary">
-                            TÌM KIẾM DỄ DÀNG
-                        </p>
-                        <p className="mt-14 text-lg font-normal leading-7 text-second">
-                            Công cụ tìm kiếm thông minh bằng cách gõ: tên địa điểm nơi bạn ở, hoặc
-                            địa chỉ, hoặc tên đường, hoặc tên món ăn, hoặc mục đích, hoặc tên khu
-                            vực. Hệ thống tìm kiếm sử dụng gợi ý & xem nhanh thông tin, giúp bạn đặt
-                            món ăn nhanh nhất và những cơ sở Bếp UIT gần bạn nhất.
-                        </p>
-                    </div>
-                    <div className="flex-2 flex items-center">
-                        <Image
-                            src="/images/about-title2.svg"
-                            alt="Tìm kiếm dễ dàng"
-                            width={520}
-                            height={294}
-                        ></Image>
-                    </div>
-                </div>
-
-                <div className="mb-16 flex flex-row gap-12 rounded-2xl border-4 border-primary px-7 py-11 ">
-                    <div className="flex-2 flex items-center">
-                        <Image
-                            src="/images/about-title3.svg"
-                            alt="Phân loại sản phẩm"
-                            width={520}
-                            height={294}
-                        ></Image>
-                    </div>
-                    <div className="flex-1 justify-center ">
-                        <p className="mb-5 flex justify-center text-4xl font-bold text-primary">
-                            PHÂN LOẠI RÕ RÀNG
-                        </p>
-                        <p className="mt-16 text-lg font-normal leading-7 text-second">
-                            Bếp UIT phân loại các địa điểm ra rất chi tiết: loại hình, món ăn, giá
-                            cả, loại ẩm thực, gần nơi bạn nhất... Điều này giúp cộng đồng lọc địa
-                            điểm theo mục đích của mình rất nhanh chóng.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="mb-16 flex flex-row gap-7 rounded-2xl border-4 border-primary px-16 py-9">
-                    <div className="flex-1 justify-center ">
-                        <p className="mb-5 flex justify-center text-4xl font-bold text-primary">
-                            BÌNH LUẬN VÀ ĐÁNH GIÁ
-                        </p>
-                        <p className="mt-12 text-lg font-normal leading-6 text-second">
-                            Bếp UIT cho phép thành viên đánh giá quán ăn với 5 tiêu chí: Món ăn, Vị
-                            trí, Không gian, Giá cả và Dịch vụ, điều này giúp cộng đồng có cái nhìn
-                            tổng quan về các tiêu chí của mỗi địa điểm. Do đặc thù của mỗi địa điểm
-                            khác nhau, ví dụ: cộng đồng quan tâm đến chất lượng món ăn, không gian
-                            và cơ sở vật chất ở cơ sở Bếp UIT đó.
-                        </p>
-                    </div>
-                    <div className="flex-2 flex items-center">
-                        <Image
-                            src="/images/about-title4.svg"
-                            alt="Đánh giá và bình luận"
-                            width={520}
-                            height={294}
-                        ></Image>
-                    </div>
-                </div>
-            </div>
+            </animated.section>
         </div>
     )
 }
