@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import CircularProgress from '@mui/material/CircularProgress'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 // import { toast } from 'react-toastify'
 import { AdminSidebar } from '~/components/AdminSidebar'
 import { ScrollToTopButton } from '~/components/ScrollToTop'
@@ -42,8 +44,10 @@ export default function AdminLayout({ children }: Props) {
                 <p>Bếp UIT&#39;s Administrator</p>
             </div>
             <div className="flex">
-                <AdminSidebar />
-                {children}
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <AdminSidebar />
+                    {children}
+                </LocalizationProvider>
                 <ScrollToTopButton />
             </div>
         </div>

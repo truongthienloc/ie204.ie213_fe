@@ -6,7 +6,7 @@ import { api, clientInstance } from '~/services/axios'
 
 const menu = [
     {
-        href: '/admin/sales-info',
+        href: '/admin/manage-sales',
         label: 'Thông tin bán hàng',
         src: '/icons/admin-sidebar/Money.svg',
     },
