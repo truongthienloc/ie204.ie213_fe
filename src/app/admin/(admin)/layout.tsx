@@ -39,7 +39,7 @@ export default function AdminLayout({ children }: Props) {
     return (
         <div className="flex flex-col bg-[#fafafa] text-second">
             <div className="mx-auto flex w-full max-w-full flex-row justify-center gap-14 bg-primary py-1 pl-24 text-white">
-                <p>4Food&#39;s Administrator</p>
+                <p>Bếp UIT&#39;s Administrator</p>
             </div>
             <div className="flex">
                 <AdminSidebar />
