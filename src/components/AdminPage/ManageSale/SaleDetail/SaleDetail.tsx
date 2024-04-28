@@ -30,13 +30,13 @@ export default function SaleDetail({ billId, time, name, price, status, onStatus
             <td className="border-b border-gray-200 py-4 text-center">
                 {status === false ? (
                     <span
-                        className="cursor-pointer rounded-full bg-red-100 px-1 py-2 text-base text-red-800 hover:underline"
+                        className="cursor-pointer text-nowrap rounded-full bg-red-100 px-1 py-2 text-base text-red-800 hover:underline"
                         onClick={onStatusClick}
                     >
                         Chưa thanh toán
                     </span>
                 ) : (
-                    <span className="rounded-full bg-green-100 px-1 py-2 text-base text-green-800">
+                    <span className="text-nowrap rounded-full bg-green-100 px-1 py-2 text-base text-green-800">
                         Đã thanh toán
                     </span>
                 )}
