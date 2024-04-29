@@ -8,6 +8,8 @@ import tableAction from '~/services/axios/actions/table.action'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import { DatePicker } from '@mui/x-date-pickers'
 import { BookingDetail } from '~/components/AdminPage/ManageBooking/BookingDetail'
+import { AddTableModal } from '~/components/Modal/AddTableModal'
+import { getUniqueTableFloors } from '~/helpers/convert/reservation.convert'
 
 type TableWithCheckbox = Table & {
     isCheck: boolean
@@ -22,6 +24,7 @@ export default function ManageBookingPage({}: Props) {
     const [isHovered, setIsHovered] = useState(false)
     const [bookingData, setBookingData] = useState<TableWithCheckbox[]>([])
     const [addingTableName, setAddingTableName] = useState('')
+    const [addingTableFloor, setAddingTableFloor] = useState('')
 
     const { socket } = useSocket()
 
@@ -30,18 +33,8 @@ export default function ManageBookingPage({}: Props) {
             const res = await tableAction.getAllTable()
             const booking = res.map((value) => ({ ...value, isCheck: false }))
 
-            // await Promise.all(
-            // 	res.data.data.map(async (value) => {
-            // 		const res_user = await api.get(`/user/${value.userId}`)
-            // 		const data = res.data
-            // 		return { ...value, isCheck: false, username: data.username, email: data.email }
-            // 	})
-            // )
-
             setBookingData(booking)
-        } catch (error) {
-            // console.log(error)
-        }
+        } catch (error) {}
     }
     useEffect(() => {
         fetchBooking()
@@ -49,31 +42,34 @@ export default function ManageBookingPage({}: Props) {
 
     useEffect(() => {
         if (socket) {
-            const handleCancelSuccess = () => {
-                toast.success('Hủy đặt bàn thành công')
-                fetchBooking()
+            function handleCancelTable(message: string, tableId: number) {
+                if (message === 'Cancel table successfully') {
+                    toast.success('Hủy đặt bàn thành công')
+                    fetchBooking()
+                } else if (
+                    message === 'Invalid tableId or userId' ||
+                    message === 'Table not found' ||
+                    message === 'Table is already available' ||
+                    message === "you don't have permission to cancel this table"
+                ) {
+                    toast.error('Hủy đặt bàn thất bại')
+                } else if (message === 'A table has been canceled') {
+                    fetchBooking()
+                }
             }
 
-            const handleCancelFail = () => {
-                toast.error('Hủy đặt bàn thất bại')
+            function handleBookingTable(message: string, tableId: number) {
+                if (message === 'A table has been booked') {
+                    fetchBooking()
+                }
             }
 
-            const handleOtherBooking = () => {
-                fetchBooking()
-            }
-
-            socket.on('Cancle table booking successfully', handleCancelSuccess)
-            socket.on('Someone booked this table', handleCancelFail)
-            socket.on('Table has not been booked yet', handleCancelFail)
-            socket.on('A table booked', handleOtherBooking)
-            socket.on('A table booking was canceled', handleOtherBooking)
+            socket.on('CANCEL_TABLE', handleCancelTable)
+            socket.on('BOOK_TABLE', handleBookingTable)
 
             return () => {
-                socket.off('Cancle table booking successfully', handleCancelSuccess)
-                socket.off('Someone booked this table', handleCancelFail)
-                socket.off('Table has not been booked yet', handleCancelFail)
-                socket.off('A table booked', handleOtherBooking)
-                socket.off('A table booking was canceled', handleOtherBooking)
+                socket.off('CANCEL_TABLE', handleCancelTable)
+                socket.off('BOOK_TABLE', handleBookingTable)
             }
         }
     }, [socket])
@@ -94,16 +90,28 @@ export default function ManageBookingPage({}: Props) {
         setIsHovered(false)
     }
 
+    const handleCancelClick = () => {
+        if (bookingData.some((value) => value.isCheck)) {
+            setShowModalCancel(true)
+        } else {
+            toast.error('Bạn vẫn chưa chọn bàn muốn hủy')
+        }
+    }
+
     const handleAddTableSubmit = async () => {
         if (addingTableName === '') {
-            toast.error('Không được để trống mã bàn')
+            toast.error('Không được để trống tên bàn')
+            return
+        }
+        if (addingTableFloor === '') {
+            toast.error('Không được để trống vị trí')
             return
         }
 
         try {
             const res = await toast.promise(
                 tableAction.postNewTable({
-                    tableFloor: 'Tầng 1',
+                    tableFloor: addingTableFloor,
                     tablePosition: addingTableName,
                     tableStatus: 'Available',
                 }),
@@ -127,13 +135,11 @@ export default function ManageBookingPage({}: Props) {
             const checkedBooking = bookingData.filter((value) => value.isCheck)
 
             checkedBooking.forEach((booking) => {
-                socket?.emit('CANCEL_TABLE', { table_id: booking._id })
+                socket?.emit('CANCEL_TABLE', { tableId: booking._id })
             })
 
             setShowModalCancel(false)
-        } catch (error) {
-            console.log('error: ', error)
-        }
+        } catch (error) {}
     }
 
     return (
@@ -196,11 +202,11 @@ export default function ManageBookingPage({}: Props) {
                     <table className="bg-third text-lg ">
                         <thead className="text-primary ">
                             <tr>
-                                <th className="border-b border-gray-200 px-4 py-4 text-left">
-                                    Mã đặt bàn
-                                </th>
                                 <th className="border-b border-gray-200 px-4 py-4 text-center">
                                     Mã bàn
+                                </th>
+                                <th className="border-b border-gray-200 px-4 py-4 text-center">
+                                    Tên bàn
                                 </th>
                                 <th className="border-b border-gray-200 px-4 py-4 text-center">
                                     Vị trí
@@ -254,7 +260,7 @@ export default function ManageBookingPage({}: Props) {
                         <button
                             className=" h-[50px] rounded-2xl border-[3px] border-primary bg-white px-9 py-2 text-primary hover:border-primary hover:bg-primary 
 						hover:text-white focus:outline-none"
-                            onClick={() => setShowModalRemove(true)}
+                            onClick={() => toast.info('Chức năng chưa được hỗ trợ')}
                         >
                             Xóa bàn
                         </button>
@@ -264,8 +270,7 @@ export default function ManageBookingPage({}: Props) {
                             className="mr-8 h-[50px] rounded-2xl border-[3px] border-primary bg-white px-8 py-2 text-primary hover:border-primary hover:bg-primary 
 						hover:text-white focus:outline-none"
                             onClick={() => {
-                                setShowModalCancel(true)
-                                // toast.info('Chức năng này vẫn đang được phát triền')
+                                handleCancelClick()
                             }}
                         >
                             Hủy đặt bàn
@@ -283,52 +288,7 @@ export default function ManageBookingPage({}: Props) {
                                                 </h3>
                                             </div>
                                             {/*body*/}
-                                            <div className="mt-4 flex flex-col justify-center gap-4 px-7  ">
-                                                <div className="flex border-b border-gray-200 px-8 py-2">
-                                                    <p className="w-48 font-medium">Họ và tên: </p>
-                                                    <p className="flex w-40 justify-center">
-                                                        Bùi Minh Đức
-                                                    </p>
-                                                </div>
-                                                <div className="flex border-b border-gray-200 px-8 py-2">
-                                                    <p className="w-48 font-medium">
-                                                        Số điện thoại:{' '}
-                                                    </p>
-                                                    <p className="flex w-40 justify-center">
-                                                        0989.123.789
-                                                    </p>
-                                                </div>
-                                                <div className="flex border-b border-gray-200 px-8 py-2">
-                                                    <p className="w-48 font-medium">Vị trí: </p>
-                                                    <p className="flex w-40 justify-center">
-                                                        Tầng 2
-                                                    </p>
-                                                </div>
-                                                <div className="flex border-b border-gray-200 px-8 py-2">
-                                                    <p className="w-48 font-medium">Mã bàn: </p>
-                                                    <p className="flex w-40 justify-center">15</p>
-                                                </div>
-                                                <div className="flex border-b border-gray-200 px-8 py-2">
-                                                    <p className="w-48 font-medium">
-                                                        Số lượng khách:{' '}
-                                                    </p>
-                                                    <p className="flex w-40 justify-center">
-                                                        2 người
-                                                    </p>
-                                                </div>
-                                                <div className="flex border-b border-gray-200 px-8 py-2">
-                                                    <p className="w-48 font-medium">Ngày: </p>
-                                                    <p className="flex w-40 justify-center">
-                                                        12/04/2003
-                                                    </p>
-                                                </div>
-                                                <div className="flex border-b border-gray-200 px-8 py-2">
-                                                    <p className="w-48 font-medium">Giờ: </p>
-                                                    <p className="flex w-40 justify-center">
-                                                        9:20 PM
-                                                    </p>
-                                                </div>
-                                            </div>
+                                            <div className="mt-4 flex flex-col justify-center gap-4 px-7"></div>
                                             {/*footer*/}
                                             <div className="flex items-center justify-end rounded-b p-6">
                                                 <button
@@ -359,14 +319,17 @@ export default function ManageBookingPage({}: Props) {
                     </div>
                 </div>
             </div>
-            {/* <AddTableModal
+            <AddTableModal
                 isOpen={showModalAdd}
                 onClose={() => setShowModalAdd(false)}
-                value={addingTableName}
-                onChange={(e) => setAddingTableName(e.target.value)}
+                tablePosition={addingTableName}
+                onChangeTablePosition={(e) => setAddingTableName(e.target.value)}
+                tableFloor={addingTableFloor}
+                onChangeTableFloor={(e) => setAddingTableFloor(e.target.value)}
+                floorOptions={getUniqueTableFloors(bookingData)}
                 onSubmit={handleAddTableSubmit}
             />
-            <DeleteTableModal
+            {/* <DeleteTableModal
                 isOpen={showModalRemove}
                 onClose={() => setShowModalRemove(false)}
                 onSubmit={() => toast.info('Chức năng này chưa được hỗ trợ')}

@@ -169,23 +169,25 @@ export default function ManageSalesPage() {
                 <div className="grid ">
                     <table className="bg-third text-lg ">
                         <thead className="text-primary ">
-                            <th className="border-b border-gray-200 py-4 text-left" />
-                            <th className="border-b border-gray-200 py-4 text-center">
-                                Mã hóa đơn
-                            </th>
-                            <th className="border-b border-gray-200 py-4 text-center">
-                                Thời gian tạo hóa đơn
-                            </th>
-                            <th className="border-b border-gray-200 py-4 text-center">
-                                Tên khách hàng
-                            </th>
-                            <th className="border-b border-gray-200 py-4 text-center ">
-                                Tổng thanh toán
-                            </th>
-                            <th className="border-b border-gray-200 py-4 text-center">
-                                Trạng thái
-                            </th>
-                            {/* <th className='py-4 text-left border-b border-gray-200'/> */}
+                            <tr>
+                                <th className="border-b border-gray-200 py-4 text-left" />
+                                <th className="border-b border-gray-200 py-4 text-center">
+                                    Mã hóa đơn
+                                </th>
+                                <th className="border-b border-gray-200 py-4 text-center">
+                                    Thời gian tạo hóa đơn
+                                </th>
+                                <th className="border-b border-gray-200 py-4 text-center">
+                                    Tên khách hàng
+                                </th>
+                                <th className="border-b border-gray-200 py-4 text-center ">
+                                    Tổng thanh toán
+                                </th>
+                                <th className="border-b border-gray-200 py-4 text-center">
+                                    Trạng thái
+                                </th>
+                                {/* <th className='py-4 text-left border-b border-gray-200'/> */}
+                            </tr>
                         </thead>
                         <tbody>
                             {saleData &&

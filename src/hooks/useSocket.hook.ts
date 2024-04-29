@@ -11,11 +11,14 @@ export default function useSocket() {
             return
         }
 
-        // const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || '', {
-        // 	query: { token: token },
-        // })
+        const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL ?? '', {
+            // query: { token: token },
+            extraHeaders: {
+                authorization: token,
+            },
+        })
 
-        // setSocket(socket)
+        setSocket(socket)
     }
 
     useEffect(() => {
