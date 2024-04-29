@@ -3,7 +3,11 @@ import RestaurantIcon from '@mui/icons-material/Restaurant'
 import BookOnlineIcon from '@mui/icons-material/BookOnline'
 import Book from '@mui/icons-material/Book'
 import InfoIcon from '@mui/icons-material/Info'
-import { SearchBar } from '~/components/SearchBar'
+import PermIdentityIcon from '@mui/icons-material/PermIdentity'
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined'
+import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined'
+import TableRestaurantOutlinedIcon from '@mui/icons-material/TableRestaurantOutlined'
+import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined'
 import { NavbarItem } from '~/types/NavbarItem'
 
 export const navbarItems: NavbarItem[] = [
@@ -65,5 +69,38 @@ export const sliderBanners = [
         id: 4,
         alt: 'Mực chiên mắm',
         image: '/images/banner4.svg',
+    },
+]
+
+export const userSidebarItems = [
+    {
+        id: 1,
+        title: 'Thông tin khách hàng',
+        href: '/profile',
+        icon: <PermIdentityIcon />,
+    },
+    {
+        id: 2,
+        title: 'Quản lý đơn hàng',
+        href: '/order',
+        icon: <LibraryBooksOutlinedIcon />,
+    },
+    {
+        id: 3,
+        title: 'Ưu đãi',
+        href: '/discount',
+        icon: <LocalOfferOutlinedIcon />,
+    },
+    {
+        id: 4,
+        title: 'Thông tin đặt bàn',
+        href: '/table-order',
+        icon: <TableRestaurantOutlinedIcon />,
+    },
+    {
+        id: 5,
+        title: 'Đổi mật khẩu',
+        href: '/change-password',
+        icon: <HttpsOutlinedIcon />,
     },
 ]
