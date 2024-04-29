@@ -10,11 +10,12 @@ import { navbarItems } from '~/data'
 import styles from '../../styles/navbar.module.scss'
 import { NavbarItem } from '~/types/NavbarItem'
 import { useAuth } from '~/stores/auth'
+import { useCart } from '~/stores/cart/useCart'
 
 function NavBar() {
     const pathname = usePathname()
     const { isLogin, avatar } = useAuth()
-
+    const cartTotal = useCart((state) => state.total)
     return (
         <header className={clsx('flex w-full flex-col bg-third shadow-md', styles.header)}>
             <div className={styles.inner}>
@@ -46,7 +47,7 @@ function NavBar() {
                 <div className={styles.part}>
                     <Link className={styles.cart} href={isLogin ? '/cart' : '/login'}>
                         <ShoppingCartOutlinedIcon className={styles.cartIcon} />
-                        <span className={styles.cartBadge}>0</span>
+                        <span className={styles.cartBadge}>{cartTotal}</span>
                     </Link>
 
                     <div className={styles.account}>
