@@ -9,6 +9,7 @@ import { Product } from '~/interfaces/product.type'
 import { getProducts } from '~/services/axios/actions/product.action'
 
 function HomePage() {
+    localStorage.removeItem('accessToken')
     const [products, setProducts] = useState<Product[]>([])
     useEffect(() => {
         const fetchProducts = async () => {

@@ -1,6 +1,7 @@
 import { Product, Menu, ProductComment } from '~/interfaces/product.type'
 import axios from 'axios'
 import server from '../server'
+import { rejects } from 'assert'
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -13,6 +14,20 @@ export const getProducts = () => {
             resolve(products)
         } catch (err) {
             reject(err)
+        }
+    })
+}
+
+export const getProductByPagination = (page: number, perPage: number) => {
+    return new Promise<Product[]>(async (resolve, rejects) => {
+        try {
+            const res = await server(`/dishes/pagination?page=${page}&perPage=${perPage}`, {
+                cache: 'no-store',
+            })
+            const products: Product[] = res.data.dishes as Product[]
+            resolve(products)
+        } catch (err) {
+            rejects(err)
         }
     })
 }

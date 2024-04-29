@@ -10,6 +10,7 @@ import { navbarItems } from '~/data'
 import styles from '../../styles/navbar.module.scss'
 import { NavbarItem } from '~/types/NavbarItem'
 import { useAuth } from '~/stores/auth'
+import { SearchBar } from '../SearchBar'
 
 function NavBar() {
     const pathname = usePathname()
@@ -30,7 +31,6 @@ function NavBar() {
                         {navbarItems.map((item: NavbarItem) => {
                             let isActive = pathname.startsWith(item?.href)
                             if (item?.href === '/' && pathname !== '/') isActive = false
-
                             return (
                                 <NavItem
                                     key={item.id}
@@ -41,6 +41,13 @@ function NavBar() {
                             )
                         })}
                     </ul>
+                    {/* {isLogin ? (
+                        <div className='ml-8 flex justify-center'>
+                            <SearchBar />
+                        </div>
+                        ) : 
+                        (<SearchBar />)} */}
+                    <SearchBar />
                 </div>
 
                 <div className={styles.part}>

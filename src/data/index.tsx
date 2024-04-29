@@ -3,6 +3,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant'
 import BookOnlineIcon from '@mui/icons-material/BookOnline'
 import Book from '@mui/icons-material/Book'
 import InfoIcon from '@mui/icons-material/Info'
+import { SearchBar } from '~/components/SearchBar'
 import { NavbarItem } from '~/types/NavbarItem'
 
 export const navbarItems: NavbarItem[] = [
@@ -36,6 +37,12 @@ export const navbarItems: NavbarItem[] = [
         text: 'BÀI VIẾT',
         icon: <Book />,
     },
+    // {
+    //     id: 6,
+    //     href: '/search',
+    //     text: '',
+    //     icon: <SearchBar />,
+    // }
 ]
 
 export const sliderBanners = [
