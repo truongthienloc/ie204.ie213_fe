@@ -21,11 +21,11 @@ async function SearchPage() {
                 <div className={clsx(styles.result, 'col lg-8')}>
                     <div className="my-8 flex gap-4 text-lg">
                         <TipsAndUpdatesOutlinedIcon />
-                        <p className="">
-                            <span className="text-primary">{products?.length} </span>
-                            Kết quả tìm kiếm cho từ khóa '
-                            <span className="text-primary">{keyword}</span>'
-                        </p>
+                        <div>
+                            <strong className="text-primary">{products?.length} </strong>
+                            <span>Kết quả tìm kiếm cho từ khóa </span>
+                            <strong className="text-primary">{`"${keyword}"`}</strong>
+                        </div>
                     </div>
 
                     {products?.length > 0 ? (
