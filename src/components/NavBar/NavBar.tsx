@@ -13,6 +13,7 @@ import { useAuth } from '~/stores/auth'
 import { clientInstance } from '~/services/axios'
 import { useCart } from '~/stores/cart/useCart'
 import { useEffect } from 'react'
+import { SearchBox } from '../SearchBox'
 
 function NavBar() {
     const pathname = usePathname()
@@ -54,7 +55,6 @@ function NavBar() {
                         {navbarItems.map((item: NavbarItem) => {
                             let isActive = pathname.startsWith(item?.href)
                             if (item?.href === '/' && pathname !== '/') isActive = false
-
                             return (
                                 <NavItem
                                     key={item.id}
@@ -66,6 +66,15 @@ function NavBar() {
                         })}
                     </ul>
                 </div>
+                {isLogin ? (
+                    <div className={styles.searchBoxLogin}>
+                        <SearchBox />
+                    </div>
+                ) : (
+                    <div className={styles.searchBoxUnLogin}>
+                        <SearchBox />
+                    </div>
+                )}
 
                 <div className={styles.part}>
                     <Link className={styles.cart} href={isLogin ? '/cart' : '/login'}>

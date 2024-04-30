@@ -41,6 +41,12 @@ export const navbarItems: NavbarItem[] = [
         text: 'BÀI VIẾT',
         icon: <Book />,
     },
+    // {
+    //     id: 6,
+    //     href: '/search',
+    //     text: '',
+    //     icon: <SearchBar />,
+    // }
 ]
 
 export const sliderBanners = [
