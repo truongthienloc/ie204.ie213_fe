@@ -107,6 +107,11 @@ html {
         max-width: 25%;
     }
 
+    .inner .col.lg-9 {
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
+
     .inner .col.lg-6 {
         flex: 0 0 50%;
         max-width: 50%;
@@ -126,6 +131,16 @@ html {
 @media screen and (max-width: 768px) and (min-width: 540px) {
     .inner {
         width: 90vw;
+    }
+
+    .inner .col.md-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+
+    .inner .col.md-9 {
+        flex: 0 0 75%;
+        max-width: 75%;
     }
 
     .inner .col.md-6 {
@@ -158,12 +173,19 @@ html {
         flex: 0 0 100%;
         max-width: 100%;
     }
+
+    .inner .col.sm-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+
+    .inner .col.sm-9 {
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
 }
 
 @media screen and (max-width: 1052px) {
-    .inner {
-        padding: 0 32px;
-    }
     .inner .col.md-12 {
         flex: 0 0 100%;
         max-width: 100%;

@@ -28,8 +28,8 @@ export default function BasicModal({
                     className,
                 )}
             >
-                <div className="flex flex-row justify-between border-b border-black p-4">
-                    <span className="mr-16 text-2xl font-bold">{title}</span>
+                <div className="title-container flex flex-row justify-between border-b border-black p-4">
+                    <span className="title flex-1 text-2xl font-bold">{title}</span>
                 </div>
 
                 <button

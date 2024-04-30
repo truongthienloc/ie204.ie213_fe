@@ -22,3 +22,13 @@ export const groupDataByTableFloor = (data: Tables) => {
 
     return resultArray.length > 0 ? resultArray : []
 }
+
+export function getUniqueTableFloors(data: Tables): string[] {
+    const uniqueTableFloors: Set<string> = new Set()
+
+    data.forEach((item) => {
+        uniqueTableFloors.add(item.tableFloor)
+    })
+
+    return Array.from(uniqueTableFloors)
+}

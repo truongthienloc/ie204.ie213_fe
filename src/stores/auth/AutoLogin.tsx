@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import useAuth from './useAuth'
 import { clientInstance } from '~/services/axios'
 import userAction from '~/services/axios/actions/user.action'
