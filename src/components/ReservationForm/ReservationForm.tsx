@@ -46,6 +46,7 @@ export default function ReservationForm({
                             format="DD/MM/YYYY"
                             value={date}
                             onChange={onDateChange}
+                            disabled={!isOpen}
                         />
                     </div>
                     <div className="flex flex-row items-center justify-between gap-2">
@@ -57,6 +58,7 @@ export default function ReservationForm({
                             format="HH:mm"
                             value={time}
                             onChange={onTimeChange}
+                            disabled={!isOpen}
                         />
                     </div>
                 </LocalizationProvider>
@@ -71,6 +73,7 @@ export default function ReservationForm({
                         placeholder="0"
                         value={count}
                         onChange={onCountChange}
+                        disabled={!isOpen}
                     />
                 </div>
                 <div className="flex flex-row items-center gap-2">
@@ -86,7 +89,8 @@ export default function ReservationForm({
                 </div>
             </div>
             <button
-                className="border-none bg-primary py-2 text-white transition-opacity hover:opacity-80"
+                className="border-none bg-primary py-2 text-white transition-opacity hover:opacity-80 disabled:opacity-80"
+                disabled={!isOpen}
                 onClick={onSubmit}
             >
                 Đặt bàn

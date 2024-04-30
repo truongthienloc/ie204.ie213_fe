@@ -11,20 +11,20 @@ describe('groupDataByTableFloor', () => {
     it('should group data by table floor', () => {
         const inputData: Tables = [
             {
-                id: '1',
+                _id: '1',
                 tableFloor: 'Floor 1',
                 tablePosition: 'Position 1',
                 tableStatus: 'Available',
             },
             {
-                id: '2',
+                _id: '2',
                 tableFloor: 'Floor 2',
                 tablePosition: 'Position 2',
                 tableStatus: 'Occupied',
             },
-            { id: '3', tableFloor: 'Floor 1', tablePosition: 'Position 3', tableStatus: 'Chose' },
+            { _id: '3', tableFloor: 'Floor 1', tablePosition: 'Position 3', tableStatus: 'Chose' },
             {
-                id: '4',
+                _id: '4',
                 tableFloor: 'Floor 2',
                 tablePosition: 'Position 4',
                 tableStatus: 'Available',
@@ -34,13 +34,13 @@ describe('groupDataByTableFloor', () => {
         const expectedResult: Tables[] = [
             [
                 {
-                    id: '1',
+                    _id: '1',
                     tableFloor: 'Floor 1',
                     tablePosition: 'Position 1',
                     tableStatus: 'Available',
                 },
                 {
-                    id: '3',
+                    _id: '3',
                     tableFloor: 'Floor 1',
                     tablePosition: 'Position 3',
                     tableStatus: 'Chose',
@@ -48,13 +48,13 @@ describe('groupDataByTableFloor', () => {
             ],
             [
                 {
-                    id: '2',
+                    _id: '2',
                     tableFloor: 'Floor 2',
                     tablePosition: 'Position 2',
                     tableStatus: 'Occupied',
                 },
                 {
-                    id: '4',
+                    _id: '4',
                     tableFloor: 'Floor 2',
                     tablePosition: 'Position 4',
                     tableStatus: 'Available',
