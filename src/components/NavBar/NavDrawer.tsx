@@ -18,18 +18,25 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import MenuIcon from '@mui/icons-material/Menu'
 import Link from 'next/link'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import styles from '../../styles/navbar.module.scss'
 import { navbarItems } from '~/data'
 import { NavbarItem } from '~/types/NavbarItem'
 import { useAuth } from '~/stores/auth'
+import { clientInstance } from '~/services/axios'
 
 export default function NavDrawer() {
     const [isOpen, setIsOpen] = useState(false)
     const pathname = usePathname()
-    const { isLogin, avatar } = useAuth()
+    const { isLogin, avatar, logout } = useAuth()
+    const router = useRouter()
 
+    const handleLogout = () => {
+        clientInstance.removeAccessToken()
+        logout()
+        router.replace('/')
+    }
     const handleOpen = () => setIsOpen(true)
     const handleClose = () => setIsOpen(false)
 
@@ -91,14 +98,14 @@ export default function NavDrawer() {
                                     </Link>
                                 </ListItem>
                                 <ListItem disablePadding>
-                                    <Link className="w-[inherit]" href={'/user'}>
+                                    <Link className="w-[inherit]" href={'/user/profile'}>
                                         <ListItemButton>
                                             <img
                                                 src={avatar || '/images/default_user.png'}
                                                 alt="User Avatar"
-                                                width={10}
-                                                height={10}
-                                                className={styles.avatar}
+                                                width={28}
+                                                height={28}
+                                                className="mr-2"
                                             />
                                             <ListItemText
                                                 primary={'HỒ SƠ'}
@@ -111,7 +118,10 @@ export default function NavDrawer() {
                                 <Divider />
 
                                 <ListItem disablePadding>
-                                    <button className={cn(styles.btn, styles.drawerBtn)}>
+                                    <button
+                                        className={cn(styles.btn, styles.drawerBtn)}
+                                        onClick={handleLogout}
+                                    >
                                         <LogoutOutlinedIcon className={styles.icon} />
                                         <span className={styles.text}>Đăng xuất</span>
                                     </button>
