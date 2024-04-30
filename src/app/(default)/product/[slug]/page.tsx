@@ -117,7 +117,7 @@ async function ProductDetailPage({ params: { slug } }: Props) {
                                 </div>
                             )}
                             <p className={styles['product__desc']}>{product?.dishDescription}</p>
-                            <ProductDetailButtons />
+                            <ProductDetailButtons product={product} />
                         </div>
                     </div>
                 </section>
