@@ -6,12 +6,14 @@ import NavItem from './NavItem'
 import NavDrawer from './NavDrawer'
 import { usePathname } from 'next/navigation'
 import { getCart } from '~/services/axios/actions/cart.action'
+import { usePathname, useRouter } from 'next/navigation'
 import { navbarItems } from '~/data'
 import styles from '../../styles/navbar.module.scss'
 import { NavbarItem } from '~/types/NavbarItem'
 import { useAuth } from '~/stores/auth'
 import { useCart } from '~/stores/cart/useCart'
 import { useEffect } from 'react'
+import { clientInstance } from '~/services/axios'
 
 function NavBar() {
     const pathname = usePathname()
@@ -68,7 +70,7 @@ function NavBar() {
                     <div className={styles.account}>
                         {isLogin ? (
                             <>
-                                <Link href="/user">
+                                <div className={styles.user}>
                                     <img
                                         src={avatar || '/images/default_user.png'}
                                         alt="Profile Image"
@@ -76,7 +78,18 @@ function NavBar() {
                                         height={10}
                                         className={styles.avatar}
                                     />
-                                </Link>
+                                    <ul className={styles['option_box']}>
+                                        <li>
+                                            <Link href={'/user/profile'}>Tài khoản của tôi</Link>
+                                        </li>
+                                        <li>
+                                            <Link href={'/user/order'}>Thông tin đơn hàng</Link>
+                                        </li>
+                                        <li>
+                                            <button onClick={handleLogout}>Đăng xuất</button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </>
                         ) : (
                             <>

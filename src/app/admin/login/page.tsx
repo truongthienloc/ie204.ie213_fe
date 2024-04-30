@@ -27,7 +27,7 @@ export default function LoginAdminPage({}: Props) {
 
     useEffect(() => {
         if (auth.isAdmin) {
-            router.replace('/admin/manage-client')
+            router.replace('/admin/manage-sales')
         } else {
             clientInstance.removeAccessToken()
         }
@@ -64,7 +64,7 @@ export default function LoginAdminPage({}: Props) {
 
             setAccessToken(res.accessToken)
             auth.login({ isAdmin: true })
-            router.replace('/admin/manage-client')
+            router.replace('/admin/manage-sales')
         } catch (error: any) {
             if (error.response) {
                 const status = error.response.status
