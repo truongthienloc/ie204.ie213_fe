@@ -3,10 +3,11 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { LogoutModal } from '../Modal/LogoutModal'
 import { api, clientInstance } from '~/services/axios'
+import { useAuth } from '~/stores/auth'
 
 const menu = [
     {
-        href: '/admin/sales-info',
+        href: '/admin/manage-sales',
         label: 'Thông tin bán hàng',
         src: '/icons/admin-sidebar/Money.svg',
     },
@@ -55,10 +56,12 @@ const menu = [
 export default function AdminSidebar() {
     const router = useRouter()
     const [showLogoutModal, setShowLogoutModal] = useState(false)
+    const auth = useAuth()
 
     const handleLogout = async () => {
         try {
-            api.post('/auth/logout')
+            // api.post('/auth/logout')
+            auth.logout()
             setTimeout(() => {
                 clientInstance.removeAccessToken()
             }, 500)

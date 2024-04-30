@@ -2,11 +2,12 @@
 
 import React from 'react'
 import clsx from 'clsx'
+import { Table } from '~/interfaces/table.type'
 
 type Props = {
     title: string
     data: any[]
-    onTableClick: (value: any) => void
+    onTableClick: (value: Table) => void
 }
 
 export default function ReservationGroup({ title, data, onTableClick }: Props) {
