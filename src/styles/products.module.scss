@@ -1,0 +1,21 @@
+.category {
+}
+.button {
+    padding: 8px 12px;
+    border-radius: 1rem;
+    // background-color: var(--primary);
+    background-color: #fff;
+    border: 1px solid var(--secondary);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--secondary);
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.button.active {
+    background-color: rgba(254, 86, 33, 0.1);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}

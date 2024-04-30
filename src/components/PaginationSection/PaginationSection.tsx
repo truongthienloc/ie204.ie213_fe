@@ -41,7 +41,10 @@ function PaginationSection({
 
                     {pages.map((page, index) => (
                         <PaginationItem key={index}>
-                            <PaginationLink onClick={() => setCurrentPage(page)}>
+                            <PaginationLink
+                                onClick={() => setCurrentPage(page)}
+                                style={{ color: currentPage === page ? 'blue' : 'black' }}
+                            >
                                 {page}
                             </PaginationLink>
                         </PaginationItem>

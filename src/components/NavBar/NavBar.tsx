@@ -11,7 +11,7 @@ import styles from '../../styles/navbar.module.scss'
 import { NavbarItem } from '~/types/NavbarItem'
 import { useAuth } from '~/stores/auth'
 import { clientInstance } from '~/services/axios'
-import { SearchBar } from '../SearchBar'
+import { SearchBox } from '../SearchBox'
 
 function NavBar() {
     const pathname = usePathname()
@@ -49,14 +49,16 @@ function NavBar() {
                             )
                         })}
                     </ul>
-                    {/* {isLogin ? (
-                        <div className='ml-8 flex justify-center'>
-                            <SearchBar />
-                        </div>
-                        ) : 
-                        (<SearchBar />)} */}
-                    <SearchBar />
                 </div>
+                {isLogin ? (
+                    <div className={styles.searchBoxLogin}>
+                        <SearchBox />
+                    </div>
+                ) : (
+                    <div className={styles.searchBoxUnLogin}>
+                        <SearchBox />
+                    </div>
+                )}
 
                 <div className={styles.part}>
                     <Link className={styles.cart} href={isLogin ? '/cart' : '/login'}>

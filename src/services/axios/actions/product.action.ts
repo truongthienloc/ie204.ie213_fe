@@ -2,6 +2,9 @@ import { Product, Menu, ProductComment } from '~/interfaces/product.type'
 import axios from 'axios'
 import server from '../server'
 import { rejects } from 'assert'
+import keywords from '~/config/BrandKeywords'
+import { resolve } from 'path'
+import { reject } from 'lodash'
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -18,6 +21,7 @@ export const getProducts = () => {
     })
 }
 
+// fetch product by pagination
 export const getProductByPagination = (page: number, perPage: number) => {
     return new Promise<Product[]>(async (resolve, rejects) => {
         try {
@@ -28,6 +32,20 @@ export const getProductByPagination = (page: number, perPage: number) => {
             resolve(products)
         } catch (err) {
             rejects(err)
+        }
+    })
+}
+
+// search dishes
+export const getProductBySearching = (keyword: string) => {
+    return new Promise<Product[]>(async (resolve, reject) => {
+        try {
+            const res = await server(`/dishes/search?keyword=${keyword}`, { cache: 'no-store' })
+            const products: Product[] = res.data as Product[]
+            // console.log(products)
+            resolve(products)
+        } catch (err) {
+            reject(err)
         }
     })
 }
@@ -80,6 +98,29 @@ export const getProductComments = (id: string) => {
             const res = await server(`/dishes/comments/${id}`, { cache: 'no-store' })
             const comments = res.data as ProductComment[]
             resolve(comments)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
+export const filterDish = (
+    minPrice: number,
+    maxPrice: number,
+    menuID: string,
+    page: number,
+    perPage: number,
+) => {
+    return new Promise<Product[]>(async (resolve, reject) => {
+        try {
+            const res = await server(
+                `/dishes/filter?minPrice=${minPrice}&maxPrice=${maxPrice}&menuId=${menuID}&page=${page}&perPage=${perPage}`,
+                {
+                    cache: 'no-store',
+                },
+            )
+            const products: Product[] = res.data.dishes as Product[]
+            resolve(products)
         } catch (err) {
             reject(err)
         }
