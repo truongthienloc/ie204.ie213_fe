@@ -14,6 +14,8 @@ export type OriginTableData = {
 export type Table = OriginTableData & {
     _id: string
     user?: TableUser
+    createdAt?: string
+    updatedAt?: string
 }
 
 export type Tables = Table[]
