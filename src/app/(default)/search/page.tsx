@@ -6,13 +6,27 @@ import { useSearchParams } from 'next/navigation'
 import styles from '~/styles/search.module.scss'
 import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined'
 import clsx from 'clsx'
+import { useState, useEffect } from 'react'
 
-async function SearchPage() {
+function SearchPage() {
     const searchParams = useSearchParams()
-    const keyword = searchParams.get('keyword')
-    const products: Product[] = await getProductBySearching(keyword)
-    const suggestProducts: Product[] = await getProducts()
-    // console.log(suggestProducts)
+    const [keyword, setKeyWord] = useState<string>('')
+    const [products, setProducts] = useState<Product[]>([])
+    const [suggestProducts, setSuggestProducts] = useState<Product[]>([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const keyword = searchParams.get('keyword')
+            if (keyword) {
+                const products: Product[] = await getProductBySearching(keyword)
+                const suggestProducts: Product[] = await getProducts()
+                setKeyWord(keyword)
+                setProducts(products)
+                setSuggestProducts(suggestProducts)
+            }
+        }
+        fetchData()
+    }, [])
     return (
         <>
             <div className={styles.wrapper}>
