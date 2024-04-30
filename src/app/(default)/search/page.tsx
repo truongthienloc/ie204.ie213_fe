@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import styles from '~/styles/search.module.scss'
 import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined'
 import clsx from 'clsx'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 
 function SearchPage() {
     const searchParams = useSearchParams()
@@ -87,4 +87,11 @@ function SearchPage() {
         </>
     )
 }
-export default SearchPage
+
+export default function SearchPageWithSuspense() {
+    return (
+        <Suspense>
+            <SearchPage />
+        </Suspense>
+    )
+}
