@@ -26,7 +26,8 @@ function SearchPage() {
             }
         }
         fetchData()
-    }, [])
+    }, [searchParams])
+
     return (
         <>
             <div className={styles.wrapper}>
