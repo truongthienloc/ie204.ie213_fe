@@ -5,17 +5,32 @@ import Link from 'next/link'
 import NavItem from './NavItem'
 import NavDrawer from './NavDrawer'
 import { usePathname } from 'next/navigation'
-
+import { getCart } from '~/services/axios/actions/cart.action'
 import { navbarItems } from '~/data'
 import styles from '../../styles/navbar.module.scss'
 import { NavbarItem } from '~/types/NavbarItem'
 import { useAuth } from '~/stores/auth'
 import { useCart } from '~/stores/cart/useCart'
+import { useEffect } from 'react'
 
 function NavBar() {
     const pathname = usePathname()
     const { isLogin, avatar } = useAuth()
     const cartTotal = useCart((state) => state.total)
+    const loadCart = useCart((state) => state.loadProduct)
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                const res = await getCart()
+                loadCart(res)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        if (isLogin === true) {
+            fetchCart()
+        }
+    }, [isLogin])
     return (
         <header className={clsx('flex w-full flex-col bg-third shadow-md', styles.header)}>
             <div className={styles.inner}>

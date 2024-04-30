@@ -18,17 +18,22 @@ export const useCart = create<CartState>()((set) => ({
     total: 0,
     loadProduct: (data) =>
         set((state) => {
-            const updatedCartList = data.map((item: any) => ({
-                product: {
-                    _id: item._id,
-                    dishName: item.dishName,
-                    dishPrice: item.dishPrice,
-                    dishImages: item.dishImages,
-                },
-                quantity: item.dishAmount,
-            }))
+            let totalQuantity = 0
+            const updatedCartList = data.map((item: any) => {
+                totalQuantity += item.dishAmount
+                return {
+                    product: {
+                        _id: item._id,
+                        dishName: item.dishName,
+                        dishPrice: item.dishPrice,
+                        dishImages: item.dishImages,
+                    },
+                    quantity: item.dishAmount,
+                }
+            })
             return {
                 cartList: updatedCartList,
+                total: totalQuantity,
             }
         }),
     addProduct: (product) =>
@@ -83,7 +88,7 @@ export const useCart = create<CartState>()((set) => ({
             if (!item) {
                 return state
             }
-            if (item.quantity === 0) {
+            if (item.quantity === 1) {
                 return {
                     cartList: [...data.filter((item) => item.product._id !== product._id)],
                     total: state.total - item.quantity,
