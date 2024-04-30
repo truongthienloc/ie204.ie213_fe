@@ -22,8 +22,7 @@ function DiscountPage() {
                 {!discounts?.length ? (
                     <p className="text-md text-center">Bạn chưa có mã giảm giá nào</p>
                 ) : (
-                    <></>
-                    // discounts.map((discount) => <div key={discount?.code}></div>)
+                    discounts.map((discount) => <></>)
                 )}
             </div>
         </>
