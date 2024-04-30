@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useEffect } from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import OptionButtons from '~/components/Payment/OptionButtons'
 import { useCart } from '~/stores/cart/useCart'
@@ -10,15 +10,22 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Link from 'next/link'
 import style from '../../../styles/payment.module.scss'
 import placeholderImage from '../../../../public/images/payment.png'
+import { formatCurrency } from '~/lib/utils'
+
+const VAT = 0.1
+const shippingFee = 20000
 
 const PaymentPage = () => {
     const cart = useCart((state) => state.cartList)
     const totalItems = useCart((state) => state.total)
+    const [Total, setTotal] = useState(0)
+    const [totalPay, settotalPay] = useState(0)
     const [isShip, setIsShip] = useState(false)
     const [addressValue, setAddressValue] = useState('')
     const [isExistAddress, setIsExistAddress] = useState(false)
     const toggleShip = () => {
         setIsShip(!isShip)
+        settotalPay(!isShip ? shippingFee + Total * (1 + VAT) : Total * (1 + VAT))
     }
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target
@@ -27,17 +34,23 @@ const PaymentPage = () => {
         setIsExistAddress(value.trim() !== '')
         console.log('set', isExistAddress)
     }
-    const calculateTotal = (cartList: CartProduct) => {
+    const calculateTotal = () => {
         let total = 0
-        if (Array.isArray(cartList)) {
-            cartList.forEach((cartProduct) => {
+        if (Array.isArray(cart)) {
+            cart.forEach((cartProduct) => {
                 const { product, quantity } = cartProduct
                 const { dishPrice } = product
                 total += dishPrice * quantity
             })
         }
-        return total
+        console.log('calc')
+        setTotal(total)
+        settotalPay(total * (1 + VAT))
     }
+    useEffect(() => {
+        calculateTotal()
+        console.log('here')
+    }, [])
     return (
         <div>
             <div className="w-fit py-5">
@@ -82,12 +95,12 @@ const PaymentPage = () => {
                     </div>
                 </div>
                 <div className="flex w-1/3 flex-col items-center">
-                    <section className="bg-[#f8f8f8c3]">
-                        <div className="flex flex-row justify-between">
+                    <section className="flex w-full flex-col rounded-xl bg-[#fff7ed] p-3">
+                        <div className="flex flex-row justify-between py-3">
                             <h3 className="text-xl font-semibold text-primary">Cart</h3>
                             <p>{totalItems} sản phẩm</p>
                         </div>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col gap-3">
                             {/* map các cartProduct */}
                             {cart.map((product) => (
                                 <div key={product.product._id}>
@@ -98,30 +111,36 @@ const PaymentPage = () => {
                                 </div>
                             ))}
                         </div>
-                        <div className="flex flex-col">
-                            <p>Chi tiết hóa đơn</p>
+                        <div className="mt-5 flex flex-col gap-5">
+                            <p className="text-xl text-primary">Chi tiết hóa đơn</p>
                             <div className="flex flex-row justify-between">
                                 <p>Tổng số tiền</p>
-                                <p>xxx.000 VND</p>
+                                <p>{formatCurrency(Total)} VND</p>
                             </div>
                             {isShip && (
                                 <div className="flex flex-row justify-between">
                                     <p>Phí giao hàng</p>
-                                    <p>20.000 VND</p>
+                                    <p>{formatCurrency(shippingFee)} VND</p>
                                 </div>
                             )}
                             <div className="flex flex-row justify-between">
                                 <p>VAT và phụ thu</p>
-                                <p>0.000 VND</p>
+                                <p>{formatCurrency(Total * VAT)} VND</p>
                             </div>
                             <div className="flex flex-row justify-between text-xl font-semibold">
                                 <p>Tổng thanh toán</p>
-                                <p>932.000 VND</p>
+                                <p>{formatCurrency(totalPay)} VND</p>
                             </div>
                         </div>
-                        <button className="rounded-lg bg-primary px-8 py-3 text-xl text-white transition-all hover:opacity-90">
-                            Tiến hành thanh toán
-                        </button>
+
+                        {/* Direct to VNPAY */}
+                        <div className="my-3 flex items-center justify-center">
+                            <Link href={'/vnpay'}>
+                                <button className="rounded-lg bg-primary px-8 py-3 text-xl text-white transition-all hover:opacity-90">
+                                    Tiến hành thanh toán
+                                </button>
+                            </Link>
+                        </div>
                     </section>
                 </div>
             </div>
