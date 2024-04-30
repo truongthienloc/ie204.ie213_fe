@@ -1,8 +1,17 @@
 import { Product, Menu, ProductComment } from '~/interfaces/product.type'
 import axios from 'axios'
 import server from '../server'
+import useDish from '~/hooks/useDish.hook'
+import { api } from '..'
+import productEndpoint from '../endpoints/product.endpoint'
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
+
+type NonMethodNames<T> = {
+    [K in keyof T]: T[K] extends Function ? never : K
+}[keyof T]
+
+type NonMethodObject<T> = Pick<T, NonMethodNames<T>>
 
 // fetch all of products
 export const getProducts = () => {
@@ -13,6 +22,90 @@ export const getProducts = () => {
             resolve(products)
         } catch (err) {
             reject(err)
+        }
+    })
+}
+
+export function postProduct(dishInfo: NonMethodObject<ReturnType<typeof useDish>>) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const formData = new FormData()
+            formData.append('dishName', dishInfo.name)
+            formData.append('menuId', dishInfo.kind)
+            formData.append('dishPrice', dishInfo.price.toString())
+            formData.append('dishDescription', dishInfo.description)
+
+            for (const image of dishInfo.imageFiles) {
+                console.log(image)
+                formData.append('images', image)
+            }
+
+            const res = await api.post(productEndpoint.product, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+
+            resolve(res.data)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export function putProduct(dishInfo: NonMethodObject<ReturnType<typeof useDish>>) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // const formData = new FormData()
+            // formData.append('dishName', dishInfo.name)
+            // formData.append('menuName', dishInfo.kind)
+            // formData.append('dishPrice', dishInfo.price.toString())
+            // formData.append('dishDescription', dishInfo.description)
+            // for (const image of dishInfo.imageFiles) {
+            // 	formData.append('images', image)
+            // }
+
+            // // if (dishInfo.deletedImages.length > 0) {
+            // //     await Promise.all(
+            // //         dishInfo.deletedImages.map(async (image) => {
+            // //             console.log(image)
+            // //             await api.delete(`/dish/images/${image.id}`)
+            // //         })
+            // //     )
+            // // }
+
+            // const res = await api.put(`${productEndpoint.product}/${dishInfo.id}`, formData, {
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data',
+            //     },
+            // })
+
+            const res = await api.put(`${productEndpoint.product}/${dishInfo.id}`, {
+                dishName: dishInfo.name,
+                dishPrice: parseInt(dishInfo.price),
+                dishDescription: dishInfo.description,
+                menuId: dishInfo.kind,
+                dishImages: dishInfo.imgs,
+            })
+
+            resolve(res)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export function deleteProduct(products: Product[]) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const promises = products.map(async (dish) => {
+                await api.delete(`${productEndpoint.product}/${dish._id}`)
+            })
+
+            const res = await Promise.all(promises)
+            resolve(res)
+        } catch (error) {
+            reject(error)
         }
     })
 }

@@ -1,6 +1,6 @@
 export type ProductImage = {
     _id: string
-    id?: string
+    id: string
     link: string
 }
 

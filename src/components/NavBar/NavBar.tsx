@@ -4,20 +4,27 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import Link from 'next/link'
 import NavItem from './NavItem'
 import NavDrawer from './NavDrawer'
-import { usePathname } from 'next/navigation'
 import { getCart } from '~/services/axios/actions/cart.action'
+import { usePathname, useRouter } from 'next/navigation'
 import { navbarItems } from '~/data'
 import styles from '../../styles/navbar.module.scss'
 import { NavbarItem } from '~/types/NavbarItem'
 import { useAuth } from '~/stores/auth'
+import { clientInstance } from '~/services/axios'
 import { useCart } from '~/stores/cart/useCart'
 import { useEffect } from 'react'
 
 function NavBar() {
     const pathname = usePathname()
-    const { isLogin, avatar } = useAuth()
+    const { isLogin, avatar, logout } = useAuth()
     const cartTotal = useCart((state) => state.total)
     const loadCart = useCart((state) => state.loadProduct)
+    const router = useRouter()
+    const handleLogout = () => {
+        clientInstance.removeAccessToken()
+        logout()
+        router.replace('/')
+    }
     useEffect(() => {
         const fetchCart = async () => {
             try {
@@ -31,6 +38,7 @@ function NavBar() {
             fetchCart()
         }
     }, [isLogin])
+
     return (
         <header className={clsx('flex w-full flex-col bg-third shadow-md', styles.header)}>
             <div className={styles.inner}>
@@ -68,7 +76,7 @@ function NavBar() {
                     <div className={styles.account}>
                         {isLogin ? (
                             <>
-                                <Link href="/user">
+                                <div className={styles.user}>
                                     <img
                                         src={avatar || '/images/default_user.png'}
                                         alt="Profile Image"
@@ -76,7 +84,18 @@ function NavBar() {
                                         height={10}
                                         className={styles.avatar}
                                     />
-                                </Link>
+                                    <ul className={styles['option_box']}>
+                                        <li>
+                                            <Link href={'/user/profile'}>Tài khoản của tôi</Link>
+                                        </li>
+                                        <li>
+                                            <Link href={'/user/order'}>Thông tin đơn hàng</Link>
+                                        </li>
+                                        <li>
+                                            <button onClick={handleLogout}>Đăng xuất</button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </>
                         ) : (
                             <>

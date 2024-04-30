@@ -1,0 +1,220 @@
+// Left sidebar CSS
+.sidebar {
+    border: 1px solid var(--primary);
+    padding: 8px;
+    text-align: center;
+    border-radius: 4px;
+    min-height: 500px;
+
+    & .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 0 auto;
+    }
+
+    & h2 {
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    & nav {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 20px;
+
+        & a {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            color: var(--secondary);
+            font-size: clamp(8px, 16px, 20px);
+            font-weight: 500;
+            text-align: left;
+            transition: all linear 0.1s;
+        }
+
+        & a:hover,
+        & a.active {
+            color: var(--primary);
+            background-color: rgba(254, 86, 33, 0.1);
+        }
+    }
+
+    & .btn {
+        margin-top: 10%;
+        width: clamp(100px, 100%, 160px);
+        padding: 4px 8px;
+        background-color: var(--primary);
+        border-radius: 4px;
+        color: #fff;
+        font-size: 16px;
+
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+}
+
+// Profile page CSS
+.heading {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid var(--primary);
+
+    & button:active {
+        transform: scale(0.9);
+    }
+
+    & svg {
+        font-size: 40px;
+    }
+}
+
+.content {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    & div {
+        flex: 1;
+    }
+
+    & .user_info {
+        display: block;
+        border: 1px solid var(--primary);
+        border-radius: 2px;
+        padding: 8px;
+        margin-top: 8px;
+    }
+}
+
+// Order page CSS
+.wrapper {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+
+    & > svg {
+        width: 160px;
+        height: 160px;
+    }
+
+    & span {
+        font-weight: 500;
+        font-size: 20px;
+    }
+}
+
+.btn {
+    border-radius: 4px;
+    background-color: var(--primary);
+    color: #fff;
+    padding: 4px 8px;
+
+    &:hover {
+        filter: brightness(0.9);
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+}
+
+.order_table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    border-radius: 4px;
+
+    & thead {
+        background-color: var(--primary);
+        color: #fff;
+    }
+
+    &,
+    & th,
+    & td {
+        border: 1px solid var(--primary);
+    }
+
+    & th,
+    & td {
+        padding: 8px;
+    }
+
+    & td button:active {
+        transform: scale(0.9);
+    }
+
+    & td button:first-child {
+        text-decoration: underline;
+        margin-right: 8px;
+    }
+
+    & td button:last-child:hover {
+        color: var(--primary);
+    }
+}
+
+// Discount page CSS
+
+//  Table-order page
+.table_content {
+    margin: auto 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    & > div {
+        width: 100%;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
+
+    & span:first-child {
+        font-weight: 600;
+        font-size: 18px;
+        display: block;
+        min-width: 120px;
+    }
+
+    & span:last-child {
+        padding: 8px;
+        border-radius: 2px;
+        flex: 1;
+        border: 1px solid var(--primary);
+    }
+
+    & > p {
+        margin-top: 8px;
+        color: var(--primary);
+        font-weight: 600;
+    }
+}
+
+// Change password page
+.form {
+    max-width: 60%;
+    margin: 0 auto;
+    height: 100%;
+
+    & > div > div {
+        border: 1px solid var(--secondary);
+    }
+}
