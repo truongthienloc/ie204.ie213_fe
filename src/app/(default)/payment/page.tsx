@@ -1,7 +1,6 @@
 'use client'
 import React, { useState, ChangeEvent, useEffect, useCallback } from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import OptionButtons from '~/components/Payment/OptionButtons'
 import { useCart } from '~/stores/cart/useCart'
 import { CartProduct as CartProductItem } from '~/components/CartItem'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
@@ -10,21 +9,37 @@ import style from '../../../styles/payment.module.scss'
 import placeholderImage from '../../../../public/images/payment.png'
 import { formatCurrency } from '~/lib/utils'
 import { checkOutCart } from '~/services/axios/actions/payment.action'
+import { set } from 'lodash'
+import ShippingOptionButtons from '~/components/Payment/ShippingOptionButtons'
+import PaymentOptionButtons from '~/components/Payment/PaymentOptionButton'
+import PaymentModal from '~/components/Modal/PaymentModal/PaymentModal'
+import { useAuth } from '~/stores/auth'
 
 const VAT = 0.1
 const shippingFee = 20000
 
 const PaymentPage = () => {
     const cart = useCart((state) => state.cartList)
+    const user = useAuth((state) => state)
+    const userName: string = user.username !== null ? user.username : ''
     const totalItems = useCart((state) => state.total)
     const [Total, setTotal] = useState(0)
     const [totalPay, settotalPay] = useState(0)
     const [isShip, setIsShip] = useState(false)
+    const [isPayDirected, setPayDirected] = useState(true)
     const [addressValue, setAddressValue] = useState('')
     const [isExistAddress, setIsExistAddress] = useState(false)
+    const [displayPaymentModal, setdisplayPaymentModal] = useState(false)
+    const togglePayDirected = () => {
+        setPayDirected(!isPayDirected)
+    }
     const toggleShip = () => {
         setIsShip(!isShip)
+        if (isShip) setPayDirected(false)
         settotalPay(!isShip ? shippingFee + Total * (1 + VAT) : Total * (1 + VAT))
+    }
+    const closeModal = () => {
+        setdisplayPaymentModal(false)
     }
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target
@@ -44,10 +59,15 @@ const PaymentPage = () => {
         settotalPay(total * (1 + VAT))
     }
     const handleCheckOut = () => {
-        try {
-            const res = checkOutCart()
-        } catch (err) {
-            console.error(err)
+        if (isPayDirected) {
+            setdisplayPaymentModal(true)
+        } else {
+            // Chuyển đến VNPay
+            try {
+                const res = checkOutCart()
+            } catch (err) {
+                console.error(err)
+            }
         }
     }
     useEffect(() => {
@@ -69,7 +89,7 @@ const PaymentPage = () => {
                             <LocationOnIcon className="size-8" />
                             Cách nhận hàng
                         </h3>
-                        <OptionButtons state={isShip} updateState={toggleShip} />
+                        <ShippingOptionButtons state={isShip} updateState={toggleShip} />
                     </div>
                     {isShip && (
                         <div className="flex flex-col">
@@ -89,6 +109,17 @@ const PaymentPage = () => {
                             </div>
                         </div>
                     )}
+                    <div className="flex flex-col">
+                        <h3 className="py-5 text-2xl text-primary">
+                            <LocationOnIcon className="size-8" />
+                            Phương thức thanh toán
+                        </h3>
+                        <PaymentOptionButtons
+                            conditionState={isShip}
+                            state={isPayDirected}
+                            updateState={togglePayDirected}
+                        />
+                    </div>
                     <div className="overflow-hidden rounded-xl">
                         <img
                             className="h-full w-full object-contain"
@@ -136,15 +167,20 @@ const PaymentPage = () => {
 
                         {/* Direct to VNPAY */}
                         <div className="my-3 flex items-center justify-center">
-                            <Link href={'/vnpay'}>
-                                <button
-                                    className="rounded-lg bg-primary px-8 py-3 text-xl text-white transition-all hover:opacity-90"
-                                    onClick={handleCheckOut}
-                                >
-                                    Tiến hành thanh toán
-                                </button>
-                            </Link>
+                            <button
+                                className="rounded-lg bg-primary px-8 py-3 text-xl text-white transition-all hover:opacity-90"
+                                onClick={handleCheckOut}
+                            >
+                                Tiến hành thanh toán
+                            </button>
                         </div>
+                        {displayPaymentModal && (
+                            <PaymentModal
+                                totalPay={totalPay}
+                                userName={userName}
+                                closeModal={closeModal}
+                            />
+                        )}
                     </section>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, ChangeEvent, useEffect } from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import OptionButtons from '~/components/Payment/OptionButtons'
+import ShippingOptionButtons from '~/components/Payment/ShippingOptionButtons'
 import { useCart } from '~/stores/cart/useCart'
 import { forEach } from 'lodash'
 import { Product } from '~/interfaces/product.type'
@@ -61,7 +61,7 @@ const PaymentPage = () => {
                             <LocationOnIcon className="size-8" />
                             Cách nhận hàng
                         </h3>
-                        <OptionButtons state={isShip} updateState={toggleShip} />
+                        <ShippingOptionButtons state={isShip} updateState={toggleShip} />
                     </div>
                     {isShip && (
                         <div className="flex flex-col">

@@ -23,7 +23,8 @@ export const checkOutCart = () => {
     return new Promise<any>(async (resolve, reject) => {
         try {
             const res = await api.post('/bills/checkout')
-            if (res.status == 200) {
+            console.log(res)
+            if (res.status == 201 || res.status == 200) {
                 const result = await api.post('/bills/cart/reset')
             }
             resolve(res)

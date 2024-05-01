@@ -10,7 +10,7 @@ interface ChildProps {
     updateState: () => void
 }
 
-const OptionButtons: React.FC<ChildProps> = ({ state, updateState }) => {
+const ShippingOptionButtons: React.FC<ChildProps> = ({ state, updateState }) => {
     const handleOnClick = () => {
         updateState()
     }
@@ -34,4 +34,4 @@ const OptionButtons: React.FC<ChildProps> = ({ state, updateState }) => {
     )
 }
 
-export default OptionButtons
+export default ShippingOptionButtons
