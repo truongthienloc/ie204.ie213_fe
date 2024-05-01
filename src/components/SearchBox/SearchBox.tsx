@@ -21,10 +21,7 @@ const SearchBox = () => {
 
     return (
         <div
-            className={clsx(
-                'flex w-[100%] overflow-hidden rounded-xl border border-secondary',
-                styles.wrap,
-            )}
+            className={clsx('flex overflow-hidden rounded-xl border border-secondary', styles.wrap)}
         >
             <div className="flex cursor-pointer items-center pl-3">
                 <SearchIcon className="h-5 w-5 text-gray-400" />
@@ -35,10 +32,7 @@ const SearchBox = () => {
                 placeholder="Search..."
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                className={clsx(
-                    'w-[100%] py-2 pl-3 pr-2 outline-none transition',
-                    styles.inputField,
-                )}
+                className={clsx('py-2 pl-3 pr-2 outline-none')}
             />
         </div>
     )

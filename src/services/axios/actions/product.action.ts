@@ -55,6 +55,26 @@ export const getProductBySearching = (keyword: string) => {
     })
 }
 
+export const getProductByNamePrice = (
+    keyword: string,
+    minPrice: number | null,
+    maxPrice: number | null,
+) => {
+    return new Promise<Product[]>(async (resolve, reject) => {
+        try {
+            const res = await server(
+                `/dishes/search?minPrice=${minPrice}&maxPrice=${maxPrice}&keyword=${keyword}`,
+                { cache: 'no-store' },
+            )
+            const products: Product[] = res.data as Product[]
+            // console.log(products)
+            resolve(products)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
 export function postProduct(dishInfo: NonMethodObject<ReturnType<typeof useDish>>) {
     return new Promise(async (resolve, reject) => {
         try {
