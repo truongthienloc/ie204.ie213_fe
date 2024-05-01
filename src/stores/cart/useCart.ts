@@ -1,110 +1,107 @@
-import { to } from 'react-spring'
 import { create } from 'zustand'
-import { CartProduct, Product } from '~/interfaces/product.type'
+import { CartProduct } from '~/interfaces/cart.type'
 
 interface CartState {
     cartList: CartProduct[]
     total: number
-    loadProduct: (data: any) => void
-    addProduct: (product: Product) => void
-    removeProduct: (product: Product) => void
-    incQuantity: (product: Product) => void
-    decQuantity: (product: Product) => void
+    loadProduct: (cart: CartProduct[]) => void
+    addProduct: (product: CartProduct) => void
+    removeProduct: (product: CartProduct) => void
+    incQuantity: (product: CartProduct) => void
+    decQuantity: (product: CartProduct) => void
     removeAll: () => void
 }
 
 export const useCart = create<CartState>()((set) => ({
     cartList: [],
     total: 0,
-    loadProduct: (data) =>
+    loadProduct: (cart) =>
         set((state) => {
-            let totalQuantity = 0
-            const updatedCartList = data.map((item: any) => {
-                totalQuantity += item.dishAmount
-                return {
-                    product: {
-                        _id: item._id,
-                        dishName: item.dishName,
-                        dishPrice: item.dishPrice,
-                        dishImages: item.dishImages,
-                    },
-                    quantity: item.dishAmount,
-                }
-            })
+            const totalQuantity = cart.reduce((sum, product: CartProduct) => {
+                return sum + product?.dishAmount
+            }, 0)
+
             return {
-                cartList: updatedCartList,
+                cartList: cart,
                 total: totalQuantity,
             }
         }),
-    addProduct: (product) =>
+
+    addProduct: (product: CartProduct) =>
         set((state) => {
-            let data = state.cartList
-            const isExist = data.some((item) => item?.product._id === product._id)
-            if (isExist) {
-                const cartData = data.map((item) => {
-                    if (item.product._id === product._id) {
-                        item.quantity += 1
-                    }
-                    return item
-                })
-                state.cartList = cartData
-                state.total += 1
-                return state
-            }
             return {
-                cartList: [...data, { product, quantity: 1 }],
+                cartList: [...state.cartList, product],
                 total: state.total + 1,
             }
         }),
-    removeProduct: (product) =>
+
+    removeProduct: (product: CartProduct) =>
         set((state) => {
             let data = state.cartList
-            const item = data.find((item) => item.product._id === product._id)
+            const item = data.find((item) => item._id === product._id)
             if (!item) {
                 return state
             }
+
             return {
-                cartList: [...data.filter((item) => item.product._id !== product._id)],
-                total: state.total - item.quantity,
+                cartList: [...data.filter((item) => item._id !== product._id)],
+                total: state.total - product?.dishAmount,
             }
         }),
-    incQuantity: (product) =>
+
+    incQuantity: (product: CartProduct) =>
         set((state) => {
-            let data = state.cartList
-            const item = data.find((item) => item.product._id === product._id)
-            if (!item) {
-                return state
-            }
-            item.quantity += 1
+            const changedProduct = state.cartList.find((item) => item?._id === product?._id)
+            if (!changedProduct) return state
+
+            const newCart = state.cartList.map((item: CartProduct) => {
+                if (item?._id === product._id) item.dishAmount += 1
+                return item
+            })
+
             return {
-                cartList: [...data],
+                cartList: [...newCart],
                 total: state.total + 1,
             }
         }),
-    decQuantity: (product) =>
+
+    decQuantity: (product: CartProduct) =>
         set((state) => {
             let data = state.cartList
-            const item = data.find((item) => item.product._id === product._id)
-            if (!item) {
+            const changedProduct = data.find((item) => item._id === product._id)
+            if (!changedProduct) {
                 return state
             }
-            if (item.quantity === 1) {
-                return {
-                    cartList: [...data.filter((item) => item.product._id !== product._id)],
-                    total: state.total - item.quantity,
-                }
-            } else {
-                item.quantity -= 1
-                return {
-                    cartList: [...data],
-                    total: state.total - 1,
-                }
+
+            const newCart: CartProduct[] = state.cartList.map((item) => {
+                if (item?._id === product?._id) item.dishAmount -= 1
+                return item
+            })
+
+            return {
+                cartList: [...newCart],
+                total: state.total - 1,
+            }
+
+            // if (item.quantity === 1) {
+            //     return {
+            //         cartList: [...data.filter((item) => item.product._id !== product._id)],
+            //         total: state.total - item.quantity,
+            //     }
+            // } else {
+            //     item.quantity -= 1
+            //     return {
+            //         cartList: [...data],
+            //         total: state.total - 1,
+            //     }
+            // }
+        }),
+
+    removeAll: () =>
+        set(() => {
+            return {
+                cartList: [],
+                total: 0,
             }
         }),
-    removeAll: () => {
-        return {
-            cartList: [],
-            total: 0,
-        }
-    },
 }))
