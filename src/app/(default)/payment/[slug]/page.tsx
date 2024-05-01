@@ -8,8 +8,8 @@ import { CartProduct, Product } from '~/interfaces/product.type'
 import { CartProduct as CartProductItem } from '~/components/CartItem'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Link from 'next/link'
-import style from '../../../styles/payment.module.scss'
-import placeholderImage from '../../../../public/images/payment.png'
+import style from '~/styles/payment.module.scss'
+import placeholderImage from '../../../../../public/images/payment.png'
 import { formatCurrency } from '~/lib/utils'
 
 const VAT = 0.1
@@ -17,7 +17,6 @@ const shippingFee = 20000
 
 const PaymentPage = () => {
     const cart = useCart((state) => state.cartList)
-    const totalItems = useCart((state) => state.total)
     const [Total, setTotal] = useState(0)
     const [totalPay, settotalPay] = useState(0)
     const [isShip, setIsShip] = useState(false)
@@ -52,9 +51,9 @@ const PaymentPage = () => {
     return (
         <div>
             <div className="w-fit py-5">
-                <Link className="flex items-center hover:text-primary " href={'/cart'}>
+                <Link className="flex items-center hover:text-primary " href={'/product'}>
                     <ArrowBackIosIcon />
-                    Quay lại giỏ hàng
+                    Quay lại trang sản phẩm
                 </Link>
             </div>
             <div className="flex flex-row justify-between gap-10 px-20">
@@ -96,7 +95,6 @@ const PaymentPage = () => {
                     <section className="flex w-full flex-col rounded-xl bg-[#fff7ed] p-3">
                         <div className="flex flex-row justify-between py-3">
                             <h3 className="text-xl font-semibold text-primary">Cart</h3>
-                            <p>{totalItems} sản phẩm</p>
                         </div>
                         <div className="flex flex-col gap-3">
                             {/* map các cartProduct */}
