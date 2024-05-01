@@ -48,12 +48,19 @@ export default function AdminChangePasswordPage() {
             setNewPassword('')
             setRePassword('')
         } catch (error: any) {
-            if (error.response) {
-                const status = error.response.status
-                if (status === 400) {
-                    toast.error('Sai mật khẩu')
-                }
-            }
+            // if (error.response) {
+            //     const status = error.response.status
+            //     if (status === 400) {
+            //         toast.error('Sai mật khẩu')
+            //     }
+            //     else if (status === 403) {
+            //         toast.error('Mật khẩu phải có ít nhất 8 ký tự và 1 chữ')
+            //     }
+            // }
+            // console.log('error: ', error);
+
+            const message = error.response?.data?.message
+            toast.error(message)
         }
     }
 

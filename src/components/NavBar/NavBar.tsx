@@ -19,6 +19,8 @@ function NavBar() {
     const { total, removeAll } = useCart()
     const router = useRouter()
 
+    // console.log('isLogin', isLogin);
+
     const handleLogout = () => {
         clientInstance.removeAccessToken()
         logout()

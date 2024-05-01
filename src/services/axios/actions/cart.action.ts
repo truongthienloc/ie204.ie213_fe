@@ -6,6 +6,8 @@ export const getCart = () => {
     return new Promise<CartProduct[]>(async (resolve, reject) => {
         try {
             const res = await api.get(`/bills/cart`)
+            console.log('res: ', res)
+
             const products = res.data.data as CartProduct[]
             resolve(products)
         } catch (err) {

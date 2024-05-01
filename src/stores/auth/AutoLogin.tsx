@@ -14,6 +14,8 @@ export default function AutoLogin({}: Props) {
     const auth = useAuth()
     const { loadProduct } = useCart()
 
+    // console.log('auth: ', auth);
+
     useEffect(() => {
         const accessToken = clientInstance.getAccessToken()
         if (!accessToken) {
@@ -40,6 +42,7 @@ export default function AutoLogin({}: Props) {
                 }
             } catch (error) {
                 auth.logout()
+                console.log('error: ', error)
             }
         }
 
