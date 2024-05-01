@@ -1,10 +1,12 @@
+'use client'
+
 import React, { useState } from 'react'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import { api } from '~/services/axios'
 import { toast } from 'react-toastify'
+import userAction from '~/services/axios/actions/user.action'
 
-export const ChangePasswordPage = () => {
+export default function AdminChangePasswordPage() {
     const [isShowCurPassword, setIsShowCurPassword] = useState(false)
     const [isShowNewPassword, setIsShowNewPassword] = useState(false)
     const [isShowRePassword, setIsShowRePassword] = useState(false)
@@ -36,17 +38,11 @@ export const ChangePasswordPage = () => {
         }
 
         try {
-            const res = await toast.promise(
-                api.post('/user/change-password', {
-                    oldPassword: curPassword,
-                    newPassword: newPassword,
-                }),
-                {
-                    pending: 'Đang thay đổi mật khẩu',
-                    success: 'Đổi mật khẩu thành công',
-                    error: 'Đổi mật khẩu thất bại',
-                },
-            )
+            const res = await toast.promise(userAction.changePassword(curPassword, newPassword), {
+                pending: 'Đang thay đổi mật khẩu',
+                success: 'Đổi mật khẩu thành công',
+                error: 'Đổi mật khẩu thất bại',
+            })
 
             setCurPassword('')
             setNewPassword('')

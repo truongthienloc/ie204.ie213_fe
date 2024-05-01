@@ -31,18 +31,18 @@ const menu = [
         label: 'Món ăn',
         src: '/icons/admin-sidebar/Noodle.svg',
     },
+    // {
+    //     href: '/admin/manage-staff',
+    //     label: 'Nhân viên',
+    //     src: '/icons/admin-sidebar/Icon.svg',
+    // },
+    // {
+    //     href: '/admin/manage-client',
+    //     label: 'Khách hàng',
+    //     src: '/icons/admin-sidebar/Accepted Profile.svg',
+    // },
     {
-        href: '/admin/manage-staff',
-        label: 'Nhân viên',
-        src: '/icons/admin-sidebar/Icon.svg',
-    },
-    {
-        href: '/admin/manage-client',
-        label: 'Khách hàng',
-        src: '/icons/admin-sidebar/Accepted Profile.svg',
-    },
-    {
-        href: '/admin/manage-promotion',
+        href: '/admin/manage-discount',
         label: 'Khuyến mãi',
         src: '/icons/admin-sidebar/Subtract.svg',
     },

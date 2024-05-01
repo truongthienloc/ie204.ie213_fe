@@ -95,7 +95,7 @@ const dataset = [
 
 const valueFormatter = (value: number) => `${value} triệu`
 
-export default function StatisticPage() {
+export default function ManageStatisticPage() {
     return (
         <div className="h-full w-[1200px] bg-[#f8f8f8] pl-10 pt-9">
             <div className=" flex justify-end"></div>
