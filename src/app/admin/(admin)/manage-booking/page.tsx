@@ -24,7 +24,7 @@ export default function ManageBookingPage({}: Props) {
     const [isHovered, setIsHovered] = useState(false)
     const [bookingData, setBookingData] = useState<TableWithCheckbox[]>([])
     const [addingTableName, setAddingTableName] = useState('')
-    const [addingTableFloor, setAddingTableFloor] = useState('')
+    const [addingTableFloor, setAddingTableFloor] = useState<string | null>('')
 
     const { socket } = useSocket()
 
@@ -103,7 +103,7 @@ export default function ManageBookingPage({}: Props) {
             toast.error('Không được để trống tên bàn')
             return
         }
-        if (addingTableFloor === '') {
+        if (!addingTableFloor || addingTableFloor === '') {
             toast.error('Không được để trống vị trí')
             return
         }
@@ -123,6 +123,8 @@ export default function ManageBookingPage({}: Props) {
             )
 
             await fetchBooking()
+            setAddingTableFloor('')
+            setAddingTableName('')
             setShowModalAdd(false)
         } catch (error) {}
     }
@@ -325,7 +327,7 @@ export default function ManageBookingPage({}: Props) {
                 tablePosition={addingTableName}
                 onChangeTablePosition={(e) => setAddingTableName(e.target.value)}
                 tableFloor={addingTableFloor}
-                onChangeTableFloor={(e) => setAddingTableFloor(e.target.value)}
+                onChangeTableFloor={(e, value) => setAddingTableFloor(value)}
                 floorOptions={getUniqueTableFloors(bookingData)}
                 onSubmit={handleAddTableSubmit}
             />

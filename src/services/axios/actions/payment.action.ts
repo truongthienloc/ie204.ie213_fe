@@ -3,6 +3,7 @@ import { Product } from '~/interfaces/product.type'
 import ClientRequest from '../ClientRequest'
 import { api } from '..'
 import { result } from 'lodash'
+import paymentEndpoint from '../endpoints/payment.endpoint'
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 // fetch cart
@@ -35,9 +36,22 @@ export const checkOutCart = () => {
     })
 }
 
+function paymentByVNPay() {
+    return new Promise<string>(async (resolve, reject) => {
+        try {
+            const res = await api.post(paymentEndpoint['payment-by-vnpay'])
+            const data = res.data.data as string
+            resolve(data)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 const payAction = {
     getCart,
     checkOutCart,
+    paymentByVNPay,
 }
 
 export default payAction

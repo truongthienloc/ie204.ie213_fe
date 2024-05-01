@@ -1,6 +1,7 @@
 import { User } from '~/interfaces/user.type'
 import { Table } from '~/interfaces/table.type'
 import { api } from '..'
+import userEndpoint from '../endpoints/user.endpoint'
 import { Order } from '~/interfaces/order.type'
 
 // get current user with token from client instance
@@ -10,6 +11,23 @@ export async function getCurrentUser(): Promise<User> {
             const res = await api('users/current-user')
             const user: User = res.data.data as User
             resolve(user)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export function changePassword(oldPassword: string, newPassword: string) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await api.post(userEndpoint['change-password'], {
+                oldPassword,
+                newPassword,
+            })
+
+            console.log('res: ', res)
+
+            resolve(res)
         } catch (error) {
             reject(error)
         }
@@ -29,18 +47,6 @@ export async function getUserTableOrder(): Promise<Table> {
     })
 }
 
-// change password
-export async function changeUserPassword(oldPassword: string, newPassword: string): Promise<any> {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const res = await api('users/change-password', {})
-            // resolve()
-        } catch (error) {
-            reject(error)
-        }
-    })
-}
-
 //get user order by token
 export async function getUserOrders(): Promise<Order[]> {
     return new Promise(async (resolve, reject) => {
@@ -54,9 +60,10 @@ export async function getUserOrders(): Promise<Order[]> {
     })
 }
 
-export const userAction = {
+const userAction = {
     getCurrentUser,
     getUserTableOrder,
+    changePassword,
 }
 
 export default userAction

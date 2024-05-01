@@ -8,17 +8,19 @@ import Link from 'next/link'
 import style from '../../../styles/payment.module.scss'
 import placeholderImage from '../../../../public/images/payment.png'
 import { formatCurrency } from '~/lib/utils'
-import { checkOutCart } from '~/services/axios/actions/payment.action'
 import { set } from 'lodash'
 import ShippingOptionButtons from '~/components/Payment/ShippingOptionButtons'
 import PaymentOptionButtons from '~/components/Payment/PaymentOptionButton'
 import PaymentModal from '~/components/Modal/PaymentModal/PaymentModal'
 import { useAuth } from '~/stores/auth'
+import payAction, { checkOutCart } from '~/services/axios/actions/payment.action'
+import { useRouter } from 'next/navigation'
 
 const VAT = 0.1
 const shippingFee = 20000
 
 const PaymentPage = () => {
+    const router = useRouter()
     const cart = useCart((state) => state.cartList)
     const user = useAuth((state) => state)
     const userName: string = user.username !== null ? user.username : ''
@@ -73,6 +75,13 @@ const PaymentPage = () => {
     useEffect(() => {
         calculateTotal()
     }, [cart])
+
+    const handlePayByVNPay = async () => {
+        try {
+            const data = await payAction.paymentByVNPay()
+            window.open(data)
+        } catch (error) {}
+    }
 
     return (
         <div>

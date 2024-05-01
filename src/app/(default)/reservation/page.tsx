@@ -9,6 +9,8 @@ import { groupDataByTableFloor } from '~/helpers/convert/reservation.convert'
 import { Table, Tables } from '~/interfaces/table.type'
 import tableAction from '~/services/axios/actions/table.action'
 import useSocket from '~/hooks/useSocket.hook'
+import { useAuth } from '~/stores/auth'
+import { useRouter } from 'next/navigation'
 
 // const tableData = generateTablesData(20)
 
@@ -23,6 +25,8 @@ export default function ReservationPage({}: Props) {
     const [count, setCount] = useState('')
     const [tableName, setTableName] = useState('')
     const [isOpen, setIsOpen] = useState(false)
+    const auth = useAuth()
+    const router = useRouter()
 
     useEffect(() => {
         async function fetchTable() {
@@ -33,6 +37,16 @@ export default function ReservationPage({}: Props) {
         }
         fetchTable()
     }, [])
+
+    useEffect(() => {
+        if (auth.isLoading) {
+            return
+        }
+        if (!auth.isLogin) {
+            router.replace('/login')
+            toast.info('Bạn cần phải đăng nhập để sử dụng chức năng này')
+        }
+    }, [auth])
 
     useEffect(() => {
         if (socket) {

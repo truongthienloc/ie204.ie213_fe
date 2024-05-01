@@ -31,6 +31,8 @@ export default class ClientRequest {
             if (error && error.statusCode === 401) {
                 // handle refresh token
             }
+
+            return Promise.reject(error)
         }
 
         this.client.interceptors.request.use(requestConfigHandler.bind(this))
