@@ -9,12 +9,14 @@ import Link from 'next/link'
 import style from '../../../styles/payment.module.scss'
 import placeholderImage from '../../../../public/images/payment.png'
 import { formatCurrency } from '~/lib/utils'
-import { checkOutCart } from '~/services/axios/actions/payment.action'
+import payAction, { checkOutCart } from '~/services/axios/actions/payment.action'
+import { useRouter } from 'next/navigation'
 
 const VAT = 0.1
 const shippingFee = 20000
 
 const PaymentPage = () => {
+    const router = useRouter()
     const cart = useCart((state) => state.cartList)
     const totalItems = useCart((state) => state.total)
     const [Total, setTotal] = useState(0)
@@ -53,6 +55,13 @@ const PaymentPage = () => {
     useEffect(() => {
         calculateTotal()
     }, [cart])
+
+    const handlePayByVNPay = async () => {
+        try {
+            const data = await payAction.paymentByVNPay()
+            window.open(data)
+        } catch (error) {}
+    }
 
     return (
         <div>
