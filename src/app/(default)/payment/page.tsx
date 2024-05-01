@@ -9,6 +9,7 @@ import Link from 'next/link'
 import style from '../../../styles/payment.module.scss'
 import placeholderImage from '../../../../public/images/payment.png'
 import { formatCurrency } from '~/lib/utils'
+import { checkOutCart } from '~/services/axios/actions/payment.action'
 
 const VAT = 0.1
 const shippingFee = 20000
@@ -36,13 +37,18 @@ const PaymentPage = () => {
         let total = 0
         if (Array.isArray(cart)) {
             cart.forEach((cartProduct) => {
-                const { product, quantity } = cartProduct
-                const { dishPrice } = product
-                total += dishPrice * quantity
+                total += cartProduct.dishAmount * cartProduct.dishPrice
             })
         }
         setTotal(total)
         settotalPay(total * (1 + VAT))
+    }
+    const handleCheckOut = () => {
+        try {
+            const res = checkOutCart()
+        } catch (err) {
+            console.error(err)
+        }
     }
     useEffect(() => {
         calculateTotal()
@@ -131,7 +137,10 @@ const PaymentPage = () => {
                         {/* Direct to VNPAY */}
                         <div className="my-3 flex items-center justify-center">
                             <Link href={'/vnpay'}>
-                                <button className="rounded-lg bg-primary px-8 py-3 text-xl text-white transition-all hover:opacity-90">
+                                <button
+                                    className="rounded-lg bg-primary px-8 py-3 text-xl text-white transition-all hover:opacity-90"
+                                    onClick={handleCheckOut}
+                                >
                                     Tiến hành thanh toán
                                 </button>
                             </Link>

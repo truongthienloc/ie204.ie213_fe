@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { Product } from '~/interfaces/product.type'
 import ClientRequest from '../ClientRequest'
-
+import { api } from '..'
+import { result } from 'lodash'
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 // fetch cart
@@ -18,8 +19,24 @@ export const getCart = () => {
     })
 }
 
+export const checkOutCart = () => {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const res = await api.post('/bills/checkout')
+            if (res.status == 200) {
+                const result = await api.post('/bills/cart/reset')
+            }
+            resolve(res)
+            reject(res)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
 const payAction = {
     getCart,
+    checkOutCart,
 }
 
 export default payAction
