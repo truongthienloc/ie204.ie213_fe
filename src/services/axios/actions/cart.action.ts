@@ -1,17 +1,54 @@
-import axios from 'axios'
-import { Product } from '~/interfaces/product.type'
-import ClientRequest from '../ClientRequest'
+import { CartProduct } from '~/interfaces/cart.type'
+import { api } from '..'
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL
-
-// fetch cart
+// fetch user cart
 export const getCart = () => {
-    return new Promise<Product[]>(async (resolve, reject) => {
+    return new Promise<CartProduct[]>(async (resolve, reject) => {
         try {
-            const request = ClientRequest.getInstance().getClient()
-            const res = await request.get(`${baseUrl}/bills/cart`)
-            const products = res.data.data as Product[]
+            const res = await api.get(`/bills/cart`)
+            const products = res.data.data as CartProduct[]
             resolve(products)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
+// add product to cart
+export const addProductToCart = (dishId: string) => {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const res = await api.post('/bills/cart/add', {
+                dishId,
+            })
+            resolve(res)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
+// decrease quantity
+export const decreaseQuantity = (dishId: string) => {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const res = await api.post('/bills/cart/sub', {
+                dishId,
+            })
+            resolve(res)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
+export const removeCartProduct = (dishId: string) => {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const res = await api.post('/bills/cart/remove', {
+                dishId,
+            })
+            resolve(res)
         } catch (err) {
             reject(err)
         }
@@ -20,6 +57,9 @@ export const getCart = () => {
 
 const cartAction = {
     getCart,
+    addProductToCart,
+    decreaseQuantity,
+    removeCartProduct,
 }
 
 export default cartAction

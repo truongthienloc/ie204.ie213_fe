@@ -7,15 +7,18 @@ import { useAuth } from '~/stores/auth'
 import { usePathname } from 'next/navigation'
 import { clientInstance } from '~/services/axios'
 import { useRouter } from 'next/navigation'
+import { useCart } from '~/stores/cart/useCart'
 
 function UserSidebar() {
     const { avatar, username, logout } = useAuth()
     const pathName = usePathname()
     const router = useRouter()
+    const { removeAll } = useCart()
 
     const handleLogout = () => {
         clientInstance.removeAccessToken()
         logout()
+        removeAll()
         router.replace('/')
     }
 

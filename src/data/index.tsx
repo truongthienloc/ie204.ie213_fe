@@ -104,3 +104,18 @@ export const userSidebarItems = [
         icon: <HttpsOutlinedIcon />,
     },
 ]
+
+export const priceFilters = [
+    {
+        id: '1',
+        title: 'Dưới 20.000 VNĐ',
+    },
+    {
+        id: '2',
+        title: 'Từ 20.000 VNĐ - 50.000 VNĐ',
+    },
+    {
+        id: '3',
+        title: 'Trên 50.000 VNĐ',
+    },
+]

@@ -1,22 +1,22 @@
 'use client'
-import React, { useState, ChangeEvent, useEffect, useCallback } from 'react'
+import React, { useState, ChangeEvent, useEffect } from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import OptionButtons from '~/components/Payment/OptionButtons'
 import { useCart } from '~/stores/cart/useCart'
+import { forEach } from 'lodash'
+import { Product } from '~/interfaces/product.type'
 import { CartProduct as CartProductItem } from '~/components/CartItem'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Link from 'next/link'
-import style from '../../../styles/payment.module.scss'
-import placeholderImage from '../../../../public/images/payment.png'
+import style from '~/styles/payment.module.scss'
+import placeholderImage from '../../../../../public/images/payment.png'
 import { formatCurrency } from '~/lib/utils'
-import { checkOutCart } from '~/services/axios/actions/payment.action'
 
 const VAT = 0.1
 const shippingFee = 20000
 
 const PaymentPage = () => {
     const cart = useCart((state) => state.cartList)
-    const totalItems = useCart((state) => state.total)
     const [Total, setTotal] = useState(0)
     const [totalPay, settotalPay] = useState(0)
     const [isShip, setIsShip] = useState(false)
@@ -43,23 +43,15 @@ const PaymentPage = () => {
         setTotal(total)
         settotalPay(total * (1 + VAT))
     }
-    const handleCheckOut = () => {
-        try {
-            const res = checkOutCart()
-        } catch (err) {
-            console.error(err)
-        }
-    }
     useEffect(() => {
         calculateTotal()
     }, [cart])
-
     return (
         <div>
             <div className="w-fit py-5">
-                <Link className="flex items-center hover:text-primary " href={'/cart'}>
+                <Link className="flex items-center hover:text-primary " href={'/product'}>
                     <ArrowBackIosIcon />
-                    Quay lại giỏ hàng
+                    Quay lại trang sản phẩm
                 </Link>
             </div>
             <div className="flex flex-row justify-between gap-10 px-20">
@@ -101,13 +93,11 @@ const PaymentPage = () => {
                     <section className="flex w-full flex-col rounded-xl bg-[#fff7ed] p-3">
                         <div className="flex flex-row justify-between py-3">
                             <h3 className="text-xl font-semibold text-primary">Cart</h3>
-                            <p>{totalItems} sản phẩm</p>
                         </div>
                         <div className="flex flex-col gap-3">
                             {/* map các cartProduct */}
                             {cart.map((product) => (
                                 <div key={product._id}>
-                                    {/* Fix here */}
                                     <CartProductItem dish={product} quantity={product.dishAmount} />
                                 </div>
                             ))}
@@ -137,10 +127,7 @@ const PaymentPage = () => {
                         {/* Direct to VNPAY */}
                         <div className="my-3 flex items-center justify-center">
                             <Link href={'/vnpay'}>
-                                <button
-                                    className="rounded-lg bg-primary px-8 py-3 text-xl text-white transition-all hover:opacity-90"
-                                    onClick={handleCheckOut}
-                                >
+                                <button className="rounded-lg bg-primary px-8 py-3 text-xl text-white transition-all hover:opacity-90">
                                     Tiến hành thanh toán
                                 </button>
                             </Link>
