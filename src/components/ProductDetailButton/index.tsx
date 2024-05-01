@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { CartProduct } from '~/interfaces/cart.type'
@@ -6,13 +7,20 @@ import { Product } from '~/interfaces/product.type'
 import { useAuth } from '~/stores/auth'
 import { useCart } from '~/stores/cart/useCart'
 import styles from '~/styles/product_detail.module.scss'
+import BuyNowModal from '../Modal/BuyNowModal/BuyNowModal'
 import { addProductToCart } from '~/services/axios/actions/cart.action'
 
 function ProductDetailButtons({ product }: { product: Product }) {
     const { cartList, addProduct, incQuantity } = useCart()
     const { isLogin } = useAuth()
     const router = useRouter()
-
+    const [displayModal, setdisplayModal] = useState(false)
+    const openModal = () => {
+        setdisplayModal(true)
+    }
+    const closeModal = () => {
+        setdisplayModal(false)
+    }
     const handleAddProductToCart = async () => {
         if (!isLogin) {
             router.push('/login')
@@ -54,8 +62,11 @@ function ProductDetailButtons({ product }: { product: Product }) {
                 >
                     Thêm vào giỏ hàng
                 </button>
-                <button className={styles['detail__btn']}>Mua ngay</button>
+                <button className={styles['detail__btn']} onClick={openModal}>
+                    Mua ngay
+                </button>
             </div>
+            {displayModal && <BuyNowModal product={product} closeModal={closeModal} />}
         </>
     )
 }
