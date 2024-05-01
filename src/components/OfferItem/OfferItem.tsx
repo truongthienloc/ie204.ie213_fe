@@ -37,7 +37,7 @@ const OfferItem = ({ dish }: { dish: Product | undefined }) => {
                                 <p>Or Enjoy dine-in within 5 Mins </p>
                             </div>
                             <div className="text-xl text-primary">
-                                <p>{formatCurrency()} VND</p>
+                                <p>{formatCurrency(dish?.dishPrice)} VND</p>
                             </div>
                         </div>
                     </div>
