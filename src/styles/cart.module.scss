@@ -1,0 +1,151 @@
+// Cart page CSS
+.text {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.table_header {
+    background-color: var(--primary);
+    color: #fff;
+
+    & > tr > th {
+        font-size: clamp(14px, 18px, 20px);
+        text-align: center;
+        font-weight: 500;
+    }
+}
+
+// Card item CSS
+.card__wrapper {
+    border: 1px solid;
+
+    & > .text {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--secondary);
+    }
+}
+
+.card__image {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    cursor: pointer;
+
+    &:hover {
+        filter: brightness(0.9);
+    }
+}
+
+.delete_btn {
+    display: flex;
+    margin: 0 auto;
+
+    & > svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+}
+
+.card__btn {
+    width: 30px;
+    height: 30px;
+    user-select: none;
+    font-size: 16px;
+    background-color: var(--secondary);
+    color: #fff;
+    padding: 4px;
+    border-radius: 4px;
+
+    &.disabled {
+        opacity: 0.2;
+        cursor: default;
+        pointer-events: none;
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+
+    &:first-child {
+        margin-right: 4px;
+    }
+
+    &:last-child {
+        margin-left: 4px;
+    }
+}
+
+.totalWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding: 8px;
+    font-size: 20px;
+
+    & .checkout_btn {
+        display: block;
+        text-align: center;
+        margin-top: 16px;
+        min-width: 50%;
+    }
+}
+
+// Cart modal CSS
+.modal__wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background-color: #fff;
+    height: 150px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    border-radius: 10px;
+    animation: fadeIn ease-in 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    & > p {
+        font-size: 16px;
+        font-weight: 600;
+        user-select: none;
+        color: var(--secondary);
+        text-align: center;
+    }
+
+    & button {
+        flex: 1;
+        border-radius: 4px;
+        padding: 4px;
+        background-color: var(--primary);
+        color: #fff;
+        font-size: 20px;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+}

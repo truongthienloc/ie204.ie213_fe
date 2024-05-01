@@ -1,10 +1,8 @@
 'use client'
-import React, { useState, ChangeEvent, useEffect } from 'react'
+import React, { useState, ChangeEvent, useEffect, useCallback } from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import OptionButtons from '~/components/Payment/OptionButtons'
 import { useCart } from '~/stores/cart/useCart'
-import { forEach } from 'lodash'
-import { CartProduct, Product } from '~/interfaces/product.type'
 import { CartProduct as CartProductItem } from '~/components/CartItem'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Link from 'next/link'
@@ -49,6 +47,7 @@ const PaymentPage = () => {
     useEffect(() => {
         calculateTotal()
     }, [cart])
+
     return (
         <div>
             <div className="w-fit py-5">
@@ -101,11 +100,9 @@ const PaymentPage = () => {
                         <div className="flex flex-col gap-3">
                             {/* map các cartProduct */}
                             {cart.map((product) => (
-                                <div key={product.product._id}>
-                                    <CartProductItem
-                                        dish={product.product}
-                                        quantity={product.quantity}
-                                    />
+                                <div key={product._id}>
+                                    {/* Fix here */}
+                                    <CartProductItem dish={product} quantity={product.dishAmount} />
                                 </div>
                             ))}
                         </div>

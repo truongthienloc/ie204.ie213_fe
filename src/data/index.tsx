@@ -41,6 +41,12 @@ export const navbarItems: NavbarItem[] = [
         text: 'BÀI VIẾT',
         icon: <Book />,
     },
+    // {
+    //     id: 6,
+    //     href: '/search',
+    //     text: '',
+    //     icon: <SearchBar />,
+    // }
 ]
 
 export const sliderBanners = [
@@ -96,5 +102,20 @@ export const userSidebarItems = [
         title: 'Đổi mật khẩu',
         href: '/change-password',
         icon: <HttpsOutlinedIcon />,
+    },
+]
+
+export const priceFilters = [
+    {
+        id: '1',
+        title: 'Dưới 20.000 VNĐ',
+    },
+    {
+        id: '2',
+        title: 'Từ 20.000 VNĐ - 50.000 VNĐ',
+    },
+    {
+        id: '3',
+        title: 'Trên 50.000 VNĐ',
     },
 ]
