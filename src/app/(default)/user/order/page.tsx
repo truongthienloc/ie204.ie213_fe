@@ -1,11 +1,25 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from '~/styles/user.module.scss'
 import Link from 'next/link'
+import { Order } from '~/interfaces/order.type'
+import { getUserOrders } from '~/services/axios/actions/user.action'
+import dayjs from 'dayjs'
+import { formatCurrency } from '~/lib/utils'
 
 function UserOrderPage() {
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState<Order[]>([])
+
+    useEffect(() => {
+        const fetchUserOrders = async () => {
+            const orders = await getUserOrders()
+            if (orders?.length) setOrders(orders)
+            else setOrders([])
+        }
+
+        fetchUserOrders()
+    }, [])
 
     return (
         <>
@@ -58,7 +72,9 @@ function UserOrderPage() {
                             </g>
                         </svg>
                         <span>Bạn chưa có đơn hàng nào</span>
-                        <Link href="/product">Mua sản phẩm mới</Link>
+                        <Link href="/product" className={styles.btn}>
+                            Mua sản phẩm mới
+                        </Link>
                     </div>
                 ) : (
                     <table className={styles['order_table']}>
@@ -66,24 +82,23 @@ function UserOrderPage() {
                             <th>STT</th>
                             <th>Mã đơn hàng</th>
                             <th>Ngày tạo</th>
-                            <th>Phương thức thanh toán</th>
+                            <th>Trạng thái đơn hàng</th>
                             <th>Tổng thanh toán</th>
                             <th colSpan={2}></th>
                         </thead>
                         <tbody>
-                            {/* {orders?.map((order, index) => (
-                                <tr key={index}>
-                                    <td>1</td>
-                                    <td>DH01</td>
-                                    <td>28/04/2024</td>
-                                    <td>Chuyển khoản</td>
-                                    <td>1500000</td>
+                            {orders?.map((order, index) => (
+                                <tr key={order?._id}>
+                                    <td>{index + 1}</td>
+                                    <td>{order?._id}</td>
+                                    <td>{dayjs(order?.createdAt).format('DD/MM/YYYY')}</td>
+                                    <td>{'Đang xử lý'}</td>
+                                    <td>{formatCurrency(order?.totalMoney)}</td>
                                     <td colSpan={2}>
-                                        <button>Sửa</button>
                                         <button>Hủy</button>
                                     </td>
                                 </tr>
-                            ))} */}
+                            ))}
                         </tbody>
                     </table>
                 )}

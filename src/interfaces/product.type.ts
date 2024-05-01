@@ -18,6 +18,11 @@ export type Product = {
     updatedAt?: string
 }
 
+export type CartProduct = {
+    product: Product
+    quantity: number
+}
+
 export type Menu = {
     _id: string
     menuName: string
