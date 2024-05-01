@@ -25,16 +25,19 @@ import { navbarItems } from '~/data'
 import { NavbarItem } from '~/types/NavbarItem'
 import { useAuth } from '~/stores/auth'
 import { clientInstance } from '~/services/axios'
+import { useCart } from '~/stores/cart/useCart'
 
 export default function NavDrawer() {
     const [isOpen, setIsOpen] = useState(false)
     const pathname = usePathname()
     const { isLogin, avatar, logout } = useAuth()
     const router = useRouter()
+    const { removeAll } = useCart()
 
     const handleLogout = () => {
         clientInstance.removeAccessToken()
         logout()
+        removeAll()
         router.replace('/')
     }
     const handleOpen = () => setIsOpen(true)

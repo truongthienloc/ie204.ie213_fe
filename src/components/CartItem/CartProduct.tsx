@@ -1,7 +1,7 @@
 import React from 'react'
-import { Product } from '~/interfaces/product.type'
+import { CartProduct } from '~/interfaces/cart.type'
 
-const CartProduct = ({ dish, quantity }: { dish: Product; quantity: number }) => {
+const CartProductItem = ({ dish, quantity }: { dish: CartProduct; quantity: number }) => {
     return (
         <div className="flex flex-row items-center justify-between">
             <div className="flex flex-col">
@@ -15,4 +15,4 @@ const CartProduct = ({ dish, quantity }: { dish: Product; quantity: number }) =>
     )
 }
 
-export default CartProduct
+export default CartProductItem

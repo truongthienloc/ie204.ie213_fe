@@ -3,6 +3,7 @@ import GradeIcon from '@mui/icons-material/Grade'
 import CancelIcon from '@mui/icons-material/Cancel'
 import { Product } from '~/interfaces/product.type'
 import Link from 'next/link'
+import { formatCurrency } from '~/lib/utils'
 
 const OfferItem = ({ dish }: { dish: Product | undefined }) => {
     if (!dish) return <></>
@@ -36,7 +37,7 @@ const OfferItem = ({ dish }: { dish: Product | undefined }) => {
                                 <p>Or Enjoy dine-in within 5 Mins </p>
                             </div>
                             <div className="text-xl text-primary">
-                                <p>{dish.dishPrice} VND</p>
+                                <p>{formatCurrency(dish?.dishPrice)} VND</p>
                             </div>
                         </div>
                     </div>

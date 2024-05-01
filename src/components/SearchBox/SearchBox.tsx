@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
-import styles from '~/styles/search.module.scss'
-import clsx from 'clsx'
 
 import { useRouter } from 'next/navigation'
 
@@ -20,9 +18,7 @@ const SearchBox = () => {
     }
 
     return (
-        <div
-            className={clsx('flex overflow-hidden rounded-xl border border-secondary', styles.wrap)}
-        >
+        <div className="flex w-[100%] overflow-hidden rounded-xl border border-secondary">
             <div className="flex cursor-pointer items-center pl-3">
                 <SearchIcon className="h-5 w-5 text-gray-400" />
             </div>
@@ -32,7 +28,7 @@ const SearchBox = () => {
                 placeholder="Search..."
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                className={clsx('py-2 pl-3 pr-2 outline-none')}
+                className="w-[100%] py-2 pl-3 pr-2 outline-none"
             />
         </div>
     )
