@@ -17,7 +17,7 @@ export async function getCurrentUser(): Promise<User> {
     })
 }
 
-function changePassword(oldPassword: string, newPassword: string) {
+export function changePassword(oldPassword: string, newPassword: string) {
     return new Promise(async (resolve, reject) => {
         try {
             const res = await api.post(userEndpoint['change-password'], {
@@ -58,7 +58,7 @@ export async function getUserOrders(): Promise<Order[]> {
     })
 }
 
-export const userAction = {
+const userAction = {
     getCurrentUser,
     getUserTableOrder,
     changePassword,

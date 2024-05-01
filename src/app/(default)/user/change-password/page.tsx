@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 import InputField from '~/components/AuthForm/InputField'
 import styles from '~/styles/user.module.scss'
 import formStyles from '~/styles/form.module.scss'
-import { changeUserPassword } from '~/services/axios/actions/user.action'
+import { changePassword } from '~/services/axios/actions/user.action'
 
 type Input = {
     oldPassword?: string
@@ -45,7 +45,7 @@ function ChangePasswordPage() {
                 const res = await toast.promise(
                     new Promise(async (resolve, reject) => {
                         try {
-                            const res = changeUserPassword(oldPassword, newPassword)
+                            const res = changePassword(oldPassword, newPassword)
                             resolve(res)
                         } catch (error) {
                             reject(error)
