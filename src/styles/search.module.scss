@@ -1,3 +1,23 @@
 .wrapper {
     display: flex;
+    margin: 32px 0px;
+}
+
+.line {
+    margin-top: 2.25rem;
+    width: 80%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.button {
+    width: 80%;
+    padding: 4px 6px;
+    border-radius: 16px;
+    &:hover {
+        background-color: #ebebeb;
+    }
+}
+
+.button.active {
+    background-color: #ebebeb;
 }
