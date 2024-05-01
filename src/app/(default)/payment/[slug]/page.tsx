@@ -4,7 +4,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 import OptionButtons from '~/components/Payment/OptionButtons'
 import { useCart } from '~/stores/cart/useCart'
 import { forEach } from 'lodash'
-import { CartProduct, Product } from '~/interfaces/product.type'
+import { Product } from '~/interfaces/product.type'
 import { CartProduct as CartProductItem } from '~/components/CartItem'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Link from 'next/link'
@@ -37,9 +37,7 @@ const PaymentPage = () => {
         let total = 0
         if (Array.isArray(cart)) {
             cart.forEach((cartProduct) => {
-                const { product, quantity } = cartProduct
-                const { dishPrice } = product
-                total += dishPrice * quantity
+                total += cartProduct.dishAmount * cartProduct.dishPrice
             })
         }
         setTotal(total)
@@ -99,11 +97,8 @@ const PaymentPage = () => {
                         <div className="flex flex-col gap-3">
                             {/* map các cartProduct */}
                             {cart.map((product) => (
-                                <div key={product.product._id}>
-                                    <CartProductItem
-                                        dish={product.product}
-                                        quantity={product.quantity}
-                                    />
+                                <div key={product._id}>
+                                    <CartProductItem dish={product} quantity={product.dishAmount} />
                                 </div>
                             ))}
                         </div>
