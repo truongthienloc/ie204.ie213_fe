@@ -44,8 +44,6 @@ const BuyNowModal = ({ product, closeModal }: { product: Product; closeModal: ()
             toast.error('Không thể mua quá 20 sản phẩm trong một đơn hàng.')
             toast.error('Vui lòng liên hệ trực tiếp quầy thu ngân để đặt đơn hàng lớn.')
         } else {
-            toast.success('Tạo đơn hàng thành công.')
-            toast.success('Đang chuyển đến trang thanh toán...')
             router.push(`/payment/${product.slugName}?id=${product._id}&quantity=${quantity}`)
         }
     }

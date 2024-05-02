@@ -7,25 +7,33 @@ import style from '~/styles/payment.module.scss'
 
 interface ChildProps {
     state: boolean
-    updateState: () => void
+    updateStateTrue: () => void
+    updateStateFalse: () => void
 }
 
-const ShippingOptionButtons: React.FC<ChildProps> = ({ state, updateState }) => {
-    const handleOnClick = () => {
-        updateState()
+const ShippingOptionButtons: React.FC<ChildProps> = ({
+    state,
+    updateStateTrue,
+    updateStateFalse,
+}) => {
+    const setShipFalse = () => {
+        updateStateFalse()
+    }
+    const setShipTrue = () => {
+        updateStateTrue()
     }
     return (
         <div className="flex flex-row gap-3">
             <button
                 className={`${style.OptionButtons} ${!state ? style.active : ''}`}
-                onClick={handleOnClick}
+                onClick={setShipFalse}
             >
                 <WhereToVoteIcon />
                 <p>Dùng tại quán</p>
             </button>
             <button
                 className={`${style.OptionButtons} ${state ? style.active : ''}`}
-                onClick={handleOnClick}
+                onClick={setShipTrue}
             >
                 <LocalShippingIcon />
                 <p>Giao hàng tại nhà</p>

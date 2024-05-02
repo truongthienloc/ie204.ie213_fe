@@ -16,6 +16,11 @@ function ProductDetailButtons({ product }: { product: Product }) {
     const router = useRouter()
     const [displayModal, setdisplayModal] = useState(false)
     const openModal = () => {
+        if (!isLogin) {
+            toast.error('Xin đăng nhập trước khi sử dụng chức năng này !')
+            router.push('/login')
+            return
+        }
         setdisplayModal(true)
     }
     const closeModal = () => {
@@ -23,6 +28,7 @@ function ProductDetailButtons({ product }: { product: Product }) {
     }
     const handleAddProductToCart = async () => {
         if (!isLogin) {
+            toast.error('Xin đăng nhập trước khi sử dụng chức năng này !')
             router.push('/login')
             return
         }

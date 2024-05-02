@@ -14,11 +14,17 @@ import placeholderImage from '../../../../../public/images/payment.png'
 import { formatCurrency } from '~/lib/utils'
 import { useSearchParams } from 'next/navigation'
 import { getProductById } from '~/services/axios/actions/product.action'
-import payAction, { checkOutCart } from '~/services/axios/actions/payment.action'
+import payAction, {
+    checkOutCart,
+    checkOutImmediately,
+} from '~/services/axios/actions/payment.action'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '~/stores/auth'
 import PaymentOptionButtons from '~/components/Payment/PaymentOptionButton'
 import PaymentModal from '~/components/Modal/PaymentModal/PaymentModal'
+import PaymentsIcon from '@mui/icons-material/Payments'
+import { toast } from 'react-toastify'
+import { cartReset } from '~/services/axios/actions/cart.action'
 
 const VAT = 0.1
 const shippingFee = 20000
@@ -43,13 +49,21 @@ const PaymentPage = () => {
     const [isExistAddress, setIsExistAddress] = useState(false)
     const [isPayDirected, setPayDirected] = useState(true)
     const [displayPaymentModal, setdisplayPaymentModal] = useState(false)
-    const togglePayDirected = () => {
-        setPayDirected(!isPayDirected)
+    const toggleShipTrue = () => {
+        setIsShip(true)
+        setPayDirected(false)
+        settotalPay(shippingFee + Total * (1 + VAT))
     }
-    const toggleShip = () => {
-        setIsShip(!isShip)
-        if (isShip) setPayDirected(false)
-        settotalPay(!isShip ? shippingFee + Total * (1 + VAT) : Total * (1 + VAT))
+    const toggleShipFalse = () => {
+        setIsShip(false)
+        setPayDirected(true)
+        settotalPay(Total * (1 + VAT))
+    }
+    const togglePayDirectTrue = () => {
+        setPayDirected(true)
+    }
+    const togglePayDirectFalse = () => {
+        setPayDirected(false)
     }
     const closeModal = () => {
         setdisplayPaymentModal(false)
@@ -67,15 +81,49 @@ const PaymentPage = () => {
         setTotal(total)
         settotalPay(total * (1 + VAT))
     }
-    const handleCheckOut = () => {
-        if (isPayDirected) {
-            setdisplayPaymentModal(true)
-        } else {
+    const handleCheckOut = async () => {
+        if (!user.isLogin) {
+            toast.error('Xin đăng nhập trước khi sử dụng chức năng này !')
+            return
+        }
+        if (!isPayDirected) {
+            if (isShip && addressValue === '') {
+                toast.error('Vui lòng nhập địa chỉ giao hàng !')
+                return
+            }
             // Chuyển đến VNPay
             try {
-                const res = checkOutCart()
+                handlePayByVNPay()
+                checkOutCart()
+                await cartReset()
             } catch (err) {
                 console.error(err)
+            }
+            return
+        } else {
+            if (isShip) {
+                if (addressValue === '') {
+                    toast.error('Vui lòng nhập địa chỉ giao hàng !')
+                    return
+                }
+                try {
+                    // trả trực tiếp tại ship xong
+                    const checkoutPayAtHome = async () => {
+                        const resCheckOut = await checkOutImmediately({
+                            id: cartProduct._id,
+                            quantity: cartProduct.dishAmount,
+                            discount: '',
+                        })
+                        if (resCheckOut === true) {
+                            toast.success('Tạo đơn hàng thành công!')
+                            await cartReset()
+                        }
+                    }
+                    checkoutPayAtHome()
+                } catch (error) {}
+            } else {
+                // trả trực tiếp tại quầy xong
+                setdisplayPaymentModal(true)
             }
         }
     }
@@ -124,32 +172,36 @@ const PaymentPage = () => {
                     <div className="flex flex-col gap-5">
                         <div className="flex flex-col">
                             <h3 className="py-5 text-2xl text-primary">
-                                <LocationOnIcon className="size-8" />
+                                <LocationOnIcon className="size-8 pr-1" />
                                 Cách nhận hàng
                             </h3>
-                            <ShippingOptionButtons state={isShip} updateState={toggleShip} />
+                            <ShippingOptionButtons
+                                state={isShip}
+                                updateStateTrue={toggleShipTrue}
+                                updateStateFalse={toggleShipFalse}
+                            />
                         </div>
                         <div className="flex flex-col">
                             <h3 className="py-5 text-2xl text-primary">
-                                <LocationOnIcon className="size-8" />
+                                <PaymentsIcon className="size-8 pr-1" />
                                 Phương thức thanh toán
                             </h3>
                             <PaymentOptionButtons
-                                conditionState={isShip}
-                                state={isPayDirected}
-                                updateState={togglePayDirected}
+                                isShip={isShip}
+                                isPayDirected={isPayDirected}
+                                updateStateTrue={togglePayDirectTrue}
+                                updateStateFalse={togglePayDirectFalse}
                             />
                         </div>
                         {isShip && (
                             <div className="flex flex-col">
                                 <h3 className="py-5 text-2xl text-primary">
-                                    <LocationOnIcon className="size-8" />
+                                    <LocationOnIcon className="size-8 pr-1" />
                                     Địa chỉ giao hàng
                                 </h3>
                                 <div
                                     className={`${style.inputDiv} ${isExistAddress ? style.active : ''}`}
                                 >
-                                    <LocationOnIcon className="size-8" />
                                     <input
                                         type="text"
                                         placeholder="Địa chỉ giao hàng..."
@@ -216,6 +268,7 @@ const PaymentPage = () => {
                                 totalPay={totalPay}
                                 userName={userName}
                                 closeModal={closeModal}
+                                product={cartProduct}
                             />
                         )}
                     </section>
