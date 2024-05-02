@@ -8,7 +8,6 @@ import Link from 'next/link'
 import style from '../../../styles/payment.module.scss'
 import placeholderImage from '../../../../public/images/payment.png'
 import { formatCurrency } from '~/lib/utils'
-import { set } from 'lodash'
 import ShippingOptionButtons from '~/components/Payment/ShippingOptionButtons'
 import PaymentOptionButtons from '~/components/Payment/PaymentOptionButton'
 import PaymentModal from '~/components/Modal/PaymentModal/PaymentModal'
@@ -35,6 +34,7 @@ const PaymentPage = () => {
     const togglePayDirected = () => {
         setPayDirected(!isPayDirected)
     }
+
     const toggleShip = () => {
         setIsShip(!isShip)
         if (isShip) setPayDirected(false)
@@ -64,6 +64,7 @@ const PaymentPage = () => {
         } else {
             // Chuyển đến VNPay
             try {
+                handlePayByVNPay()
                 const res = checkOutCart()
             } catch (err) {
                 console.error(err)
