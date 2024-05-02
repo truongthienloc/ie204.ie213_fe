@@ -55,11 +55,25 @@ export const removeCartProduct = (dishId: string) => {
     })
 }
 
+//cart reset
+export const cartReset = () => {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const res = await api.delete('/bills/cart/reset')
+
+            resolve(res)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
 const cartAction = {
     getCart,
     addProductToCart,
     decreaseQuantity,
     removeCartProduct,
+    cartReset,
 }
 
 export default cartAction

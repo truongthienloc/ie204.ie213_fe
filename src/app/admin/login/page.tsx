@@ -89,7 +89,7 @@ export default function LoginAdminPage({}: Props) {
     return (
         <div className="flex min-h-screen w-full flex-col gap-48 bg-third">
             <div className="mx-auto flex w-full max-w-full flex-row justify-center bg-primary text-white">
-                <p>4Food&#39;s Administrator</p>
+                <p>Bếp UIT&#39;s Administrator</p>
             </div>
             <div className="flex w-full justify-center ">
                 <form className="flex h-[390px] w-[420px] flex-col items-center rounded-xl border-2 border-solid border-primary bg-[#FFEFD5]">

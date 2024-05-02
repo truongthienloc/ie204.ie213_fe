@@ -4,26 +4,52 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import { formatCurrency } from '~/lib/utils'
 import { LoadingSpinner } from '~/components/Spinner'
 import { useRouter } from 'next/navigation'
-import { checkOutCart } from '~/services/axios/actions/payment.action'
+import { checkOutCart, checkOutImmediately } from '~/services/axios/actions/payment.action'
+import { cartReset } from '~/services/axios/actions/cart.action'
+import { toast } from 'react-toastify'
+import { CartProduct } from '~/interfaces/cart.type'
+import { remove } from 'lodash'
+import { useCart } from '~/stores/cart/useCart'
 
 const PaymentModal = ({
     userName,
     totalPay,
+    product,
     closeModal,
 }: {
     userName: string
     totalPay: number
+    product: CartProduct
     closeModal: () => void
 }) => {
     const router = useRouter()
     const imageUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${userName}_${totalPay};size=100x100`
     const [downLoadURL, setDownLoadURL] = useState('')
     const [isLoaded, setisLoaded] = useState(false)
+    const { removeAll } = useCart()
     const handleClose = () => {
         closeModal()
         try {
-            const res = checkOutCart()
-            router.push('/')
+            const checkoutDirectAtCashRegister = async () => {
+                const res =
+                    product._id !== ''
+                        ? await checkOutImmediately({
+                              id: product._id,
+                              quantity: product.dishAmount,
+                              discount: '',
+                          })
+                        : await checkOutCart()
+                console.log(res)
+                if (res === true) {
+                    if (product._id === '') {
+                        removeAll()
+                    }
+                    toast.success('Tạo đơn hàng thành công !')
+                    await cartReset()
+                    router.replace('/')
+                }
+            }
+            checkoutDirectAtCashRegister()
         } catch (err) {
             console.error(err)
         }

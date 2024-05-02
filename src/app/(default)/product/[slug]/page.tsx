@@ -134,7 +134,6 @@ async function ProductDetailPage({ params: { slug } }: Props) {
                     </div>
                 </section>
             </div>
-            <div>Open modal</div>
         </>
     )
 }

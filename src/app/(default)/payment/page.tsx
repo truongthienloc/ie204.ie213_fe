@@ -15,15 +15,26 @@ import PaymentModal from '~/components/Modal/PaymentModal/PaymentModal'
 import { useAuth } from '~/stores/auth'
 import payAction, { checkOutCart } from '~/services/axios/actions/payment.action'
 import { useRouter } from 'next/navigation'
+import PaymentsIcon from '@mui/icons-material/Payments'
+import { toast } from 'react-toastify'
+import { cartReset } from '~/services/axios/actions/cart.action'
+import { CartProduct } from '~/interfaces/cart.type'
 
 const VAT = 0.1
 const shippingFee = 20000
 
 const PaymentPage = () => {
     const router = useRouter()
-    const cart = useCart((state) => state.cartList)
+    const { cartList, removeAll } = useCart()
     const user = useAuth((state) => state)
     const userName: string = user.username !== null ? user.username : ''
+    const [cartProduct, setCartProduct] = useState<CartProduct>({
+        _id: '',
+        dishName: '',
+        dishPrice: 0,
+        dishImages: [],
+        dishAmount: 0,
+    })
     const totalItems = useCart((state) => state.total)
     const [Total, setTotal] = useState(0)
     const [totalPay, settotalPay] = useState(0)
@@ -32,13 +43,21 @@ const PaymentPage = () => {
     const [displayPaymentModal, setdisplayPaymentModal] = useState(false)
     const [addressValue, setAddressValue] = useState('')
     const [isExistAddress, setIsExistAddress] = useState(false)
-    const togglePayDirected = () => {
-        setPayDirected(!isPayDirected)
+    const toggleShipTrue = () => {
+        setIsShip(true)
+        setPayDirected(false)
+        settotalPay(shippingFee + Total * (1 + VAT))
     }
-    const toggleShip = () => {
-        setIsShip(!isShip)
-        if (isShip) setPayDirected(false)
-        settotalPay(!isShip ? shippingFee + Total * (1 + VAT) : Total * (1 + VAT))
+    const toggleShipFalse = () => {
+        setIsShip(false)
+        setPayDirected(true)
+        settotalPay(Total * (1 + VAT))
+    }
+    const togglePayDirectTrue = () => {
+        setPayDirected(true)
+    }
+    const togglePayDirectFalse = () => {
+        setPayDirected(false)
     }
     const closeModal = () => {
         setdisplayPaymentModal(false)
@@ -50,29 +69,61 @@ const PaymentPage = () => {
     }
     const calculateTotal = () => {
         let total = 0
-        if (Array.isArray(cart)) {
-            cart.forEach((cartProduct) => {
+        if (Array.isArray(cartList)) {
+            cartList.forEach((cartProduct) => {
                 total += cartProduct.dishAmount * cartProduct.dishPrice
             })
         }
         setTotal(total)
         settotalPay(total * (1 + VAT))
     }
-    const handleCheckOut = () => {
-        if (isPayDirected) {
-            setdisplayPaymentModal(true)
-        } else {
+    const handleCheckOut = async () => {
+        if (!user.isLogin) {
+            toast.error('Xin đăng nhập trước khi sử dụng chức năng này !')
+            return
+        }
+        if (!isPayDirected) {
             // Chuyển đến VNPay
+            if (isShip && addressValue === '') {
+                toast.error('Vui lòng nhập địa chỉ giao hàng !')
+                return
+            }
             try {
+                handlePayByVNPay()
                 const res = checkOutCart()
+                removeAll()
+                await cartReset()
             } catch (err) {
                 console.error(err)
+            }
+            return
+        } else {
+            if (isShip) {
+                if (addressValue === '') {
+                    toast.error('Vui lòng nhập địa chỉ giao hàng !')
+                    return
+                }
+                try {
+                    // trả trực tiếp khi nhận ship xong
+                    const checkoutPayAtHome = async () => {
+                        const resCheckOut = await checkOutCart()
+                        if (resCheckOut === true) {
+                            removeAll()
+                            toast.success('Tạo đơn hàng thành công!')
+                            await cartReset()
+                        }
+                    }
+                    checkoutPayAtHome()
+                } catch (error) {}
+            } else {
+                // trả trực tiếp tại quầy xong
+                setdisplayPaymentModal(true)
             }
         }
     }
     useEffect(() => {
         calculateTotal()
-    }, [cart])
+    }, [cartList])
 
     const handlePayByVNPay = async () => {
         try {
@@ -80,7 +131,6 @@ const PaymentPage = () => {
             window.open(data)
         } catch (error) {}
     }
-
     return (
         <div>
             <div className="w-fit py-5">
@@ -93,32 +143,36 @@ const PaymentPage = () => {
                 <div className="flex w-2/3 flex-col gap-5">
                     <div className="flex flex-col">
                         <h3 className="py-5 text-2xl text-primary">
-                            <LocationOnIcon className="size-8" />
+                            <LocationOnIcon className="size-8 pr-1" />
                             Cách nhận hàng
                         </h3>
-                        <ShippingOptionButtons state={isShip} updateState={toggleShip} />
+                        <ShippingOptionButtons
+                            state={isShip}
+                            updateStateTrue={toggleShipTrue}
+                            updateStateFalse={toggleShipFalse}
+                        />
                     </div>
                     <div className="flex flex-col">
                         <h3 className="py-5 text-2xl text-primary">
-                            <LocationOnIcon className="size-8" />
+                            <PaymentsIcon className="size-8 pr-1" />
                             Phương thức thanh toán
                         </h3>
                         <PaymentOptionButtons
-                            conditionState={isShip}
-                            state={isPayDirected}
-                            updateState={togglePayDirected}
+                            isShip={isShip}
+                            isPayDirected={isPayDirected}
+                            updateStateTrue={togglePayDirectTrue}
+                            updateStateFalse={togglePayDirectFalse}
                         />
                     </div>
                     {isShip && (
                         <div className="flex flex-col">
                             <h3 className="py-5 text-2xl text-primary">
-                                <LocationOnIcon className="size-8" />
+                                <LocationOnIcon className="size-8 pr-1" />
                                 Địa chỉ giao hàng
                             </h3>
                             <div
                                 className={`${style.inputDiv} ${isExistAddress ? style.active : ''}`}
                             >
-                                <LocationOnIcon className="size-8" />
                                 <input
                                     type="text"
                                     placeholder="Địa chỉ giao hàng..."
@@ -142,10 +196,8 @@ const PaymentPage = () => {
                             <p>{totalItems} sản phẩm</p>
                         </div>
                         <div className="flex flex-col gap-3">
-                            {/* map các cartProduct */}
-                            {cart.map((product) => (
+                            {cartList.map((product) => (
                                 <div key={product._id}>
-                                    {/* Fix here */}
                                     <CartProductItem dish={product} quantity={product.dishAmount} />
                                 </div>
                             ))}
@@ -186,6 +238,7 @@ const PaymentPage = () => {
                                 totalPay={totalPay}
                                 userName={userName}
                                 closeModal={closeModal}
+                                product={cartProduct}
                             />
                         )}
                     </section>
