@@ -6,8 +6,7 @@ import {
 } from '~/services/axios/actions/product.action'
 import Link from 'next/link'
 import StarIcon from '@mui/icons-material/Star'
-import Modal from '@mui/material/Modal'
-import React, { useState } from 'react'
+import React from 'react'
 import styles from '~/styles/product_detail.module.scss'
 import ProductImageSlider from '~/components/ProductImageSlider'
 import ProductDetailButtons from '~/components/ProductDetailButton'
@@ -113,7 +112,6 @@ async function ProductDetailPage({ params: { slug } }: Props) {
                     </div>
                 </section>
             </div>
-            <div>Open modal</div>
         </>
     )
 }
