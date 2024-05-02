@@ -28,9 +28,11 @@ function CommentItem({ comment }: Props) {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const user: User = await getUserById(comment?.userId)
-                console.log(user)
-                setUser(user)
+                if (comment.userId) {
+                    const user: User = await getUserById(comment?.userId)
+                    console.log(user)
+                    setUser(user)
+                }
             } catch (err) {
                 console.error(err)
             }
