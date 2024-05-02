@@ -45,7 +45,6 @@ const PaymentModal = ({
                         removeAll()
                     }
                     toast.success('Tạo đơn hàng thành công !')
-                    await cartReset()
                     router.replace('/')
                 }
             }
