@@ -6,9 +6,11 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import dayjs from 'dayjs'
 import styles from '~/styles/product_detail.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '~/stores/auth'
 import { useRouter } from 'next/navigation'
+import { User } from '~/interfaces/user.type'
+import { getUserById } from '~/services/axios/actions/user.action'
 
 type Props = {
     comment: ProductComment
@@ -19,8 +21,24 @@ function CommentItem({ comment }: Props) {
     const [isShowMore, setIsShowMore] = useState(false)
     const [isShowReply, setIsShowReply] = useState(false)
     const [replyInput, setReplyInput] = useState('')
+    const [user, setUser] = useState<User>()
     const { isLogin, avatar, username } = useAuth()
     const router = useRouter()
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                if (comment.userId) {
+                    const user: User = await getUserById(comment?.userId)
+                    console.log(user)
+                    setUser(user)
+                }
+            } catch (err) {
+                console.error(err)
+            }
+        }
+        fetchUser()
+    }, [])
 
     const handleClearReply = () => {
         setReplyInput('')
@@ -46,10 +64,10 @@ function CommentItem({ comment }: Props) {
     return (
         <>
             <div className={styles.comment}>
-                <img src={avatar || '/images/default_user.png'} alt="user avatar" />
+                <img src={user?.avatar.link || '/images/default_user.png'} alt="user avatar" />
                 <div className={styles['comment__content']}>
                     <div>
-                        <span className={styles.username}>{username}</span>
+                        <span className={styles.username}>{user?.username}</span>
                         <span className={styles.date}>
                             {dayjs(comment?.createdAt).format('DD/MM/YYYY')}
                         </span>

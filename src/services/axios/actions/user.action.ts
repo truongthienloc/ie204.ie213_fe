@@ -58,10 +58,23 @@ export async function getUserOrders(): Promise<Order[]> {
     })
 }
 
+export function getUserById(userId: string): Promise<User> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await api.get(`/users/${userId}`)
+            const user: User = res.data.data as User
+            resolve(user)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 const userAction = {
     getCurrentUser,
     getUserTableOrder,
     changePassword,
+    getUserById,
 }
 
 export default userAction
