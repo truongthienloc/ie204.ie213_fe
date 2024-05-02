@@ -1,5 +1,5 @@
 const orderEndpoint = {
-    'get-all-bills': '/bills/all',
+    'get-all-bills': '/bills/admin/all',
     'admin-checkout': '/bills/admin/checkout',
 }
 
