@@ -185,6 +185,19 @@ export const getProductBySlugname = (slug: string) => {
     })
 }
 
+//fetch product by Id
+export const getProductById = (id: string) => {
+    return new Promise<Product>(async (resolve, reject) => {
+        try {
+            const res = await api.get(`/dishes/id/${id}`)
+            const product: Product = res.data.data as Product
+            resolve(product)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
 //fetch relative products
 export const getRelativeProducts = (id: string, quantity: number) => {
     return new Promise<Product[]>(async (resolve, reject) => {

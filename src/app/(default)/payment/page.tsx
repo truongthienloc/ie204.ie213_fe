@@ -2,7 +2,7 @@
 import React, { useState, ChangeEvent, useEffect, useCallback } from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import { useCart } from '~/stores/cart/useCart'
-import { CartProduct as CartProductItem } from '~/components/CartItem'
+import { CartProductItem } from '~/components/CartItem'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Link from 'next/link'
 import style from '../../../styles/payment.module.scss'
@@ -29,9 +29,9 @@ const PaymentPage = () => {
     const [totalPay, settotalPay] = useState(0)
     const [isShip, setIsShip] = useState(false)
     const [isPayDirected, setPayDirected] = useState(true)
+    const [displayPaymentModal, setdisplayPaymentModal] = useState(false)
     const [addressValue, setAddressValue] = useState('')
     const [isExistAddress, setIsExistAddress] = useState(false)
-    const [displayPaymentModal, setdisplayPaymentModal] = useState(false)
     const togglePayDirected = () => {
         setPayDirected(!isPayDirected)
     }
@@ -45,10 +45,8 @@ const PaymentPage = () => {
     }
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target
-        console.log('here', value, value.trim() !== '')
         setAddressValue(value)
         setIsExistAddress(value.trim() !== '')
-        console.log('set', isExistAddress)
     }
     const calculateTotal = () => {
         let total = 0
@@ -100,6 +98,17 @@ const PaymentPage = () => {
                         </h3>
                         <ShippingOptionButtons state={isShip} updateState={toggleShip} />
                     </div>
+                    <div className="flex flex-col">
+                        <h3 className="py-5 text-2xl text-primary">
+                            <LocationOnIcon className="size-8" />
+                            Phương thức thanh toán
+                        </h3>
+                        <PaymentOptionButtons
+                            conditionState={isShip}
+                            state={isPayDirected}
+                            updateState={togglePayDirected}
+                        />
+                    </div>
                     {isShip && (
                         <div className="flex flex-col">
                             <h3 className="py-5 text-2xl text-primary">
@@ -118,17 +127,6 @@ const PaymentPage = () => {
                             </div>
                         </div>
                     )}
-                    <div className="flex flex-col">
-                        <h3 className="py-5 text-2xl text-primary">
-                            <LocationOnIcon className="size-8" />
-                            Phương thức thanh toán
-                        </h3>
-                        <PaymentOptionButtons
-                            conditionState={isShip}
-                            state={isPayDirected}
-                            updateState={togglePayDirected}
-                        />
-                    </div>
                     <div className="overflow-hidden rounded-xl">
                         <img
                             className="h-full w-full object-contain"
