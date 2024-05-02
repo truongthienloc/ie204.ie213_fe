@@ -6,8 +6,7 @@ import {
 } from '~/services/axios/actions/product.action'
 import Link from 'next/link'
 import StarIcon from '@mui/icons-material/Star'
-import Modal from '@mui/material/Modal'
-import React, { useState } from 'react'
+import React from 'react'
 import styles from '~/styles/product_detail.module.scss'
 import ProductImageSlider from '~/components/ProductImageSlider'
 import ProductDetailButtons from '~/components/ProductDetailButton'
@@ -17,28 +16,7 @@ import { formatCurrency } from '~/lib/utils'
 import { Product, ProductComment } from '~/interfaces/product.type'
 import ProductCard from '~/components/ProductCard'
 
-const mockComments: ProductComment[] = [
-    {
-        _id: '1',
-        dishId: '1',
-        userId: '1',
-        content: 'Món ăn rất ngon, mình đã thử tại nhà hàng nhiều lần, mn nên thử ạ!',
-        replies: [],
-        level: 1,
-        createdAt: '04/23/24',
-        rating: 5,
-    },
-    {
-        _id: '2',
-        dishId: '2',
-        userId: '2',
-        content: 'Mình cùng gia đình đến trải nghiệm món ăn này và rất hài lòng',
-        replies: [],
-        level: 1,
-        createdAt: '04/21/24',
-        rating: 5,
-    },
-]
+const mockComments: ProductComment[] = []
 
 type Props = {
     params: {
@@ -120,7 +98,7 @@ async function ProductDetailPage({ params: { slug } }: Props) {
                         </div>
                     </div>
                 </section>
-                <CommentSection initComments={comments} />
+                <CommentSection initComments={comments} dishId={product?._id} />
                 <section className={styles['relative-products']}>
                     <h2 className={styles['sub-title']}>Sản phẩm liên quan</h2>
                     <div className="row">
@@ -134,7 +112,6 @@ async function ProductDetailPage({ params: { slug } }: Props) {
                     </div>
                 </section>
             </div>
-            <div>Open modal</div>
         </>
     )
 }

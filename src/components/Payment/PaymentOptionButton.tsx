@@ -5,33 +5,62 @@ import LocalAtmIcon from '@mui/icons-material/LocalAtm'
 import style from '~/styles/payment.module.scss'
 
 interface ChildProps {
-    state: boolean
-    conditionState: boolean
-    updateState: () => void
+    isShip: boolean
+    isPayDirected: boolean
+    updateStateTrue: () => void
+    updateStateFalse: () => void
 }
 
-const PaymentOptionButtons: React.FC<ChildProps> = ({ state, conditionState, updateState }) => {
-    const handleOnClick = () => {
-        updateState()
+const PaymentOptionButtons: React.FC<ChildProps> = ({
+    isShip,
+    isPayDirected,
+    updateStateTrue,
+    updateStateFalse,
+}) => {
+    const setPayDirectFalse = () => {
+        updateStateFalse()
+    }
+    const setPayDirectTrue = () => {
+        updateStateTrue()
     }
     return (
-        <div className="flex flex-row gap-3">
-            {!conditionState && (
-                <button
-                    className={`${style.OptionButtons} ${state ? style.active : ''}`}
-                    onClick={handleOnClick}
-                >
-                    <LocalAtmIcon />
-                    <p>Trả tiền mặt trực tiếp tại quán</p>
-                </button>
+        <div>
+            {!isShip && (
+                <div className="flex flex-row gap-3">
+                    <button
+                        className={`${style.OptionButtons} ${isPayDirected ? style.active : ''}`}
+                        onClick={setPayDirectTrue}
+                    >
+                        <LocalAtmIcon />
+                        <p>Trả tiền mặt trực tiếp tại quán</p>
+                    </button>
+                    <button
+                        className={`${style.OptionButtons} ${!isPayDirected ? style.active : ''}`}
+                        onClick={setPayDirectFalse}
+                    >
+                        <QrCodeScannerIcon />
+                        <p>Thanh toán qua VNPay</p>
+                    </button>
+                </div>
             )}
-            <button
-                className={`${style.OptionButtons} ${!state ? style.active : ''} ${conditionState ? style.active : ''}`}
-                onClick={handleOnClick}
-            >
-                <QrCodeScannerIcon />
-                <p>Thanh toán qua VNPay</p>
-            </button>
+            {isShip && (
+                <div className="flex flex-row gap-3">
+                    <button
+                        className={`${style.OptionButtons} ${!isPayDirected ? style.active : ''}`}
+                        onClick={setPayDirectFalse}
+                    >
+                        <QrCodeScannerIcon />
+                        <p>Thanh toán qua VNPay</p>
+                    </button>
+                    <button
+                        className={`${style.OptionButtons} ${isPayDirected ? style.active : ''}`}
+                        onClick={setPayDirectTrue}
+                    >
+                        <LocalAtmIcon />
+                        <p>Thanh toán khi nhận hàng</p>
+                    </button>
+                </div>
+            )}
         </div>
     )
 }

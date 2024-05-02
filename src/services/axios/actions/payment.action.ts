@@ -20,16 +20,19 @@ export const getCart = () => {
     })
 }
 
-// checkout cart then reset cart
+// checkout cart
 export const checkOutCart = () => {
     return new Promise<any>(async (resolve, reject) => {
         try {
             const res = await api.post('/bills/checkout')
+            // if (res.status == 201 || res.status == 200) {
+            //     const result = await api.delete('/bills/cart/reset')
+            // }
+            // reject(res)
             if (res.status == 201 || res.status == 200) {
-                const result = await api.delete('/bills/cart/reset')
+                resolve(true)
             }
             resolve(res)
-            reject(res)
         } catch (err) {
             reject(err)
         }
@@ -48,12 +51,19 @@ export const checkOutImmediately = ({
 }) => {
     return new Promise<any>(async (resolve, reject) => {
         try {
-            const res = await api.post('/bills/checkout')
+            const res = await api.post('/bills/checkout/immediately/', {
+                dishId: id,
+                amount: quantity,
+                discountId: discount,
+            })
+            // if (res.status == 201 || res.status == 200) {
+            //     const result = await api.delete('/bills/cart/reset')
+            // }
+            // reject(res)
             if (res.status == 201 || res.status == 200) {
-                const result = await api.delete('/bills/cart/reset')
+                resolve(true)
             }
             resolve(res)
-            reject(res)
         } catch (err) {
             reject(err)
         }

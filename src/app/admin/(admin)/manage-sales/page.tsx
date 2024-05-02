@@ -36,6 +36,9 @@ export default function ManageSalesPage() {
     const fetchSale = async () => {
         queryClient.invalidateQueries({ queryKey: ['get-all-bills'] })
     }
+
+    console.log('data: ', saleData)
+
     useEffect(() => {
         fetchSale()
     }, [])
@@ -196,11 +199,11 @@ export default function ManageSalesPage() {
                                         key={sale._id}
                                         billId={sale._id}
                                         time={sale.createdAt}
-                                        name={sale.userId.username}
+                                        name={sale.user.username}
                                         price={sale.totalMoney}
                                         status={sale.billPayed}
                                         onStatusClick={() =>
-                                            handleCheckoutClick(sale._id, sale.userId.username)
+                                            handleCheckoutClick(sale._id, sale.user.username)
                                         }
                                     />
                                 ))}

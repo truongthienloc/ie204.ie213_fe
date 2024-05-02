@@ -24,9 +24,9 @@ export type Menu = {
 }
 
 export type ProductComment = {
-    _id: string
+    _id?: string
     content: string
-    userId: string
+    userId: string | null
     dishId: string
     rating: number
     level: number

@@ -33,6 +33,8 @@ export default function ManageBookingPage({}: Props) {
             const res = await tableAction.getAllTable()
             const booking = res.map((value) => ({ ...value, isCheck: false }))
 
+            console.log(res)
+
             setBookingData(booking)
         } catch (error) {}
     }
@@ -240,7 +242,7 @@ export default function ManageBookingPage({}: Props) {
                                     tableFloor={booking.tableFloor}
                                     status={booking.tableStatus}
                                     time={booking.user?.bookingTime}
-                                    clientName={booking.user?.userId}
+                                    clientName={booking.user?.username}
                                     // email={booking.users[0].email}
                                     onCheck={() => handleCheck(booking._id)}
                                 />

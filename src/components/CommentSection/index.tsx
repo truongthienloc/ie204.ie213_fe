@@ -7,27 +7,44 @@ import CommentItem from './CommentItem'
 import { ProductComment } from '~/interfaces/product.type'
 import styles from '~/styles/product_detail.module.scss'
 import { useAuth } from '~/stores/auth'
+import { addComment } from '~/services/axios/actions/product.action'
 
 type Props = {
     initComments: ProductComment[]
+    dishId: string
 }
 
-function CommentSection({ initComments }: Props) {
+function CommentSection({ initComments, dishId }: Props) {
     const [commentInput, setCommentInput] = useState('')
     const [comments, setComments] = useState<ProductComment[]>([])
-    const { avatar, username, isLogin } = useAuth()
+    const { avatar, username, isLogin, id } = useAuth()
     const router = useRouter()
 
     useEffect(() => {
         setComments(initComments)
     }, [initComments])
 
-    const handleAddComment = () => {
+    const handleAddComment = async () => {
         if (!isLogin) {
             router.push('/login')
             return
         } else {
-            // logic add new comment with api
+            if (!commentInput.trim()) return
+            const newComment: ProductComment = {
+                content: commentInput,
+                dishId,
+                rating: 5,
+                userId: id,
+                replies: [],
+                level: 1,
+            }
+            setComments([newComment, ...comments])
+            setCommentInput('')
+            try {
+                await addComment(commentInput, dishId)
+            } catch (err) {
+                console.error(err)
+            }
         }
     }
 
@@ -55,9 +72,15 @@ function CommentSection({ initComments }: Props) {
                     </button>
                 </div>
                 <div className="mt-4 lg:ml-8">
-                    {comments.map((comment) => (
-                        <CommentItem comment={comment} key={comment?._id} />
-                    ))}
+                    {!comments?.length ? (
+                        <span className={styles['no_comment_message']}>
+                            Sản phẩm chưa có bình luận.
+                        </span>
+                    ) : (
+                        comments.map((comment) => (
+                            <CommentItem comment={comment} key={comment?._id} />
+                        ))
+                    )}
                 </div>
             </div>
         </>
