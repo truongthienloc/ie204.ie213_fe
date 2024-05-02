@@ -6,7 +6,7 @@ import { Product } from '~/interfaces/product.type'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { formatCurrency } from '~/lib/utils'
-
+import Link from 'next/link'
 type slug = {
     pathname: string
 }
@@ -16,6 +16,7 @@ type query = {
 }
 
 const BuyNowModal = ({ product, closeModal }: { product: Product; closeModal: () => void }) => {
+    const router = useRouter()
     const [quantity, setQuantity] = useState(1)
     const [total, setTotal] = useState(product.dishPrice * quantity)
     const incQuantity = () => {
@@ -31,7 +32,23 @@ const BuyNowModal = ({ product, closeModal }: { product: Product; closeModal: ()
             setTotal(product.dishPrice * (quantity - 1))
         }
     }
-    const router = useRouter()
+    const handleInputQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newQuantity = parseInt(e.target.value)
+        if (!isNaN(newQuantity)) {
+            setQuantity(newQuantity)
+            setTotal(product.dishPrice * newQuantity)
+        }
+    }
+    const handleCheckOutNow = () => {
+        if (quantity > 20) {
+            toast.error('Không thể mua quá 20 sản phẩm trong một đơn hàng.')
+            toast.error('Vui lòng liên hệ trực tiếp quầy thu ngân để đặt đơn hàng lớn.')
+        } else {
+            toast.success('Tạo đơn hàng thành công.')
+            toast.success('Đang chuyển đến trang thanh toán...')
+            router.push(`/payment/${product.slugName}?id=${product._id}&quantity=${quantity}`)
+        }
+    }
     return (
         <>
             <div className="fixed left-0 top-0 z-10 h-screen w-screen bg-slate-700 opacity-70"></div>
@@ -61,6 +78,7 @@ const BuyNowModal = ({ product, closeModal }: { product: Product; closeModal: ()
                                     type="text"
                                     placeholder={quantity.toString()}
                                     value={quantity}
+                                    onChange={handleInputQuantity}
                                 />
                                 <button onClick={incQuantity}>
                                     <AddIcon />
@@ -83,9 +101,22 @@ const BuyNowModal = ({ product, closeModal }: { product: Product; closeModal: ()
                     >
                         Hủy
                     </button>
+                    {/* <Link
+                        href={{
+                            pathname: `/payment/${product.slugName}`,
+                            query: {
+                                dishID: product._id,
+                                quantity: quantity,
+                            },
+                        }}
+                    >
+                        <button className="rounded-md border-2 border-primary bg-white px-3 py-3 text-primary transition hover:bg-primary hover:text-white">
+                            Tiến hành thanh toán
+                        </button>
+                    </Link> */}
                     <button
                         className="rounded-md border-2 border-primary bg-white px-3 py-3 text-primary transition hover:bg-primary hover:text-white"
-                        onClick={() => router.push(`/payment/${product.slugName}`)}
+                        onClick={handleCheckOutNow}
                     >
                         Tiến hành thanh toán
                     </button>

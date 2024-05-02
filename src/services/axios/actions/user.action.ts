@@ -25,8 +25,6 @@ export function changePassword(oldPassword: string, newPassword: string) {
                 newPassword,
             })
 
-            console.log('res: ', res)
-
             resolve(res)
         } catch (error) {
             reject(error)

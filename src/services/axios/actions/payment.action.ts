@@ -20,13 +20,13 @@ export const getCart = () => {
     })
 }
 
+// checkout cart then reset cart
 export const checkOutCart = () => {
     return new Promise<any>(async (resolve, reject) => {
         try {
             const res = await api.post('/bills/checkout')
-            console.log(res)
             if (res.status == 201 || res.status == 200) {
-                const result = await api.post('/bills/cart/reset')
+                const result = await api.delete('/bills/cart/reset')
             }
             resolve(res)
             reject(res)
@@ -36,6 +36,31 @@ export const checkOutCart = () => {
     })
 }
 
+// checkout 1 product with quantity and discount
+export const checkOutImmediately = ({
+    id,
+    quantity,
+    discount,
+}: {
+    id: string
+    quantity: number
+    discount: string
+}) => {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const res = await api.post('/bills/checkout')
+            if (res.status == 201 || res.status == 200) {
+                const result = await api.delete('/bills/cart/reset')
+            }
+            resolve(res)
+            reject(res)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
+//pay with vnpay
 function paymentByVNPay() {
     return new Promise<string>(async (resolve, reject) => {
         try {
