@@ -19,7 +19,7 @@ function CommentItem({ comment }: Props) {
     const [isShowMore, setIsShowMore] = useState(false)
     const [isShowReply, setIsShowReply] = useState(false)
     const [replyInput, setReplyInput] = useState('')
-    const { isLogin, avatar } = useAuth()
+    const { isLogin, avatar, username } = useAuth()
     const router = useRouter()
 
     const handleClearReply = () => {
@@ -46,10 +46,10 @@ function CommentItem({ comment }: Props) {
     return (
         <>
             <div className={styles.comment}>
-                <img src={'/images/default_user.png'} alt="user avatar" />
+                <img src={avatar || '/images/default_user.png'} alt="user avatar" />
                 <div className={styles['comment__content']}>
                     <div>
-                        <span className={styles.username}>Anonymous user</span>
+                        <span className={styles.username}>{username}</span>
                         <span className={styles.date}>
                             {dayjs(comment?.createdAt).format('DD/MM/YYYY')}
                         </span>

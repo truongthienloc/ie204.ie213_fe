@@ -248,3 +248,15 @@ export const filterDish = (
         }
     })
 }
+
+// add comment for product
+export const addComment = (content: string, dishId: string) => {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const res = await api.post('/comments/new', { content, dishId })
+            resolve(res)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}

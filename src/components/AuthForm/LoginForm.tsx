@@ -82,6 +82,7 @@ function LoginForm() {
 
                 router.replace('/')
             } catch (error: any) {
+                console.error(error)
                 toast.error('Email hoặc password không chính xác')
             }
         }
