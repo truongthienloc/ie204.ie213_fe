@@ -95,7 +95,6 @@ const PaymentPage = () => {
             try {
                 handlePayByVNPay()
                 checkOutCart()
-                await cartReset()
             } catch (err) {
                 console.error(err)
             }
@@ -116,7 +115,6 @@ const PaymentPage = () => {
                         })
                         if (resCheckOut === true) {
                             toast.success('Tạo đơn hàng thành công!')
-                            await cartReset()
                         }
                     }
                     checkoutPayAtHome()
