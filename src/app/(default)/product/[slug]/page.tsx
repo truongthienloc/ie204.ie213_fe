@@ -17,28 +17,6 @@ import { formatCurrency } from '~/lib/utils'
 import { Product, ProductComment } from '~/interfaces/product.type'
 import ProductCard from '~/components/ProductCard'
 
-// const mockComments: ProductComment[] = [
-//     {
-//         _id: '1',
-//         dishId: '1',
-//         userId: '1',
-//         content: 'Món ăn rất ngon, mình đã thử tại nhà hàng nhiều lần, mn nên thử ạ!',
-//         replies: [],
-//         level: 1,
-//         createdAt: '04/23/24',
-//         rating: 5,
-//     },
-//     {
-//         _id: '2',
-//         dishId: '2',
-//         userId: '2',
-//         content: 'Mình cùng gia đình đến trải nghiệm món ăn này và rất hài lòng',
-//         replies: [],
-//         level: 1,
-//         createdAt: '04/21/24',
-//         rating: 5,
-//     },
-// ]
 const mockComments: ProductComment[] = []
 
 type Props = {
