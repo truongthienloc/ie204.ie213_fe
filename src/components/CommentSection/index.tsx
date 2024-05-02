@@ -29,6 +29,7 @@ function CommentSection({ initComments, dishId }: Props) {
             router.push('/login')
             return
         } else {
+            if (!commentInput.trim()) return
             const newComment: ProductComment = {
                 content: commentInput,
                 dishId,
