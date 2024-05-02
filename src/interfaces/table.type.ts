@@ -1,8 +1,9 @@
 export type TableStatus = 'Available' | 'Occupied' | 'Chose'
 
 type TableUser = {
-    userId: string
+    _id: string
     bookingTime: string
+    username: string
 }
 
 export type OriginTableData = {

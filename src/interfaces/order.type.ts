@@ -9,7 +9,7 @@ export type Order = {
     totalMoney: number
     billPayed: boolean
     billDate: string
-    userId: {
+    user: {
         _id: string
         username: string
     }
