@@ -17,12 +17,16 @@ import styles from '../../styles/form.module.scss'
 import clsx from 'clsx'
 import { getCurrentUser } from '~/services/axios/actions/user.action'
 import { User } from '~/interfaces/user.type'
+import { getCart } from '~/services/axios/actions/cart.action'
+import { CartProduct } from '~/interfaces/cart.type'
+import { useCart } from '~/stores/cart/useCart'
 
 function LoginForm() {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [errors, setErrors] = useState<InputValue>({})
     const { login } = useAuth()
+    const { loadProduct } = useCart()
     const router = useRouter()
 
     const handleValidateForm = async () => {
@@ -70,6 +74,12 @@ function LoginForm() {
                     username: user?.username,
                     isAdmin: false,
                 })
+
+                if (user?.role === 'user') {
+                    const cart: CartProduct[] = await getCart()
+                    loadProduct(cart)
+                }
+
                 router.replace('/')
             } catch (error: any) {
                 toast.error('Email hoặc password không chính xác')

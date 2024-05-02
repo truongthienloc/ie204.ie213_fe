@@ -4,11 +4,17 @@ import { useEffect } from 'react'
 import useAuth from './useAuth'
 import { clientInstance } from '~/services/axios'
 import userAction from '~/services/axios/actions/user.action'
+import { useCart } from '../cart/useCart'
+import { getCart } from '~/services/axios/actions/cart.action'
+import { CartProduct } from '~/interfaces/cart.type'
 
 type Props = {}
 
 export default function AutoLogin({}: Props) {
     const auth = useAuth()
+    const { loadProduct } = useCart()
+
+    // console.log('auth: ', auth);
 
     useEffect(() => {
         const accessToken = clientInstance.getAccessToken()
@@ -28,10 +34,15 @@ export default function AutoLogin({}: Props) {
                     avatar: res.avatar?.link,
                     isAdmin: res.role === 'admin',
                 })
+
+                // load user cart when login
+                if (res.role === 'user') {
+                    const cart: CartProduct[] = await getCart()
+                    loadProduct(cart)
+                }
             } catch (error) {
-                // console.log('logout from auto login');
-                // throw new Error(error)
                 auth.logout()
+                console.log('error: ', error)
             }
         }
 

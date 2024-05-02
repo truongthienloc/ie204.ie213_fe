@@ -1,0 +1,26 @@
+.wrap {
+    align-items: center;
+    display: flex;
+    flex-wrap: none;
+    padding: 32px 0px;
+}
+
+.img {
+    width: 568px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.img__height {
+    height: 600px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.show {
+    display: block;
+} /*# sourceMappingURL=about.module.css.map */

@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.btn {
+    position: absolute;
+    width: 20%;
+    text-align: center;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #e4a37c;
+    color: #fff;
+    font-weight: 500;
+    top: 56%;
+    right: 30%;
+    transform: translateX(50%);
+}
+.btn:hover {
+    filter: brightness(0.9);
+}
+
+@media screen and (max-width: 768px) {
+    .btn {
+        font-size: 1rem;
+        padding: 4px 8px;
+        width: 30%;
+    }
+}
+@media screen and (max-width: 539px) {
+    .btn {
+        font-size: 0.6rem;
+        top: 54%;
+    }
+} /*# sourceMappingURL=notfound.module.css.map */

@@ -5,21 +5,26 @@ import Link from 'next/link'
 import NavItem from './NavItem'
 import NavDrawer from './NavDrawer'
 import { usePathname, useRouter } from 'next/navigation'
-
 import { navbarItems } from '~/data'
 import styles from '../../styles/navbar.module.scss'
 import { NavbarItem } from '~/types/NavbarItem'
 import { useAuth } from '~/stores/auth'
 import { clientInstance } from '~/services/axios'
+import { useCart } from '~/stores/cart/useCart'
+import { SearchBox } from '../SearchBox'
 
 function NavBar() {
     const pathname = usePathname()
     const { isLogin, avatar, logout } = useAuth()
+    const { total, removeAll } = useCart()
     const router = useRouter()
+
+    // console.log('isLogin', isLogin);
 
     const handleLogout = () => {
         clientInstance.removeAccessToken()
         logout()
+        removeAll()
         router.replace('/')
     }
 
@@ -38,7 +43,6 @@ function NavBar() {
                         {navbarItems.map((item: NavbarItem) => {
                             let isActive = pathname.startsWith(item?.href)
                             if (item?.href === '/' && pathname !== '/') isActive = false
-
                             return (
                                 <NavItem
                                     key={item.id}
@@ -50,11 +54,20 @@ function NavBar() {
                         })}
                     </ul>
                 </div>
+                {isLogin ? (
+                    <div className={styles.searchBoxLogin}>
+                        <SearchBox />
+                    </div>
+                ) : (
+                    <div className={styles.searchBoxUnLogin}>
+                        <SearchBox />
+                    </div>
+                )}
 
                 <div className={styles.part}>
                     <Link className={styles.cart} href={isLogin ? '/cart' : '/login'}>
                         <ShoppingCartOutlinedIcon className={styles.cartIcon} />
-                        <span className={styles.cartBadge}>0</span>
+                        <span className={styles.cartBadge}>{total}</span>
                     </Link>
 
                     <div className={styles.account}>

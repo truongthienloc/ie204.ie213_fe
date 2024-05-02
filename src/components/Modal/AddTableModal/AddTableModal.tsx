@@ -6,7 +6,7 @@ type Props = {
     isOpen: boolean
     onClose: () => void
     tablePosition?: string
-    tableFloor?: string
+    tableFloor?: string | null
     floorOptions?: string[]
     onChangeTablePosition?: (e: React.ChangeEvent<HTMLInputElement>) => void
     onChangeTableFloor?: (e: any, value: string | null) => void

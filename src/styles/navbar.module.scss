@@ -71,7 +71,7 @@
 }
 
 .cart {
-    margin-right: 26px;
+    // margin-right: 26px;
     position: relative;
     border-radius: 50%;
     color: #fff;
@@ -109,7 +109,7 @@
 // User option box CSS
 .user {
     position: relative;
-
+    margin-left: 16px;
     &:hover .option_box {
         display: block;
     }
@@ -269,7 +269,30 @@
     }
 }
 
-@media screen and (max-width: 984px) {
+.searchBoxUnLogin {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    width: 200px;
+    margin-right: 10px;
+}
+
+.searchBoxLogin {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    width: 300px;
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 1120px) {
+    .searchBoxUnLogin {
+        width: 140px;
+    }
+}
+
+// @media screen and (max-width: 984px)
+@media screen and (max-width: 1023px) {
     .navigation,
     .account,
     .cart {
@@ -278,6 +301,12 @@
 
     .inner {
         padding: 0 16px;
+    }
+
+    .searchBoxUnLogin,
+    .searchBoxLogin {
+        width: 60%;
+        margin: 0;
     }
 
     .bar {
