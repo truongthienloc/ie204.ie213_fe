@@ -89,7 +89,6 @@ const PaymentPage = () => {
             }
             try {
                 handlePayByVNPay()
-                const res = checkOutCart()
                 removeAll()
             } catch (err) {
                 console.error(err)

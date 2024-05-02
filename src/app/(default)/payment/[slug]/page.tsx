@@ -94,7 +94,6 @@ const PaymentPage = () => {
             // Chuyển đến VNPay
             try {
                 handlePayByVNPay()
-                checkOutCart()
             } catch (err) {
                 console.error(err)
             }
