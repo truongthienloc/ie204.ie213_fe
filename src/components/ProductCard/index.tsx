@@ -30,7 +30,11 @@ function ProductCard({ product }: Props) {
         <>
             <Link href={`/product/${product?.slugName}`} className={styles.card}>
                 <div className={styles['card__image']}>
-                    <img src={product?.dishImages[0]?.link} alt={product?.dishName} />
+                    <img
+                        loading="lazy"
+                        src={product?.dishImages[0]?.link}
+                        alt={product?.dishName + ' bếp UIT'}
+                    />
                 </div>
                 <div className={styles.wrapper}>
                     <h4 className={styles.name}>{product?.dishName}</h4>

@@ -34,12 +34,12 @@ export default function Footer() {
                                 />
                             </a>
                             <a
-                                href="https://oa.zalo.me/bepuit"
+                                href="https://www.tiktok.com/@bepuit_letuscook"
                                 className="overflow-hidden rounded-md"
                             >
                                 <Image
-                                    src={'/logos/zalo.svg'}
-                                    alt="zalo icon"
+                                    src={'/logos/logo-tiktok.svg'}
+                                    alt="tiktok logo"
                                     width={40}
                                     height={40}
                                 />

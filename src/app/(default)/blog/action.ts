@@ -9,7 +9,6 @@ export function getBlogs() {
             const data = (await res.data) as Blogs
             resolve(data)
         } catch (error) {
-            // throw new Error()
             reject(error)
         }
     })

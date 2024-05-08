@@ -17,8 +17,6 @@ export const useCart = create<CartState>()((set) => ({
     total: 0,
     loadProduct: (cart) =>
         set((state) => {
-            // console.log('cart: ', cart);
-
             const totalQuantity = cart.reduce((sum, product: CartProduct) => {
                 return sum + product?.dishAmount
             }, 0)

@@ -15,8 +15,7 @@ import CommentSection from '~/components/CommentSection'
 import { formatCurrency } from '~/lib/utils'
 import { Product, ProductComment } from '~/interfaces/product.type'
 import ProductCard from '~/components/ProductCard'
-
-const mockComments: ProductComment[] = []
+import keywords from '~/configs/BrandKeywords'
 
 type Props = {
     params: {
@@ -29,7 +28,16 @@ export async function generateMetadata({ params: { slug } }: Props): Promise<Met
     return {
         title: `Bếp UIT - ${product?.dishName}`,
         description: product?.dishDescription,
-        keywords: [product?.dishName],
+        keywords: [
+            ...keywords,
+            product?.dishName,
+            product?.dishName + ' uit',
+            product?.dishName + ' UIT',
+            product?.dishName + ' bếp UIT',
+            product?.dishName + ' Bếp UIT',
+            product?.dishName + ' bếp uit',
+            product?.dishName + ' tại bếp UIT',
+        ],
         openGraph: {
             title: product?.dishName,
             countryName: 'Việt Nam',
@@ -55,7 +63,7 @@ const handleDisplayRating = (rating: number) => {
 
 async function ProductDetailPage({ params: { slug } }: Props) {
     const product: Product = await getProductBySlugname(slug)
-    const comments: ProductComment[] = (await getProductComments(product?._id)) || mockComments
+    const comments: ProductComment[] = (await getProductComments(product?._id)) || []
     const relativeProducts: Product[] = await getRelativeProducts(product?._id, 4)
     return (
         <>
@@ -67,7 +75,10 @@ async function ProductDetailPage({ params: { slug } }: Props) {
                 </p>
                 <section className="row">
                     <div className="col lg-6 md-6 sm-12">
-                        <ProductImageSlider images={product?.dishImages} alt={product?.dishName} />
+                        <ProductImageSlider
+                            images={product?.dishImages}
+                            alt={product?.dishName + ' tại bếp UIT'}
+                        />
                     </div>
                     <div className="col lg-6 md-6 sm-12">
                         <div className={styles['product__info']}>

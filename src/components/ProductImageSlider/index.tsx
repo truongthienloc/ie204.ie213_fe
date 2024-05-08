@@ -43,7 +43,7 @@ function ProductImageSlider({ images, alt }: Props) {
                             onClick={() => setCurrentIndex(index)}
                             onMouseOver={() => setCurrentIndex(index)}
                         >
-                            <img src={image?.link} alt={alt} />
+                            <img src={image?.link} alt={alt} loading="lazy" />
                         </button>
                     ))}
                 </div>

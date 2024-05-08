@@ -19,8 +19,6 @@ function NavBar() {
     const { total, removeAll } = useCart()
     const router = useRouter()
 
-    // console.log('isLogin', isLogin);
-
     const handleLogout = () => {
         clientInstance.removeAccessToken()
         logout()
@@ -34,9 +32,10 @@ function NavBar() {
                 <div className={clsx(styles.part)}>
                     <Link href={'/'} className={styles.logoLink}>
                         <img
+                            loading="lazy"
                             className={styles.logoImage}
                             src={'/logos/bepuit_logo.svg'}
-                            alt="Bếp UIT logo"
+                            alt="Logo của bếp UIT"
                         />
                     </Link>
                     <ul className={styles.navigation}>
@@ -75,8 +74,9 @@ function NavBar() {
                             <>
                                 <div className={styles.user}>
                                     <img
+                                        loading="lazy"
                                         src={avatar || '/images/default_user.png'}
-                                        alt="Profile Image"
+                                        alt="User avatar"
                                         width={10}
                                         height={10}
                                         className={styles.avatar}
@@ -97,9 +97,7 @@ function NavBar() {
                         ) : (
                             <>
                                 <Link
-                                    className={clsx(
-                                        'rounded-lg px-4 py-2 text-center font-bold text-secondary hover:text-primary',
-                                    )}
+                                    className="rounded-lg px-4 py-2 text-center font-bold text-secondary hover:text-primary"
                                     href={'/login'}
                                 >
                                     Đăng nhập
