@@ -45,7 +45,6 @@ function SearchPage() {
 
                 if (keyword) {
                     let products: Product[] = []
-                    console.log(choice)
                     if (choice === '0') {
                         products = await getProductBySearching(keyword)
                     } else if (choice === '1') {

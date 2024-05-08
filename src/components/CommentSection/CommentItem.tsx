@@ -30,7 +30,6 @@ function CommentItem({ comment }: Props) {
             try {
                 if (comment.userId) {
                     const user: User = await getUserById(comment?.userId)
-                    console.log(user)
                     setUser(user)
                 }
             } catch (err) {

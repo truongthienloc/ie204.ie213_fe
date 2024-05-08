@@ -41,33 +41,27 @@ export const navbarItems: NavbarItem[] = [
         text: 'BÀI VIẾT',
         icon: <Book />,
     },
-    // {
-    //     id: 6,
-    //     href: '/search',
-    //     text: '',
-    //     icon: <SearchBar />,
-    // }
 ]
 
 export const sliderBanners = [
     {
         id: 1,
-        alt: 'Enjoy your chicken',
+        alt: 'Món gà thơm ngon tại bếp UIT',
         image: '/images/banner1.svg',
     },
     {
         id: 2,
-        alt: 'Thưởng thức beefsteak',
+        alt: 'Thưởng thức beefsteak ở bếp UIT',
         image: '/images/banner2.svg',
     },
     {
         id: 3,
-        alt: 'Cá hồi muối đặc biệt',
+        alt: 'Cá hồi muối đặc biệt chỉ có ở bếp UIT',
         image: '/images/banner3.svg',
     },
     {
         id: 4,
-        alt: 'Mực chiên mắm',
+        alt: 'Món mực chiên mắm mới nhất của bếp UIT',
         image: '/images/banner4.svg',
     },
 ]

@@ -33,8 +33,6 @@ export default function ManageBookingPage({}: Props) {
             const res = await tableAction.getAllTable()
             const booking = res.map((value) => ({ ...value, isCheck: false }))
 
-            console.log(res)
-
             setBookingData(booking)
         } catch (error) {}
     }

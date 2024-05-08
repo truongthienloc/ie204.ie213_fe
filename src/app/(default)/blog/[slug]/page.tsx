@@ -1,7 +1,5 @@
 import { Metadata } from 'next'
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined'
-import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 
@@ -9,6 +7,7 @@ import { getBlogDetail } from '../action'
 import { Blog } from '~/interfaces/blog.type'
 import SocialsShare from '~/components/SocialsShare'
 import styles from '~/styles/blog.module.scss'
+import keywords from '~/configs/BrandKeywords'
 
 type Props = {
     params: {
@@ -23,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: blog?.title,
         description: blog?.description,
-        keywords: blog?.keywords,
+        keywords: [...keywords, ...blog?.keywords],
         openGraph: {
             description: blog?.description,
             countryName: 'Việt Nam',

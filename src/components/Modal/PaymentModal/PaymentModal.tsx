@@ -39,7 +39,6 @@ const PaymentModal = ({
                               discount: '',
                           })
                         : await checkOutCart()
-                console.log(res)
                 if (res === true) {
                     if (product._id === '') {
                         removeAll()
