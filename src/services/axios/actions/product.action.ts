@@ -26,6 +26,18 @@ export const getProducts = () => {
     })
 }
 
+export const getProductsFromServer = () => {
+    return new Promise<Product[]>(async (resolve, reject) => {
+        try {
+            const res = await server('/dishes', { cache: 'no-store' })
+            const products = (await res.data) as Product[]
+            resolve(products)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
 // fetch product by pagination
 export const getProductByPagination = (page: number, perPage: number) => {
     return new Promise<Product[]>(async (resolve, rejects) => {
@@ -47,7 +59,6 @@ export const getProductBySearching = (keyword: string) => {
         try {
             const res = await server(`/dishes/search?keyword=${keyword}`, { cache: 'no-store' })
             const products: Product[] = res.data as Product[]
-            // console.log(products)
             resolve(products)
         } catch (err) {
             reject(err)
@@ -67,7 +78,6 @@ export const getProductByNamePrice = (
                 { cache: 'no-store' },
             )
             const products: Product[] = res.data as Product[]
-            // console.log(products)
             resolve(products)
         } catch (err) {
             reject(err)
