@@ -2,6 +2,7 @@ import ProductPageComponent from '~/components/ProductPage'
 import { Metadata } from 'next'
 import { getProductsFromServer } from '~/services/axios/actions/product.action'
 import { Product } from '~/interfaces/product.type'
+import ProductCard from '~/components/ProductCard'
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return {
@@ -14,6 +15,9 @@ async function ProductPage() {
 
     return (
         <>
+            <div className="hidden">
+                {products?.map((product) => <ProductCard key={product?._id} product={product} />)}
+            </div>
             <ProductPageComponent initProducts={products} />
         </>
     )
