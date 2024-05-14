@@ -9,6 +9,7 @@ import { contact, actions } from '~/data/jsonLDConfig'
 import 'react-toastify/dist/ReactToastify.css'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { AutoLogin } from '~/stores/auth'
+import { Analytics } from '@vercel/analytics/react'
 
 const roboto = Roboto({ subsets: ['vietnamese'], weight: ['400'] })
 
@@ -58,6 +59,7 @@ export default function RootLayout({
                 />
             </body>
             <GoogleAnalytics gaId="G-XWLJFZT5Z7" />
+            <Analytics />
         </html>
     )
 }
