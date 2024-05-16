@@ -38,20 +38,22 @@ function NavBar() {
                             alt="Logo của bếp UIT"
                         />
                     </Link>
-                    <ul className={styles.navigation}>
-                        {navbarItems.map((item: NavbarItem) => {
-                            let isActive = pathname.startsWith(item?.href)
-                            if (item?.href === '/' && pathname !== '/') isActive = false
-                            return (
-                                <NavItem
-                                    key={item.id}
-                                    item={item}
-                                    className={styles.item}
-                                    isActive={isActive}
-                                />
-                            )
-                        })}
-                    </ul>
+                    <nav>
+                        <ul className={styles.navigation}>
+                            {navbarItems.map((item: NavbarItem) => {
+                                let isActive = pathname.startsWith(item?.href)
+                                if (item?.href === '/' && pathname !== '/') isActive = false
+                                return (
+                                    <NavItem
+                                        key={item.id}
+                                        item={item}
+                                        className={styles.item}
+                                        isActive={isActive}
+                                    />
+                                )
+                            })}
+                        </ul>
+                    </nav>
                 </div>
                 {isLogin ? (
                     <div className={styles.searchBoxLogin}>

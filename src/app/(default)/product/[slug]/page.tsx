@@ -30,6 +30,13 @@ export async function generateMetadata({ params: { slug } }: Props): Promise<Met
         description: product?.dishDescription,
         keywords: [
             ...keywords,
+            product?.dishName.toLowerCase(),
+            product?.dishName.toLowerCase() + ' uit',
+            product?.dishName.toLowerCase() + ' UIT',
+            product?.dishName.toLowerCase() + ' bếp UIT',
+            product?.dishName.toLowerCase() + ' Bếp UIT',
+            product?.dishName.toLowerCase() + ' bếp uit',
+            product?.dishName.toLowerCase() + ' tại bếp UIT',
             product?.dishName,
             product?.dishName + ' uit',
             product?.dishName + ' UIT',

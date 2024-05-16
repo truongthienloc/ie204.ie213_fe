@@ -14,7 +14,7 @@ import { Analytics } from '@vercel/analytics/react'
 const roboto = Roboto({ subsets: ['vietnamese'], weight: ['400'] })
 
 export const metadata: Metadata = {
-    title: 'Bếp UIT - Let us cook',
+    title: 'Bếp UIT - Let Us Cook',
     description:
         'Bếp UIT - Nhà hàng đạt chuẩn 4food đầu tiên tại Việt Nam. Chúng tôi mang đến cho bạn những món ăn truyền thống Việt Nam, đậm đà hương vị quê hương. Với không gian ấm cúng và phục vụ chuyên nghiệp, chúng tôi cam kết mang đến cho quý khách hàng một trải nghiệm ẩm thực độc đáo và tuyệt vời nhất.',
     keywords,
