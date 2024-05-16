@@ -14,14 +14,7 @@ type Props = {
     slug: string
 }
 
-export default function ReadonlyBlogItem({
-    id,
-    header,
-    imgSrc,
-    description,
-    createdAt,
-    slug,
-}: Props) {
+export default function ReadonlyBlogItem({ header, imgSrc, description, createdAt, slug }: Props) {
     return (
         <div className={styles.card}>
             <Link href={`/blog/${slug}`} className={styles['card__image']}>
