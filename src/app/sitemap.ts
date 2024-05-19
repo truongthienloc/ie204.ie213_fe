@@ -34,12 +34,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         },
         ...products.map((product) => ({
-            url: 'https//bepuit.com/product/' + product?.slugName,
+            url: 'https://bepuit.com/product/' + product?.slugName,
             lastModified: new Date(),
             priority: 0.64,
         })),
         ...blogs.map((blog) => ({
-            url: 'https//bepuit.com/blog/' + blog?.slugName,
+            url: 'https://bepuit.com/blog/' + blog?.slugName,
             lastModified: new Date(),
             priority: 0.64,
         })),
