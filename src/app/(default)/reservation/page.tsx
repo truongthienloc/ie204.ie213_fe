@@ -4,15 +4,12 @@ import { ReservationGroup, ReservationExp } from '~/components/ReservationGroup'
 import { ReservationForm } from '~/components/ReservationForm'
 import { toast } from 'react-toastify'
 import dayjs, { Dayjs } from 'dayjs'
-// import { generateTablesData } from '~/helpers/randoms/fakeTable.random'
 import { groupDataByTableFloor } from '~/helpers/convert/reservation.convert'
 import { Table, Tables } from '~/interfaces/table.type'
 import tableAction from '~/services/axios/actions/table.action'
 import useSocket from '~/hooks/useSocket.hook'
 import { useAuth } from '~/stores/auth'
 import { useRouter } from 'next/navigation'
-
-// const tableData = generateTablesData(20)
 
 type Props = {}
 
@@ -68,7 +65,6 @@ export default function ReservationPage({}: Props) {
         if (socket) {
             function handleBookSuccess(message: string, { tableId }: { tableId: string }) {
                 if (message === 'Book table successfully') {
-                    // User book successfully
                     toast.success('Đặt bàn thành công')
                     const newTable = tableData.map((value) =>
                         value._id !== tableId
@@ -79,7 +75,6 @@ export default function ReservationPage({}: Props) {
                     setIsOpen(false)
                     setTableData(newTable)
                 } else if (message === 'A table has been booked') {
-                    // Broadcast book successfully
                     const newTable = tableData.map((value) =>
                         value._id !== tableId
                             ? value
