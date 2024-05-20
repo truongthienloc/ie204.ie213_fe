@@ -25,7 +25,7 @@ export default function ReadonlyBlogItem({
     return (
         <div className={styles.card}>
             <Link href={`/blog/${slug}`} className={styles['card__image']}>
-                <img src={imgSrc || 'https://placehold.co/400x300'} alt={header} />
+                <img loading="lazy" src={imgSrc || 'https://placehold.co/400x300'} alt={header} />
             </Link>
             <div className={styles['card__info']}>
                 <Link href={`/blog/${slug}`} className="text-primary hover:underline">

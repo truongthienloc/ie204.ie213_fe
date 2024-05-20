@@ -8,6 +8,7 @@ import { Blog } from '~/interfaces/blog.type'
 import SocialsShare from '~/components/SocialsShare'
 import styles from '~/styles/blog.module.scss'
 import keywords from '~/configs/BrandKeywords'
+import addLazyLoadingToImages from '~/helpers/convert/blogHTML.convert'
 
 type Props = {
     params: {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 function htmlParser(htmlString: string) {
-    return <div dangerouslySetInnerHTML={{ __html: htmlString }} />
+    return <div dangerouslySetInnerHTML={{ __html: addLazyLoadingToImages(htmlString) }} />
 }
 
 async function BlogDetailPage({ params: { slug } }: Props) {
