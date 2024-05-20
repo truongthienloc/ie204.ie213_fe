@@ -23,16 +23,16 @@ function generateFroalaConfig() {
         imageUploadMethod: 'POST',
 
         // Set max image size to 5MB.
-        imageMaxSize: 5 * 1024 * 1024,
+        imageMaxSize: 0.5 * 1024 * 1024,
 
         // Allow to upload PNG and JPG.
-        imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+        imageAllowedTypes: ['jpeg', 'jpg', 'png', 'webp'],
 
         events: {
             'image.beforeUpload': function (images: any) {
                 // Return false if you want to stop the image upload.
                 // editor.opts.requestHeaders.authorization = 'Bearer '
-                // console.log('Before Upload: ', images)
+                console.log('Before Upload: ', images)
             },
             'image.uploaded': function (response: string) {
                 // Image was uploaded to the server.
@@ -44,9 +44,10 @@ function generateFroalaConfig() {
 
                 return false
             },
-            'image.inserted': function ($img: any, response: any) {
+            'image.inserted': function ($img: [HTMLImageElement], response: any) {
                 // Image was inserted in the editor.
-                // console.log('Inserted: ', $img, response)
+                console.log('Inserted: ', $img, response)
+                // $img[0].loading = 'lazy'
             },
             'image.replaced': function ($img: any, response: any) {
                 // Image was replaced in the editor.

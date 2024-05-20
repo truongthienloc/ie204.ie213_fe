@@ -30,7 +30,7 @@ function ProductImageSlider({ images, alt }: Props) {
                     <button className={styles['prev__btn']} onClick={handleBackImage}>
                         <ArrowBackIosIcon />
                     </button>
-                    <img src={images[currentIndex]?.link} alt={alt} />
+                    <img loading="lazy" src={images[currentIndex]?.link} alt={alt} />
                     <button className={styles['next__btn']} onClick={handleNextImage}>
                         <ArrowForwardIosIcon />
                     </button>

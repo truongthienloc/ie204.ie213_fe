@@ -82,13 +82,19 @@ export default function WriteBlogForm({ instanceBlog, isAutoSave = true, isEdit 
             return
         }
 
-        if (keywords.some((key) => key === keyword)) {
-            toast.error('Keyword đã tồn tại')
-            return
+        const result: string[] = []
+        for (const value of keyword.split(',')) {
+            const key = value.trim()
+            if (keywords.some((curKey) => curKey === key)) {
+                toast.error(`Keyword {${key}} đã tồn tại`)
+                continue
+            }
+
+            result.push(key)
         }
 
         setKeyword('')
-        setKeywords([...keywords, keyword])
+        setKeywords([...keywords, ...result])
     }
 
     const handleDeleteKeyword = (keyword: string) => {
