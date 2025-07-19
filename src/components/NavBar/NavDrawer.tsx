@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import cn from '~/lib/cn';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -16,21 +17,20 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import Login from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import MenuIcon from '@mui/icons-material/Menu';
-import Link from 'next/link';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { usePathname, useRouter } from 'next/navigation';
 
 import styles from '../../styles/navbar.module.scss';
-import { navbarItems } from '~/data';
-import { NavbarItem } from '~/types/NavbarItem';
+import { type NavbarItem, navbarItems } from '~/configs/navbar';
 import { useAuth } from '~/stores/auth';
 import { clientInstance } from '~/services/axios';
 import { useCart } from '~/stores/cart/useCart';
+import cn from '~/lib/cn';
+import ROUTES from '~/constants/routes';
 
 export default function NavDrawer() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const { isLogin, avatar, logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const router = useRouter();
   const { removeAll } = useCart();
 
@@ -38,7 +38,7 @@ export default function NavDrawer() {
     clientInstance.removeAccessToken();
     logout();
     removeAll();
-    router.replace('/');
+    router.replace(ROUTES.HOME);
   };
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
@@ -65,7 +65,7 @@ export default function NavDrawer() {
           <List>
             {navbarItems.map((item: NavbarItem) => {
               let isActive = pathname.startsWith(item?.href);
-              if (item?.href === '/' && pathname !== '/') isActive = false;
+              if (item?.href === ROUTES.HOME && pathname !== ROUTES.HOME) isActive = false;
 
               return (
                 <ListItem key={item?.id} disablePadding>
@@ -83,10 +83,10 @@ export default function NavDrawer() {
                 </ListItem>
               );
             })}
-            {isLogin ? (
+            {isAuthenticated ? (
               <>
                 <ListItem disablePadding>
-                  <Link className="w-[inherit]" href={'/cart'}>
+                  <Link className="w-[inherit]" href={ROUTES.CART}>
                     <ListItemButton>
                       <ListItemIcon className={styles.icon}>
                         <ShoppingCartIcon />
@@ -96,10 +96,10 @@ export default function NavDrawer() {
                   </Link>
                 </ListItem>
                 <ListItem disablePadding>
-                  <Link className="w-[inherit]" href={'/user/profile'}>
+                  <Link className="w-[inherit]" href={ROUTES.USER_PROFILE}>
                     <ListItemButton>
                       <img
-                        src={avatar || '/images/default_user.png'}
+                        src={user?.avatar.link ?? '/images/default_user.png'}
                         alt="User Avatar"
                         width={28}
                         height={28}
@@ -124,13 +124,13 @@ export default function NavDrawer() {
                 <Divider />
 
                 <ListItem disablePadding>
-                  <Link className={cn(styles.btn, styles.drawerBtn)} href={'/login'}>
+                  <Link className={cn(styles.btn, styles.drawerBtn)} href={ROUTES.LOGIN}>
                     <Login className={styles.icon} />
                     <span className={styles.text}>Đăng nhập</span>
                   </Link>
                 </ListItem>
                 <ListItem disablePadding>
-                  <Link className={cn(styles.btn, styles.drawerBtn)} href={'/signup'}>
+                  <Link className={cn(styles.btn, styles.drawerBtn)} href={ROUTES.SIGNUP}>
                     <PersonAddIcon className={styles.icon} />
                     <span className={styles.text}>Đăng ký</span>
                   </Link>

@@ -16,7 +16,6 @@ import PaymentOptionButtons from '~/components/Payment/PaymentOptionButton';
 import PaymentModal from '~/components/Modal/PaymentModal/PaymentModal';
 import { useAuth } from '~/stores/auth';
 import payAction, { checkOutCart } from '~/services/axios/actions/payment.action';
-import { useRouter } from 'next/navigation';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import { CartProduct } from '~/interfaces/cart.type';
 
@@ -24,10 +23,9 @@ const VAT = 0.1;
 const shippingFee = 20000;
 
 const PaymentPage = () => {
-  const router = useRouter();
   const { cartList, removeAll } = useCart();
-  const user = useAuth((state) => state);
-  const userName: string = user.username !== null ? user.username : '';
+  const { user, isAuthenticated } = useAuth();
+
   const [cartProduct, setCartProduct] = useState<CartProduct>({
     _id: '',
     dishName: '',
@@ -78,7 +76,7 @@ const PaymentPage = () => {
     settotalPay(total * (1 + VAT));
   };
   const handleCheckOut = async () => {
-    if (!user.isLogin) {
+    if (!isAuthenticated) {
       toast.error('Xin đăng nhập trước khi sử dụng chức năng này !');
       return;
     }
@@ -118,6 +116,7 @@ const PaymentPage = () => {
       }
     }
   };
+
   useEffect(() => {
     calculateTotal();
   }, [cartList]);
@@ -221,7 +220,12 @@ const PaymentPage = () => {
               </button>
             </div>
             {displayPaymentModal && (
-              <PaymentModal totalPay={totalPay} userName={userName} closeModal={closeModal} product={cartProduct} />
+              <PaymentModal
+                totalPay={totalPay}
+                userName={user?.username ?? ''}
+                closeModal={closeModal}
+                product={cartProduct}
+              />
             )}
           </section>
         </div>

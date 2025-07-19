@@ -1,10 +1,10 @@
-export type CloudinaryImage = {
+export interface CloudinaryImage {
   url: string;
   public_id: string;
-};
+}
 
-export type Image = {
+export interface Image {
   link: string;
   publicId: string;
   _id: string;
-};
+}

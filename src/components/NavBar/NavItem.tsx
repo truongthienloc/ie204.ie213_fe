@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { NavbarItem } from '~/types/NavbarItem';
+
+import type { NavbarItem } from '~/configs/navbar';
 
 type NavItemProps = {
   item: NavbarItem;

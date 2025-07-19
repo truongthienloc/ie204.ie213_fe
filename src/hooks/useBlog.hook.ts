@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import debounce from 'lodash/debounce';
 import type { BlogData, BlogImageData } from '~/interfaces/blog.type';
-import type { CloudinaryImage } from '~/interfaces/image.type';
+import { CloudinaryImage } from '~/interfaces/image';
 
 type Props = {
   blog?: BlogData;

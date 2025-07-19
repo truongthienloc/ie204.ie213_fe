@@ -39,7 +39,7 @@ export default function ReservationPage({}: Props) {
     if (auth.isLoading) {
       return;
     }
-    if (!auth.isLogin) {
+    if (!auth.isAuthenticated) {
       router.replace('/login');
       toast.info('Bạn cần phải đăng nhập để sử dụng chức năng này');
     }

@@ -9,7 +9,7 @@ import styles from '~/styles/product_detail.module.scss';
 import { useEffect, useState } from 'react';
 import { useAuth } from '~/stores/auth';
 import { useRouter } from 'next/navigation';
-import { User } from '~/interfaces/user.type';
+import { User } from '~/interfaces/user';
 import { getUserById } from '~/services/axios/actions/user.action';
 
 type Props = {
@@ -22,7 +22,8 @@ function CommentItem({ comment }: Props) {
   const [isShowReply, setIsShowReply] = useState(false);
   const [replyInput, setReplyInput] = useState('');
   const [user, setUser] = useState<User>();
-  const { isLogin, avatar, username } = useAuth();
+
+  const { isAuthenticated, user: authUser } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -45,7 +46,7 @@ function CommentItem({ comment }: Props) {
   };
 
   const handleShowReply = () => {
-    if (!isLogin) {
+    if (!isAuthenticated) {
       router.push('/login');
     } else {
       setIsShowReply(true);
@@ -53,7 +54,7 @@ function CommentItem({ comment }: Props) {
   };
 
   const handleLikeComment = () => {
-    if (!isLogin) {
+    if (!isAuthenticated) {
       router.push('/login');
     } else {
       setIsLike((prev) => !prev);
@@ -89,7 +90,7 @@ function CommentItem({ comment }: Props) {
             {isShowReply && (
               <div>
                 <div className="mt-2 flex items-center gap-4">
-                  <img src={avatar || '/images/default_user.png'} alt="user avatar" />
+                  <img src={authUser?.avatar?.link ?? '/images/default_user.png'} alt="user avatar" />
                   <input
                     className={styles['reply_input']}
                     spellCheck={false}

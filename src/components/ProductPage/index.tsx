@@ -5,8 +5,8 @@ import { Product } from '~/interfaces/product.type';
 import { getProducts, filterDish } from '~/services/axios/actions/product.action';
 import { useState, useEffect } from 'react';
 import { Spinner } from '~/components/Spinner';
-import clsx from 'clsx';
 import styles from '~/styles/products.module.scss';
+import cn from '~/lib/cn';
 
 type Props = {
   initProducts: Product[];
@@ -63,9 +63,9 @@ function ProductPageComponent({ initProducts }: Props) {
       ) : (
         <>
           {isLoaded && (
-            <div className={clsx('mt-10 flex justify-end gap-3', styles.category)}>
+            <div className={cn('mt-10 flex justify-end gap-3', styles.category)}>
               <button
-                className={clsx(styles.button, choice === 1 && styles.active)}
+                className={cn(styles.button, choice === 1 && styles.active)}
                 onClick={() => {
                   setChoice(1);
                   setCurrentPage(1);
@@ -74,7 +74,7 @@ function ProductPageComponent({ initProducts }: Props) {
                 Tất cả món ăn
               </button>
               <button
-                className={clsx(styles.button, choice === 2 && styles.active)}
+                className={cn(styles.button, choice === 2 && styles.active)}
                 onClick={() => {
                   setChoice(2);
                   setCurrentPage(1);
@@ -83,7 +83,7 @@ function ProductPageComponent({ initProducts }: Props) {
                 Thực đơn chính
               </button>
               <button
-                className={clsx(styles.button, choice === 3 && styles.active)}
+                className={cn(styles.button, choice === 3 && styles.active)}
                 onClick={() => {
                   setChoice(3);
                   setCurrentPage(1);
@@ -92,7 +92,7 @@ function ProductPageComponent({ initProducts }: Props) {
                 Tráng miệng
               </button>
               <button
-                className={clsx(styles.button, choice === 4 && styles.active)}
+                className={cn(styles.button, choice === 4 && styles.active)}
                 onClick={() => {
                   setChoice(4);
                   setCurrentPage(1);

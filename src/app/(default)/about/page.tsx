@@ -1,9 +1,10 @@
 'use client';
-import React, { useRef, useEffect, useState } from 'react';
-import styles from '~/styles/about.module.scss';
-import clsx from 'clsx';
+
+import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
+import styles from '~/styles/about.module.scss';
+import cn from '~/lib/cn';
 
 function AboutPage() {
   const [ref1, inView1] = useInView({ threshold: 0.3 });
@@ -22,7 +23,7 @@ function AboutPage() {
 
   return (
     <div className="pt-12">
-      <animated.section ref={ref1} style={springProps1} className={clsx(styles.wrap, 'row')}>
+      <animated.section ref={ref1} style={springProps1} className={cn(styles.wrap, 'row')}>
         <div className="col lg-6 md-12 text-justify text-xl leading-9 ">
           <p>Được xây dựng từ những sinh viên năm 3 lớp CNTT2021</p>
           <p>
@@ -40,22 +41,22 @@ function AboutPage() {
           <img
             src="http://res.cloudinary.com/ddexbqgmg/image/upload/v1713799897/bepUIT-blogImages/o18l9ijefeclo6ouozsm.jpg"
             alt="img_about"
-            className={clsx(styles.img, 'mx_10')}
+            className={cn(styles.img, 'mx_10')}
           />
         </div>
       </animated.section>
 
-      <animated.section ref={ref2} style={springProps2} className={clsx(styles.wrap, 'row')}>
+      <animated.section ref={ref2} style={springProps2} className={cn(styles.wrap, 'row')}>
         <div className="col lg-6 md-12 flex justify-center ">
           <img
             src="http://res.cloudinary.com/ddexbqgmg/image/upload/v1713799807/bepUIT-blogImages/s0fidr7ch6csdsln6unx.jpg"
             alt="img_about"
-            className={clsx(styles.img, styles.img__height, 'mx_10')}
+            className={cn(styles.img, styles.img__height, 'mx_10')}
           />
         </div>
         <div className="col lg-6 md-12 text-justify text-xl leading-9">
           <center>
-            <p className={clsx(styles.title, 'mt-5 uppercase ')}>đặt bàn nhanh chóng</p>
+            <p className={cn(styles.title, 'mt-5 uppercase ')}>đặt bàn nhanh chóng</p>
           </center>
           <p className="mt-4">
             Với tính năng đặt bàn online, quý khách chỉ cần một vài thao tác đơn giản trên trang web của Bếp UIT để đặt
@@ -70,10 +71,10 @@ function AboutPage() {
           </p>
         </div>
       </animated.section>
-      <animated.section ref={ref3} style={springProps3} className={clsx(styles.wrap, 'row')}>
+      <animated.section ref={ref3} style={springProps3} className={cn(styles.wrap, 'row')}>
         <div>
           <center>
-            <p className={clsx(styles.title, 'mt-5 uppercase')}>Tìm kiếm dễ dàng</p>
+            <p className={cn(styles.title, 'mt-5 uppercase')}>Tìm kiếm dễ dàng</p>
             <div className="w-[80%] text-justify">
               <p className="mt-4 text-xl leading-9">
                 Khách hàng dễ dàng tìm thấy Bếp UIT nhờ vào việc chúng mình đã đăng ký địa điểm nhà hàng trên Google
@@ -95,10 +96,10 @@ function AboutPage() {
           </center>
         </div>
       </animated.section>
-      <animated.section ref={ref4} style={springProps4} className={clsx(styles.wrap, 'row')}>
+      <animated.section ref={ref4} style={springProps4} className={cn(styles.wrap, 'row')}>
         <div className="col lg-6 md-12 text-xl leading-9 ">
           <center>
-            <p className={clsx(styles.title, 'mt-5 uppercase')}>phân loại rõ ràng</p>
+            <p className={cn(styles.title, 'mt-5 uppercase')}>phân loại rõ ràng</p>
           </center>
           <p className="mt-4 text-justify text-xl leading-9">
             Bếp UIT phân loại các địa điểm ra rất chi tiết: loại hình, món ăn, giá cả, loại ẩm thực, gần nơi bạn nhất...
@@ -109,21 +110,21 @@ function AboutPage() {
           <img
             src="http://res.cloudinary.com/ddexbqgmg/image/upload/v1713799643/bepUIT-blogImages/wpkf4jew1cxywivfnjol.jpg"
             alt="img_about"
-            className={clsx(styles.img, 'mx_10')}
+            className={cn(styles.img, 'mx_10')}
           />
         </div>
       </animated.section>
-      <animated.section ref={ref5} style={springProps5} className={clsx(styles.wrap, 'row')}>
+      <animated.section ref={ref5} style={springProps5} className={cn(styles.wrap, 'row')}>
         <div className="col lg-6 md-12 flex justify-center ">
           <img
             src="http://res.cloudinary.com/ddexbqgmg/image/upload/v1713799745/bepUIT-blogImages/tfnxskgf5iswjkuer5ha.jpg"
             alt="img_about"
-            className={clsx(styles.img, 'mx_10')}
+            className={cn(styles.img, 'mx_10')}
           />
         </div>
         <div className="col lg-6 md-12 text-justify text-xl leading-9 ">
           <center>
-            <p className={clsx(styles.title, 'mt-5 uppercase')}>bình luận và đánh giá</p>
+            <p className={cn(styles.title, 'mt-5 uppercase')}>bình luận và đánh giá</p>
           </center>
           <p className="mt-4 text-xl leading-9">
             Bếp UIT cho phép thành viên đánh giá quán ăn với 5 tiêu chí: Món ăn, Vị trí, Không gian, Giá cả và Dịch vụ,
@@ -133,10 +134,10 @@ function AboutPage() {
           </p>
         </div>
       </animated.section>
-      <animated.section ref={ref6} style={springProps6} className={clsx(styles.wrap, 'row justify-center')}>
+      <animated.section ref={ref6} style={springProps6} className={cn(styles.wrap, 'row justify-center')}>
         <div className="w-[100%]">
           <center>
-            <div className={clsx(styles.title, 'mt-5 uppercase')}>Không gian đỉnh của chóp tại Bếp UIT</div>
+            <div className={cn(styles.title, 'mt-5 uppercase')}>Không gian đỉnh của chóp tại Bếp UIT</div>
             <div className="mt-4 w-[100%]  overflow-hidden">
               <iframe
                 width="100%"

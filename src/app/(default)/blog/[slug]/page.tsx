@@ -7,8 +7,8 @@ import { getBlogDetail } from '../action';
 import { Blog } from '~/interfaces/blog.type';
 import SocialsShare from '~/components/SocialsShare';
 import styles from '~/styles/blog.module.scss';
-import keywords from '~/configs/BrandKeywords';
 import addLazyLoadingToImages from '~/helpers/convert/blogHTML.convert';
+import defaultConfigs from '~/configs/defaultConfigs';
 
 type Props = {
   params: {
@@ -19,11 +19,12 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.slug;
   const blog: Blog = await getBlogDetail(slug);
+  const { seoKeywords } = defaultConfigs;
 
   return {
     title: blog?.title,
     description: blog?.description,
-    keywords: [...keywords, ...blog?.keywords],
+    keywords: [...(seoKeywords?.defaults ?? []), ...blog?.keywords],
     openGraph: {
       description: blog?.description,
       countryName: 'Việt Nam',

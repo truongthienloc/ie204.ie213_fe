@@ -1,16 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import styles from '~/styles/user.module.scss';
-import { userSidebarItems } from '~/data';
-import { useAuth } from '~/stores/auth';
 import { usePathname } from 'next/navigation';
-import { clientInstance } from '~/services/axios';
 import { useRouter } from 'next/navigation';
+
+import styles from '~/styles/user.module.scss';
+import { userSidebarItems, type NavbarItem } from '~/configs/navbar';
+import { useAuth } from '~/stores/auth';
+import { clientInstance } from '~/services/axios';
 import { useCart } from '~/stores/cart/useCart';
+import ROUTES from '~/constants/routes';
 
 function UserSidebar() {
-  const { avatar, username, logout } = useAuth();
+  const { user, logout } = useAuth();
   const pathName = usePathname();
   const router = useRouter();
   const { removeAll } = useCart();
@@ -19,28 +21,28 @@ function UserSidebar() {
     clientInstance.removeAccessToken();
     logout();
     removeAll();
-    router.replace('/');
+    router.replace(ROUTES.HOME);
   };
 
   return (
     <>
       <div className={styles.sidebar}>
         <div>
-          <img src={avatar || '/images/default_user.png'} alt="User avatar" className={styles.avatar} />
-          <h2>{username}</h2>
+          <img src={user?.avatar.link ?? '/images/default_user.png'} alt="User avatar" className={styles.avatar} />
+          <h2>{user?.username}</h2>
         </div>
         <nav className={styles['nav__container']}>
-          {userSidebarItems.map((item) => {
+          {userSidebarItems.map((item: NavbarItem) => {
             const isActive = pathName.includes(item?.href);
 
             return (
               <Link
                 key={item?.id}
                 className={`${styles['nav__item']} ${isActive ? styles.active : ''}`}
-                href={`/user${item?.href}`}
+                href={item?.href}
               >
                 {item?.icon}
-                {item?.title}
+                {item?.text}
               </Link>
             );
           })}

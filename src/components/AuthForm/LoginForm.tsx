@@ -1,12 +1,12 @@
 'use client';
-import { useState } from 'react';
+
+import { useState, FormEvent } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
-import { FormEvent } from 'react';
 import Image from 'next/image';
-import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 import InputField from './InputField';
 import NavigationStatement from './NavigationStatement';
@@ -14,9 +14,9 @@ import InputValue from '~/types/InputValue';
 import { useAuth } from '~/stores/auth';
 import authActions from '~/services/axios/actions/auth.action';
 import styles from '../../styles/form.module.scss';
-import clsx from 'clsx';
+import cn from '~/lib/cn';
 import { getCurrentUser } from '~/services/axios/actions/user.action';
-import { User } from '~/interfaces/user.type';
+import { User, UserRole } from '~/interfaces/user';
 import { getCart } from '~/services/axios/actions/cart.action';
 import { CartProduct } from '~/interfaces/cart.type';
 import { useCart } from '~/stores/cart/useCart';
@@ -25,13 +25,12 @@ function LoginForm() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<InputValue>({});
-  const { login } = useAuth();
+  const { setAuth } = useAuth();
   const { loadProduct } = useCart();
   const router = useRouter();
 
   const handleValidateForm = async () => {
     const errors: InputValue = {};
-    const emailRegex = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
 
     if (!email.trim()) {
       errors.email = 'Vui lòng nhập email';
@@ -48,7 +47,7 @@ function LoginForm() {
     if (!Object.keys(errors).length) {
       try {
         const res = await toast.promise(
-          new Promise(async (resolve, reject) => {
+          new Promise<{ accessToken: string; refreshToken: string }>(async (resolve, reject) => {
             try {
               const res = await authActions.loginUserAccount(email, password);
               resolve(res);
@@ -65,15 +64,9 @@ function LoginForm() {
 
         const user: User = await getCurrentUser();
 
-        login({
-          id: user?._id,
-          avatar: user?.avatar.link,
-          email: user?.email,
-          username: user?.username,
-          isAdmin: false,
-        });
+        setAuth(user, res.accessToken);
 
-        if (user?.role === 'user') {
+        if (user.role === UserRole.USER) {
           const cart: CartProduct[] = await getCart();
           loadProduct(cart);
         }
@@ -155,11 +148,11 @@ function LoginForm() {
         </div>
         <div className={styles.formGroup}>
           <div className="flex items-center gap-10">
-            <div className={clsx(styles.option, 'cursor-pointer')}>
+            <div className={cn(styles.option, 'cursor-pointer')}>
               <Image alt="facebook logo" src="/logos/facebook.svg" width={32} height={32} />
               <span>Facebook</span>
             </div>
-            <div className={clsx(styles.option, 'cursor-pointer')}>
+            <div className={cn(styles.option, 'cursor-pointer')}>
               <Image alt="facebook logo" src="/logos/google.svg" width={32} height={32} />
               <span>Google</span>
             </div>

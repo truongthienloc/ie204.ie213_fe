@@ -1,23 +1,27 @@
+import 'react-toastify/dist/ReactToastify.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import '~/styles/globals.scss';
 import type { Metadata } from 'next';
+import Script from 'next/script';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { Analytics } from '@vercel/analytics/react';
 import { Roboto } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
-import Script from 'next/script';
+
+import defaultConfigs from '~/configs/defaultConfigs';
+import { actions, contact } from '~/configs/jsonLD';
 import { TanstackProvider } from '~/components/TanstackProvider';
-import keywords from '../configs/BrandKeywords';
-import './globals.scss';
-import { contact, actions } from '~/data/jsonLDConfig';
-import 'react-toastify/dist/ReactToastify.css';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import { AutoLogin } from '~/stores/auth';
-import { Analytics } from '@vercel/analytics/react';
 
 const roboto = Roboto({ subsets: ['vietnamese'], weight: ['400'] });
+const { seoKeywords } = defaultConfigs;
 
 export const metadata: Metadata = {
   title: 'Bếp UIT - Let Us Cook',
   description:
     'Bếp UIT - Nhà hàng đạt chuẩn 4food đầu tiên tại Việt Nam. Chúng tôi mang đến cho bạn những món ăn truyền thống Việt Nam, đậm đà hương vị quê hương. Với không gian ấm cúng và phục vụ chuyên nghiệp, chúng tôi cam kết mang đến cho quý khách hàng một trải nghiệm ẩm thực độc đáo và tuyệt vời nhất.',
-  keywords,
+  keywords: seoKeywords?.defaults ?? [],
 };
 
 export default function RootLayout({

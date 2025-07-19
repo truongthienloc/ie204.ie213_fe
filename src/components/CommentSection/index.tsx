@@ -17,7 +17,7 @@ type Props = {
 function CommentSection({ initComments, dishId }: Props) {
   const [commentInput, setCommentInput] = useState('');
   const [comments, setComments] = useState<ProductComment[]>([]);
-  const { avatar, username, isLogin, id } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function CommentSection({ initComments, dishId }: Props) {
   }, [initComments]);
 
   const handleAddComment = async () => {
-    if (!isLogin) {
+    if (!isAuthenticated) {
       router.push('/login');
       return;
     } else {
@@ -34,7 +34,7 @@ function CommentSection({ initComments, dishId }: Props) {
         content: commentInput,
         dishId,
         rating: 5,
-        userId: id,
+        userId: user?._id ?? null,
         replies: [],
         level: 1,
       };
@@ -53,14 +53,18 @@ function CommentSection({ initComments, dishId }: Props) {
       <div className={styles['comment__container']}>
         <h2 className={styles['sub-title']}>Đánh giá sản phẩm ({comments.length})</h2>
         <div className={styles['comment__input']}>
-          <img className={styles['user-avatar']} src={avatar || '/images/default_user.png'} alt="User avatar" />
+          <img
+            className={styles['user-avatar']}
+            src={user?.avatar.link ?? '/images/default_user.png'}
+            alt="User avatar"
+          />
           <textarea
             name="comment"
             value={commentInput}
-            readOnly={!isLogin}
+            readOnly={!isAuthenticated}
             spellCheck={false}
             id="comment"
-            placeholder={isLogin ? 'Thêm bình luận...' : 'Đăng nhập để thêm bình luận.'}
+            placeholder={isAuthenticated ? 'Thêm bình luận...' : 'Đăng nhập để thêm bình luận.'}
             onChange={(event) => setCommentInput(event.target.value)}
           ></textarea>
           <button className={styles['comment__btn']} onClick={handleAddComment}>

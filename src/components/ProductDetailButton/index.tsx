@@ -12,11 +12,11 @@ import { addProductToCart } from '~/services/axios/actions/cart.action';
 
 function ProductDetailButtons({ product }: { product: Product }) {
   const { cartList, addProduct, incQuantity } = useCart();
-  const { isLogin } = useAuth();
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [displayModal, setdisplayModal] = useState(false);
   const openModal = () => {
-    if (!isLogin) {
+    if (!isAuthenticated) {
       toast.error('Xin đăng nhập trước khi sử dụng chức năng này !');
       router.push('/login');
       return;
@@ -27,7 +27,7 @@ function ProductDetailButtons({ product }: { product: Product }) {
     setdisplayModal(false);
   };
   const handleAddProductToCart = async () => {
-    if (!isLogin) {
+    if (!isAuthenticated) {
       toast.error('Xin đăng nhập trước khi sử dụng chức năng này !');
       router.push('/login');
       return;

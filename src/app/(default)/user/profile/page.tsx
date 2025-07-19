@@ -4,7 +4,7 @@ import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import styles from '~/styles/user.module.scss';
 import { getCurrentUser } from '~/services/axios/actions/user.action';
 import { useEffect, useState } from 'react';
-import { User } from '~/interfaces/user.type';
+import { User } from '~/interfaces/user';
 
 function UserProfilePage() {
   const [user, setUser] = useState<User>();

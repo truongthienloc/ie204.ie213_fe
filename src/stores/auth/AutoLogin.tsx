@@ -7,10 +7,9 @@ import userAction from '~/services/axios/actions/user.action';
 import { useCart } from '../cart/useCart';
 import { getCart } from '~/services/axios/actions/cart.action';
 import { CartProduct } from '~/interfaces/cart.type';
+import { User, UserRole } from '~/interfaces/user';
 
-type Props = {};
-
-export default function AutoLogin({}: Props) {
+export default function AutoLogin() {
   const auth = useAuth();
   const { loadProduct } = useCart();
 
@@ -23,18 +22,12 @@ export default function AutoLogin({}: Props) {
 
     async function fetchUser() {
       try {
-        const res = await userAction.getCurrentUser();
+        const user: User = await userAction.getCurrentUser();
 
-        auth.login({
-          id: res._id,
-          email: res.email,
-          username: res.username,
-          avatar: res.avatar?.link,
-          isAdmin: res.role === 'admin',
-        });
+        auth.setAuth(user, accessToken as string);
 
         // load user cart when login
-        if (res.role === 'user') {
+        if (user.role === UserRole.USER) {
           const cart: CartProduct[] = await getCart();
           loadProduct(cart);
         }
@@ -45,7 +38,7 @@ export default function AutoLogin({}: Props) {
     }
 
     fetchUser();
-  }, []);
+  }, [loadProduct]);
 
   return null;
 }

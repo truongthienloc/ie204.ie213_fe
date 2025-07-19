@@ -1,17 +1,19 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { toast } from 'react-toastify';
+
 import { clientInstance } from '~/services/axios';
 import authAction, { LoginResponse } from '~/services/axios/actions/auth.action';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '~/stores/auth';
 import { setAccessToken } from './action';
+import { UserRole } from '~/interfaces/user';
+import { getCurrentUser } from '~/services/axios/actions/user.action';
 
-type Props = {};
-
-export default function LoginAdminPage({}: Props) {
+export default function LoginAdminPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +27,7 @@ export default function LoginAdminPage({}: Props) {
   };
 
   useEffect(() => {
-    if (auth.isAdmin) {
+    if (auth.user?.role === UserRole.ADMIN) {
       router.replace('/admin/manage-sales');
     } else {
       clientInstance.removeAccessToken();
@@ -61,8 +63,10 @@ export default function LoginAdminPage({}: Props) {
         },
       );
 
+      const user = await getCurrentUser();
+
       setAccessToken(res.accessToken);
-      auth.login({ isAdmin: true });
+      auth.setAuth(user, res?.accessToken);
       router.replace('/admin/manage-sales');
     } catch (error: any) {
       if (error.response) {

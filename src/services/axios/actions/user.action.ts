@@ -1,4 +1,4 @@
-import { User } from '~/interfaces/user.type';
+import { User } from '~/interfaces/user';
 import { Table } from '~/interfaces/table.type';
 import { api } from '..';
 import userEndpoint from '../endpoints/user.endpoint';

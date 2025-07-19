@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import clsx from 'clsx';
 import { Table } from '~/interfaces/table.type';
+import cn from '~/lib/cn';
 
 type Props = {
   title: string;
@@ -38,7 +38,7 @@ function ReservationItem({ name, status, onClick }: ReservationItemProps) {
   return (
     <button
       disabled={status === 'Occupied'}
-      className={clsx(
+      className={cn(
         'flex h-10 w-16 items-center justify-center rounded border-none bg-[#ECECEC] transition-opacity hover:opacity-80',
         {
           'bg-unreserve text-white': status === 'Occupied',
