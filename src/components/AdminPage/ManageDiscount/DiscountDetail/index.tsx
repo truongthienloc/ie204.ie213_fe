@@ -1,1 +1,1 @@
-export { default as DiscountDetail } from './DiscountDetail'
+export { default as DiscountDetail } from './DiscountDetail';

@@ -1,17 +1,17 @@
-'use client'
-import React, { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useAuth } from '~/stores/auth'
+'use client';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '~/stores/auth';
 
-type Props = {}
+type Props = {};
 
 export default function AdminPage({}: Props) {
-    const { isAdmin } = useAuth()
-    const router = useRouter()
-    useEffect(() => {
-        if (isAdmin) {
-            router.replace('/admin/manage-sales')
-        }
-    }, [isAdmin, router])
-    return null
+  const { isAdmin } = useAuth();
+  const router = useRouter();
+  useEffect(() => {
+    if (isAdmin) {
+      router.replace('/admin/manage-sales');
+    }
+  }, [isAdmin, router]);
+  return null;
 }

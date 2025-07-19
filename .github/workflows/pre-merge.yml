@@ -5,11 +5,10 @@ name: Node.js CI
 
 on:
   pull_request:
-    branches: [ "develop" ]
+    branches: ['develop']
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -18,15 +17,15 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        
-    - run: rm -rf package-lock.json
-    - run: npm i
-    - run: npm run lint
-    - run: npm run format:check
-    - run: npm run build
-    - run: npm test
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: rm -rf package-lock.json
+      - run: npm i
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run build
+      - run: npm test

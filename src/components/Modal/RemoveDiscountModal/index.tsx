@@ -1,1 +1,1 @@
-export { default as RemoveDiscountModal } from './RemoveDiscountModal'
+export { default as RemoveDiscountModal } from './RemoveDiscountModal';

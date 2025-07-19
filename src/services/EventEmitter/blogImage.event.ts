@@ -1,5 +1,5 @@
-import EventEmitter from './EventEmitter'
+import EventEmitter from './EventEmitter';
 
-const blogImageEvent = new EventEmitter()
+const blogImageEvent = new EventEmitter();
 
-export default blogImageEvent
+export default blogImageEvent;

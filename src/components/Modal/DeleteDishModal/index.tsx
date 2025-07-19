@@ -1,1 +1,1 @@
-export { default as DeleteDishModal } from './DeleteDishModal'
+export { default as DeleteDishModal } from './DeleteDishModal';

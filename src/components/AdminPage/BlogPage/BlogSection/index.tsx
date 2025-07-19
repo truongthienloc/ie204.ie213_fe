@@ -1,1 +1,1 @@
-export { default as BlogSection } from './BlogSection'
+export { default as BlogSection } from './BlogSection';

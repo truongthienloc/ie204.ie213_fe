@@ -1,1 +1,1 @@
-export { default as ConformCheckoutModal } from './ConformCheckoutModal'
+export { default as ConformCheckoutModal } from './ConformCheckoutModal';

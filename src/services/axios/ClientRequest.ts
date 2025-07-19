@@ -1,61 +1,61 @@
-import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
+import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
 export default class ClientRequest {
-    static clientInstance?: ClientRequest
+  static clientInstance?: ClientRequest;
 
-    static getInstance(): ClientRequest {
-        if (ClientRequest.clientInstance === undefined) {
-            ClientRequest.clientInstance = new ClientRequest()
-        }
-
-        return ClientRequest.clientInstance
+  static getInstance(): ClientRequest {
+    if (ClientRequest.clientInstance === undefined) {
+      ClientRequest.clientInstance = new ClientRequest();
     }
 
-    private client!: AxiosInstance
+    return ClientRequest.clientInstance;
+  }
 
-    constructor() {
-        this.client = axios.create({
-            baseURL: process.env.NEXT_PUBLIC_API_URL,
-            timeout: 10000,
-        })
+  private client!: AxiosInstance;
 
-        const requestConfigHandler = (config: InternalAxiosRequestConfig) => {
-            if (this.hasAccessToken()) {
-                config.headers.setAuthorization(`Bearer ${this.getAccessToken()}`)
-            }
+  constructor() {
+    this.client = axios.create({
+      baseURL: process.env.NEXT_PUBLIC_API_URL,
+      timeout: 10000,
+    });
 
-            return config
-        }
+    const requestConfigHandler = (config: InternalAxiosRequestConfig) => {
+      if (this.hasAccessToken()) {
+        config.headers.setAuthorization(`Bearer ${this.getAccessToken()}`);
+      }
 
-        const responseErrorHandler = (error: any) => {
-            if (error && error.statusCode === 401) {
-                // handle refresh token
-            }
+      return config;
+    };
 
-            return Promise.reject(error)
-        }
+    const responseErrorHandler = (error: any) => {
+      if (error && error.statusCode === 401) {
+        // handle refresh token
+      }
 
-        this.client.interceptors.request.use(requestConfigHandler.bind(this))
-        this.client.interceptors.response.use((config) => config, responseErrorHandler.bind(this))
-    }
+      return Promise.reject(error);
+    };
 
-    public getClient(): AxiosInstance {
-        return this.client
-    }
+    this.client.interceptors.request.use(requestConfigHandler.bind(this));
+    this.client.interceptors.response.use((config) => config, responseErrorHandler.bind(this));
+  }
 
-    public setAccessToken(accessToken: string) {
-        localStorage.setItem('access_token', accessToken)
-    }
+  public getClient(): AxiosInstance {
+    return this.client;
+  }
 
-    public hasAccessToken(): boolean {
-        return localStorage.getItem('access_token') !== null
-    }
+  public setAccessToken(accessToken: string) {
+    localStorage.setItem('access_token', accessToken);
+  }
 
-    public getAccessToken(): string | null {
-        return localStorage.getItem('access_token')
-    }
+  public hasAccessToken(): boolean {
+    return localStorage.getItem('access_token') !== null;
+  }
 
-    public removeAccessToken(): void {
-        localStorage.removeItem('access_token')
-    }
+  public getAccessToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
+  public removeAccessToken(): void {
+    localStorage.removeItem('access_token');
+  }
 }

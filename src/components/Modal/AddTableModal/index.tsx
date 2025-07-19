@@ -1,1 +1,1 @@
-export { default as AddTableModal } from './AddTableModal'
+export { default as AddTableModal } from './AddTableModal';
