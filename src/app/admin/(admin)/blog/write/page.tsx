@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-import { WriteBlogForm } from '~/components/WriteBlog/WriteBlogForm'
+import { WriteBlogForm } from '~/components/WriteBlog/WriteBlogForm';
 
-type Props = {}
+type Props = {};
 
 export default function BlogCreatingPage({}: Props) {
-    return <WriteBlogForm />
+  return <WriteBlogForm />;
 }

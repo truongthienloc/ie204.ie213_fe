@@ -1,5 +1,5 @@
 const blogEndpoint = {
-    blog: '/posts',
-}
+  blog: '/posts',
+};
 
-export default blogEndpoint
+export default blogEndpoint;

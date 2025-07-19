@@ -1,1 +1,1 @@
-export { default as AddDishModal } from './AddDishModal'
+export { default as AddDishModal } from './AddDishModal';

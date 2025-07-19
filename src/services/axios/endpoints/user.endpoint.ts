@@ -1,6 +1,6 @@
 const userEndpoint = {
-    'get-me': '/users/current-user',
-    'change-password': '/users/change-password',
-}
+  'get-me': '/users/current-user',
+  'change-password': '/users/change-password',
+};
 
-export default userEndpoint
+export default userEndpoint;
