@@ -14,8 +14,7 @@ import { validateBlogData } from '~/helpers/validators/blog.validator';
 import generateFroalaConfig from '~/components/Froala/froala.config';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import blogImageEvent from '~/services/EventEmitter/blogImage.event';
-// import type { BlogImageData } from '~/interfaces/blog.type'
-import type { CloudinaryImage } from '~/interfaces/image.type';
+import { CloudinaryImage } from '~/interfaces/image';
 import type { Blog } from '~/interfaces/blog.type';
 
 const FroalaEditorComponent = dynamic(() => import('~/components/Froala/FroalaEditorComponent'));
@@ -63,7 +62,7 @@ export default function WriteBlogForm({ instanceBlog, isAutoSave = true, isEdit 
       setContent(blogData.content);
       setBlogImages(blogData.blogImages);
     }
-  }, [setTitle, setHeader, setDescription, setKeywords, setContent, setBlogImages]);
+  }, [setTitle, setHeader, setDescription, setKeywords, setContent, setBlogImages, isAutoSave]);
 
   // Handle make "blogImages" field for submit
   useEffect(() => {

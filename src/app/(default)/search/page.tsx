@@ -5,13 +5,27 @@ import { getProductBySearching, getProducts, getProductByNamePrice } from '~/ser
 import { useSearchParams } from 'next/navigation';
 import styles from '~/styles/search.module.scss';
 import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
-import clsx from 'clsx';
 import { useState, useEffect, Suspense } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { Spinner } from '~/components/Spinner';
-import { priceFilters } from '~/data';
+import cn from '~/lib/cn';
+
+const priceFilters = [
+  {
+    id: '1',
+    title: 'Dưới 20.000 VNĐ',
+  },
+  {
+    id: '2',
+    title: 'Từ 20.000 VNĐ - 50.000 VNĐ',
+  },
+  {
+    id: '3',
+    title: 'Trên 50.000 VNĐ',
+  },
+];
 
 function SearchPage() {
   const searchParams = useSearchParams();
@@ -62,7 +76,7 @@ function SearchPage() {
       }
     };
     fetchData();
-  }, [searchParams, choice]);
+  }, [searchParams, choice, prevSearchParams]);
 
   return (
     <>
@@ -83,7 +97,7 @@ function SearchPage() {
                   <p className="text-xl font-semibold">Đánh giá: </p>
                   <div className="mt-4 flex flex-col gap-2 ">
                     <button
-                      className={clsx('flex gap-1 text-2xl', styles.button, active === '1' && styles.active)}
+                      className={cn('flex gap-1 text-2xl', styles.button, active === '1' && styles.active)}
                       onClick={() => setActive('1')}
                     >
                       <StarIcon
@@ -118,7 +132,7 @@ function SearchPage() {
                       />
                     </button>
                     <button
-                      className={clsx('flex gap-1 text-2xl', styles.button, active === '2' && styles.active)}
+                      className={cn('flex gap-1 text-2xl', styles.button, active === '2' && styles.active)}
                       onClick={() => setActive('2')}
                     >
                       <StarIcon
@@ -154,7 +168,7 @@ function SearchPage() {
                       <p className="ml-2 text-base">trở lên</p>
                     </button>
                     <button
-                      className={clsx('flex gap-1 text-2xl', styles.button, active === '3' && styles.active)}
+                      className={cn('flex gap-1 text-2xl', styles.button, active === '3' && styles.active)}
                       onClick={() => setActive('3')}
                     >
                       <StarIcon
@@ -190,7 +204,7 @@ function SearchPage() {
                       <p className="ml-2 text-base">trở lên</p>
                     </button>
                     <button
-                      className={clsx('flex gap-1 text-2xl', styles.button, active === '4' && styles.active)}
+                      className={cn('flex gap-1 text-2xl', styles.button, active === '4' && styles.active)}
                       onClick={() => setActive('4')}
                     >
                       <StarIcon
@@ -226,7 +240,7 @@ function SearchPage() {
                       <p className="ml-2 text-base">trở lên</p>
                     </button>
                     <button
-                      className={clsx('flex gap-1 text-2xl', styles.button, active === '5' && styles.active)}
+                      className={cn('flex gap-1 text-2xl', styles.button, active === '5' && styles.active)}
                       onClick={() => setActive('5')}
                     >
                       <StarIcon
@@ -287,7 +301,7 @@ function SearchPage() {
                 </div>
               </div>
 
-              <div className={clsx(styles.result, 'col lg-9')}>
+              <div className={cn(styles.result, 'col lg-9')}>
                 <div className="mb-8 flex gap-4 text-lg">
                   <TipsAndUpdatesOutlinedIcon />
                   <div>

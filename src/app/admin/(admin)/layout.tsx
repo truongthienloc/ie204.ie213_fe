@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import CircularProgress from '@mui/material/CircularProgress';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { toast } from 'react-toastify'
+
+import { UserRole } from '~/interfaces/user';
 import { AdminSidebar } from '~/components/AdminSidebar';
 import { ScrollToTopButton } from '~/components/ScrollToTop';
 import { useAuth } from '~/stores/auth';
@@ -15,7 +16,7 @@ type Props = {
 };
 
 export default function AdminLayout({ children }: Props) {
-  const { isAdmin, isLoading } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -23,12 +24,10 @@ export default function AdminLayout({ children }: Props) {
       return;
     }
 
-    if (!isAdmin) {
+    if (user?.role !== UserRole.ADMIN) {
       router.replace('/admin/login');
     }
-
-    // setIsLoading(false)
-  }, [isAdmin, router, isLoading]);
+  }, [router, isLoading, user?.role]);
 
   if (isLoading) {
     return (

@@ -1,17 +1,17 @@
 'use client';
-import React, { useEffect } from 'react';
+
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '~/stores/auth';
+import { UserRole } from '~/interfaces/user';
 
-type Props = {};
-
-export default function AdminPage({}: Props) {
-  const { isAdmin } = useAuth();
+export default function AdminPage() {
+  const { user } = useAuth();
   const router = useRouter();
   useEffect(() => {
-    if (isAdmin) {
+    if (user?.role === UserRole.ADMIN) {
       router.replace('/admin/manage-sales');
     }
-  }, [isAdmin, router]);
+  }, [router, user?.role]);
   return null;
 }

@@ -1,21 +1,23 @@
 'use client';
-import clsx from 'clsx';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+
 import Link from 'next/link';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+
+import cn from '~/lib/cn';
 import NavItem from './NavItem';
 import NavDrawer from './NavDrawer';
 import { usePathname, useRouter } from 'next/navigation';
-import { navbarItems } from '~/data';
+import { navbarItems, type NavbarItem } from '~/configs/navbar';
 import styles from '../../styles/navbar.module.scss';
-import { NavbarItem } from '~/types/NavbarItem';
 import { useAuth } from '~/stores/auth';
 import { clientInstance } from '~/services/axios';
 import { useCart } from '~/stores/cart/useCart';
 import { SearchBox } from '../SearchBox';
+import ROUTES from '~/constants/routes';
 
 function NavBar() {
   const pathname = usePathname();
-  const { isLogin, avatar, logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const { total, removeAll } = useCart();
   const router = useRouter();
 
@@ -27,23 +29,23 @@ function NavBar() {
   };
 
   return (
-    <header className={clsx('flex w-full flex-col bg-third shadow-md', styles.header)}>
+    <header className={cn('flex w-full flex-col bg-third shadow-md', styles.header)}>
       <div className={styles.inner}>
-        <div className={clsx(styles.part)}>
-          <Link href={'/'} className={styles.logoLink}>
+        <div className={cn(styles.part)}>
+          <Link href={ROUTES.HOME} className={styles.logoLink}>
             <img loading="lazy" className={styles.logoImage} src={'/logos/bepuit_logo.svg'} alt="Logo của bếp UIT" />
           </Link>
           <nav>
             <ul className={styles.navigation}>
               {navbarItems.map((item: NavbarItem) => {
                 let isActive = pathname.startsWith(item?.href);
-                if (item?.href === '/' && pathname !== '/') isActive = false;
+                if (item?.href === ROUTES.HOME && pathname !== ROUTES.HOME) isActive = false;
                 return <NavItem key={item.id} item={item} className={styles.item} isActive={isActive} />;
               })}
             </ul>
           </nav>
         </div>
-        {isLogin ? (
+        {isAuthenticated ? (
           <div className={styles.searchBoxLogin}>
             <SearchBox />
           </div>
@@ -54,18 +56,18 @@ function NavBar() {
         )}
 
         <div className={styles.part}>
-          <Link className={styles.cart} href={isLogin ? '/cart' : '/login'}>
+          <Link className={styles.cart} href={isAuthenticated ? ROUTES.CART : ROUTES.LOGIN}>
             <ShoppingCartOutlinedIcon className={styles.cartIcon} />
             <span className={styles.cartBadge}>{total}</span>
           </Link>
 
           <div className={styles.account}>
-            {isLogin ? (
+            {isAuthenticated ? (
               <>
                 <div className={styles.user}>
                   <img
                     loading="lazy"
-                    src={avatar || '/images/default_user.png'}
+                    src={user?.avatar.link ?? '/images/default_user.png'}
                     alt="User avatar"
                     width={10}
                     height={10}
@@ -93,8 +95,8 @@ function NavBar() {
                   Đăng nhập
                 </Link>
                 <Link
-                  className={clsx('rounded-lg px-4 py-2 text-center font-bold text-secondary', styles.btn)}
-                  href={'/signup'}
+                  className={cn('rounded-lg px-4 py-2 text-center font-bold text-secondary', styles.btn)}
+                  href={ROUTES.SIGNUP}
                 >
                   Đăng ký
                 </Link>

@@ -23,8 +23,8 @@ import PaymentModal from '~/components/Modal/PaymentModal/PaymentModal';
 const VAT = 0.1;
 const shippingFee = 20000;
 const PaymentPage = () => {
-  const user = useAuth((state) => state);
-  const userName: string = user.username !== null ? user.username : '';
+  const { user, isAuthenticated } = useAuth();
+  const userName: string = user?.username ?? '';
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
   const quantity = searchParams.get('quantity');
@@ -76,7 +76,7 @@ const PaymentPage = () => {
     settotalPay(total * (1 + VAT));
   };
   const handleCheckOut = async () => {
-    if (!user.isLogin) {
+    if (isAuthenticated) {
       toast.error('Xin đăng nhập trước khi sử dụng chức năng này !');
       return;
     }

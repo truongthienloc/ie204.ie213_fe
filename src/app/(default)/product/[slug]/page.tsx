@@ -11,7 +11,9 @@ import CommentSection from '~/components/CommentSection';
 import formatCurrency from '~/utils/formatCurrency';
 import { Product, ProductComment } from '~/interfaces/product.type';
 import ProductCard from '~/components/ProductCard';
-import keywords from '~/configs/BrandKeywords';
+import defaultConfigs from '~/configs/defaultConfigs';
+
+const { seoKeywords } = defaultConfigs;
 
 type Props = {
   params: {
@@ -25,7 +27,7 @@ export async function generateMetadata({ params: { slug } }: Props): Promise<Met
     title: `Bếp UIT - ${product?.dishName}`,
     description: product?.dishDescription,
     keywords: [
-      ...keywords,
+      ...(seoKeywords?.defaults ?? []),
       product?.dishName.toLowerCase(),
       product?.dishName.toLowerCase() + ' uit',
       product?.dishName.toLowerCase() + ' UIT',
