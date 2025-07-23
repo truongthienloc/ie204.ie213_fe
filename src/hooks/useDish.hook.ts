@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { ProductImage } from '~/interfaces/product.type';
+import type { ProductImage } from '~/interfaces/product';
 
 export default function useDish() {
   const [id, setId] = useState<string | null>(null);

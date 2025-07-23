@@ -9,7 +9,7 @@ import { EditDishModal } from '~/components/Modal/EditDishModal';
 import { DeleteDishModal } from '~/components/Modal/DeleteDishModal';
 import useDish from '~/hooks/useDish.hook';
 import * as productAction from '~/services/axios/actions/product.action';
-import type { Product } from '~/interfaces/product.type';
+import type { Product } from '~/interfaces/product';
 
 type ProductWithCheckbox = Product & {
   isCheck: boolean;
@@ -31,7 +31,7 @@ export default function ManageDishPage({}: Props) {
 
   const fetchDish = async () => {
     try {
-      const res = await productAction.getProducts();
+      const res = await productAction.getProductsFromServer();
       const dishes = res.map((value) => ({ ...value, isCheck: false }));
       setDishesData(dishes);
     } catch (error) {

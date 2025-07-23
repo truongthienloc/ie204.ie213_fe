@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { ProductImage } from '~/interfaces/product.type';
+import { ProductImage } from '~/interfaces/product';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import styles from '~/styles/product_detail.module.scss';

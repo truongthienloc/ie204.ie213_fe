@@ -1,47 +1,57 @@
 'use client';
 import SendIcon from '@mui/icons-material/Send';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { isEmpty } from 'lodash';
+
+import { Product, ProductComment } from '~/interfaces/product';
+import { addComment, getProductComments } from '~/services/axios/actions/product.action';
+import { useAuth } from '~/stores/auth';
+import { EMPTY_ARRAY, EMTPY_STRING, DEFAULT_USER_AVATAR_PATH } from '~/constants';
+import { INT_ONE } from '~/constants/number';
 
 import CommentItem from './CommentItem';
-import { ProductComment } from '~/interfaces/product.type';
+
 import styles from '~/styles/product_detail.module.scss';
-import { useAuth } from '~/stores/auth';
-import { addComment } from '~/services/axios/actions/product.action';
 
 type Props = {
-  initComments: ProductComment[];
-  dishId: string;
+  productId: string;
 };
 
-function CommentSection({ initComments, dishId }: Props) {
-  const [commentInput, setCommentInput] = useState('');
-  const [comments, setComments] = useState<ProductComment[]>([]);
+const CommentSection = memo(({ productId }: Props) => {
+  const [commentInput, setCommentInput] = useState<string>(EMTPY_STRING);
+  const [comments, setComments] = useState<ProductComment[]>(EMPTY_ARRAY);
   const { user, isAuthenticated } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    setComments(initComments);
-  }, [initComments]);
+    getProductComments(productId).then((comments) => {
+      setComments(comments || EMPTY_ARRAY);
+    });
+  }, [productId]);
 
   const handleAddComment = async () => {
     if (!isAuthenticated) {
       router.push('/login');
+
       return;
     } else {
       if (!commentInput.trim()) return;
+
       const newComment: ProductComment = {
         content: commentInput,
-        dishId,
+        dishId: productId,
         rating: 5,
-        userId: user?._id ?? null,
-        replies: [],
-        level: 1,
+        userId: user?._id || EMTPY_STRING,
+        replies: EMPTY_ARRAY,
+        level: INT_ONE,
       };
+
       setComments([newComment, ...comments]);
-      setCommentInput('');
+      setCommentInput(EMTPY_STRING);
+
       try {
-        await addComment(commentInput, dishId);
+        await addComment(commentInput, productId);
       } catch (err) {
         console.error(err);
       }
@@ -51,11 +61,11 @@ function CommentSection({ initComments, dishId }: Props) {
   return (
     <>
       <div className={styles['comment__container']}>
-        <h2 className={styles['sub-title']}>Đánh giá sản phẩm ({comments.length})</h2>
+        <h2 className={styles['sub-title']}>Đánh giá sản phẩm ({comments?.length})</h2>
         <div className={styles['comment__input']}>
           <img
             className={styles['user-avatar']}
-            src={user?.avatar.link ?? '/images/default_user.png'}
+            src={user?.avatar.link ?? DEFAULT_USER_AVATAR_PATH}
             alt="User avatar"
           />
           <textarea
@@ -72,7 +82,7 @@ function CommentSection({ initComments, dishId }: Props) {
           </button>
         </div>
         <div className="mt-4 lg:ml-8">
-          {!comments?.length ? (
+          {isEmpty(comments) ? (
             <span className={styles['no_comment_message']}>Sản phẩm chưa có bình luận.</span>
           ) : (
             comments.map((comment) => <CommentItem comment={comment} key={comment?._id} />)
@@ -81,6 +91,7 @@ function CommentSection({ initComments, dishId }: Props) {
       </div>
     </>
   );
-}
+});
+CommentSection.displayName = 'CommentSection';
 
 export default CommentSection;

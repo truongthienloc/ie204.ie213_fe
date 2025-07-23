@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { Product } from '~/interfaces/product.type';
+import { Product } from '~/interfaces/product';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import formatCurrency from '~/utils/formatCurrency';

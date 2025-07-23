@@ -5,15 +5,15 @@ import Link from 'next/link';
 import styles from '~/styles/home.module.scss';
 import Slider from '~/components/HomeSlider';
 import ProductCard from '~/components/ProductCard';
-import { Product } from '~/interfaces/product.type';
-import { getProducts } from '~/services/axios/actions/product.action';
+import { Product } from '~/interfaces/product';
+import { getProductsFromServer } from '~/services/axios/actions/product.action';
 
 function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProducts();
+        const data = await getProductsFromServer();
         setProducts(data);
       } catch (err) {
         console.error(err);

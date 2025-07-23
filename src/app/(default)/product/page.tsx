@@ -1,8 +1,11 @@
-import ProductPageComponent from '~/components/ProductPage';
+import ProductPageComponent from '~/components/layouts/ProductPage';
 import { Metadata } from 'next';
 import { getProductsFromServer } from '~/services/axios/actions/product.action';
-import { Product } from '~/interfaces/product.type';
+import { Product } from '~/interfaces/product';
 import ProductCard from '~/components/ProductCard';
+import { EMPTY_ARRAY } from '~/constants';
+import { redirect } from 'next/navigation';
+import { isEmpty } from 'lodash';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return {
@@ -11,7 +14,9 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 async function ProductPage() {
-  const products: Product[] = await getProductsFromServer();
+  let products: Product[] = await getProductsFromServer();
+
+  if (isEmpty(products)) redirect('/not-found');
 
   return (
     <>

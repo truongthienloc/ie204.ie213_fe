@@ -3,7 +3,7 @@ import StarIcon from '@mui/icons-material/Star';
 import React from 'react';
 
 import styles from '~/styles/product_card.module.scss';
-import { Product } from '~/interfaces/product.type';
+import { Product } from '~/interfaces/product';
 import formatCurrency from '~/utils/formatCurrency';
 
 type Props = {

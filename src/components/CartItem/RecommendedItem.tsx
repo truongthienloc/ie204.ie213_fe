@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { OfferItem } from '~/components/OfferItem';
-import { Product } from '~/interfaces/product.type';
+import { Product } from '~/interfaces/product';
 
 const RecommendedItem = ({ dishes }: { dishes: Product[] }) => {
   const [index, setIndex] = useState(0);

@@ -1,4 +1,4 @@
-import { ProductImage } from './product.type';
+import { ProductImage } from './product';
 
 export type CartProduct = {
   _id: string;

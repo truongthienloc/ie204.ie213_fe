@@ -14,11 +14,11 @@ import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
 import { useCart } from '~/stores/cart/useCart';
-import { getProducts } from '~/services/axios/actions/product.action';
+import { getProductsFromServer } from '~/services/axios/actions/product.action';
 import cartEmptyIMG from '../../../../public/images/empty-cart.webp';
 import { Spinner } from '~/components/Spinner';
 import { removeCartProduct } from '~/services/axios/actions/cart.action';
-import { Product } from '~/interfaces/product.type';
+import { Product } from '~/interfaces/product';
 import styles from '~/styles/cart.module.scss';
 import { CartProduct } from '~/interfaces/cart.type';
 import formatCurrency from '~/utils/formatCurrency';
@@ -60,7 +60,7 @@ const CartPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const products: Product[] = await getProducts();
+      const products: Product[] = await getProductsFromServer();
       setRecommendDishes(products);
       updateTotalPrice();
       setIsLoading(false);
