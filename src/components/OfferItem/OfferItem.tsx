@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import GradeIcon from '@mui/icons-material/Grade';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { Product } from '~/interfaces/product.type';
+import { Product } from '~/interfaces/product';
 import formatCurrency from '~/utils/formatCurrency';
 
 const OfferItem = ({ dish }: { dish: Product | undefined }) => {

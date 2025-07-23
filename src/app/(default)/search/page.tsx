@@ -1,7 +1,11 @@
 'use client';
 import ProductCard from '~/components/ProductCard';
-import { Product } from '~/interfaces/product.type';
-import { getProductBySearching, getProducts, getProductByNamePrice } from '~/services/axios/actions/product.action';
+import { Product } from '~/interfaces/product';
+import {
+  getProductBySearching,
+  getProductByNamePrice,
+  getProductsFromServer,
+} from '~/services/axios/actions/product.action';
 import { useSearchParams } from 'next/navigation';
 import styles from '~/styles/search.module.scss';
 import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
@@ -50,7 +54,7 @@ function SearchPage() {
           setChoice('0');
         }
 
-        const suggestProducts: Product[] = await getProducts();
+        const suggestProducts: Product[] = await getProductsFromServer();
         setSuggestProducts(suggestProducts);
 
         if (keyword) {

@@ -1,9 +1,9 @@
-import { Product, Menu, ProductComment } from '~/interfaces/product.type';
-import axios from 'axios';
+import { Product, Menu, ProductComment } from '~/interfaces/product';
 import server from '../server';
 import useDish from '~/hooks/useDish.hook';
 import { api } from '..';
 import productEndpoint from '../endpoints/product.endpoint';
+import { EMPTY_ARRAY } from '~/constants';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -13,24 +13,11 @@ type NonMethodNames<T> = {
 
 type NonMethodObject<T> = Pick<T, NonMethodNames<T>>;
 
-// fetch all of products
-export const getProducts = () => {
-  return new Promise<Product[]>(async (resolve, reject) => {
-    try {
-      const res = await axios.get(`${baseUrl}/dishes`);
-      const products = res.data.data as Product[];
-      resolve(products);
-    } catch (err) {
-      reject(err);
-    }
-  });
-};
-
 export const getProductsFromServer = () => {
   return new Promise<Product[]>(async (resolve, reject) => {
     try {
       const res = await server('/dishes', { cache: 'no-store' });
-      const products = (await res.data) as Product[];
+      const products = (res?.data as Product[]) || EMPTY_ARRAY;
       resolve(products);
     } catch (err) {
       reject(err);
@@ -110,30 +97,6 @@ export function postProduct(dishInfo: NonMethodObject<ReturnType<typeof useDish>
 export function putProduct(dishInfo: NonMethodObject<ReturnType<typeof useDish>>) {
   return new Promise(async (resolve, reject) => {
     try {
-      // const formData = new FormData()
-      // formData.append('dishName', dishInfo.name)
-      // formData.append('menuName', dishInfo.kind)
-      // formData.append('dishPrice', dishInfo.price.toString())
-      // formData.append('dishDescription', dishInfo.description)
-      // for (const image of dishInfo.imageFiles) {
-      // 	formData.append('images', image)
-      // }
-
-      // // if (dishInfo.deletedImages.length > 0) {
-      // //     await Promise.all(
-      // //         dishInfo.deletedImages.map(async (image) => {
-      // //             console.log(image)
-      // //             await api.delete(`/dish/images/${image.id}`)
-      // //         })
-      // //     )
-      // // }
-
-      // const res = await api.put(`${productEndpoint.product}/${dishInfo.id}`, formData, {
-      //     headers: {
-      //         'Content-Type': 'multipart/form-data',
-      //     },
-      // })
-
       const res = await api.put(`${productEndpoint.product}/${dishInfo.id}`, {
         dishName: dishInfo.name,
         dishPrice: parseInt(dishInfo.price),

@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import { CartProductItem } from '~/components/CartItem';
 import ShippingOptionButtons from '~/components/Payment/ShippingOptionButtons';
-import { Product } from '~/interfaces/product.type';
+import { Product } from '~/interfaces/product';
 import { CartProduct } from '~/interfaces/cart.type';
 import style from '~/styles/payment.module.scss';
 import placeholderImage from '../../../../../public/images/payment.png';

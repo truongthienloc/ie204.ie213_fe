@@ -1,5 +1,5 @@
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import { ProductImage } from '~/interfaces/product.type';
+import { ProductImage } from '~/interfaces/product';
 import formatCurrency from '~/utils/formatCurrency';
 
 type Props = {

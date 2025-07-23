@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { CartProduct } from '~/interfaces/cart.type';
-import { Product } from '~/interfaces/product.type';
+import { Product } from '~/interfaces/product';
 import { useAuth } from '~/stores/auth';
 import { useCart } from '~/stores/cart/useCart';
 import styles from '~/styles/product_detail.module.scss';

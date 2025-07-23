@@ -1,17 +1,24 @@
+import React, { memo } from 'react';
+import { isEmpty } from 'lodash';
 import { Metadata } from 'next';
-import { getProductBySlugname, getProductComments, getRelativeProducts } from '~/services/axios/actions/product.action';
+import { redirect } from 'next/navigation';
+
 import Link from 'next/link';
 import StarIcon from '@mui/icons-material/Star';
-import React from 'react';
-import styles from '~/styles/product_detail.module.scss';
-import ProductImageSlider from '~/components/ProductImageSlider';
-import ProductDetailButtons from '~/components/ProductDetailButton';
-import SocialsShare from '~/components/SocialsShare';
-import CommentSection from '~/components/CommentSection';
+
+import { getProductBySlugname, getProductComments, getRelativeProducts } from '~/services/axios/actions/product.action';
+import { Product, ProductComment } from '~/interfaces/product';
 import formatCurrency from '~/utils/formatCurrency';
-import { Product, ProductComment } from '~/interfaces/product.type';
-import ProductCard from '~/components/ProductCard';
+
+import ProductDetailButtons from '~/components/ProductDetailButton';
+import ProductImageSlider from '~/components/ProductImageSlider';
+import SocialsShare from '~/components/SocialsShare';
+import CommentSection from '~/components/layouts/CommentSection';
 import defaultConfigs from '~/configs/defaultConfigs';
+
+import styles from '~/styles/product_detail.module.scss';
+import RelativeProductSection from '~/components/layouts/RelativeProductsSection';
+import { DEFAULT_RELATIVE_PRODUCT_QUANTITY } from './constant';
 
 const { seoKeywords } = defaultConfigs;
 
@@ -47,7 +54,7 @@ export async function generateMetadata({ params: { slug } }: Props): Promise<Met
       title: product?.dishName,
       countryName: 'Việt Nam',
       description: product?.dishDescription,
-      images: [product?.dishImages?.[0].link],
+      images: [product?.dishImages?.[0]?.link],
     },
   };
 }
@@ -66,10 +73,13 @@ const handleDisplayRating = (rating: number) => {
   return stars;
 };
 
-async function ProductDetailPage({ params: { slug } }: Props) {
+const ProductDetailPage = memo(async ({ params: { slug } }: Props) => {
   const product: Product = await getProductBySlugname(slug);
-  const comments: ProductComment[] = (await getProductComments(product?._id)) || [];
-  const relativeProducts: Product[] = await getRelativeProducts(product?._id, 4);
+
+  if (isEmpty(product)) {
+    redirect('/not-found');
+  }
+
   return (
     <>
       <div className={styles.wrapper}>
@@ -78,6 +88,7 @@ async function ProductDetailPage({ params: { slug } }: Props) {
           <Link href={'/product'}>sản phẩm</Link> {' / '}
           <span>{product?.dishName.toLowerCase()}</span>
         </p>
+
         <section className="row">
           <div className="col lg-6 md-6 sm-12">
             <ProductImageSlider images={product?.dishImages} alt={product?.dishName + ' tại bếp UIT'} />
@@ -107,22 +118,14 @@ async function ProductDetailPage({ params: { slug } }: Props) {
             </div>
           </div>
         </section>
-        <CommentSection initComments={comments} dishId={product?._id} />
-        <section className={styles['relative-products']}>
-          <h2 className={styles['sub-title']}>Sản phẩm liên quan</h2>
-          <div className="row">
-            {relativeProducts.map((product) => {
-              return (
-                <div key={product?._id} className="col lg-3 md-6 sm-12">
-                  <ProductCard product={product} />
-                </div>
-              );
-            })}
-          </div>
-        </section>
+
+        <CommentSection productId={product?._id} />
+
+        <RelativeProductSection productId={product?._id} quantity={DEFAULT_RELATIVE_PRODUCT_QUANTITY} />
       </div>
     </>
   );
-}
+});
+ProductDetailPage.displayName = 'ProductDetailPage';
 
 export default ProductDetailPage;

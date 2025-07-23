@@ -1,10 +1,10 @@
-export type ProductImage = {
+export interface ProductImage {
   _id: string;
   id: string;
   link: string;
-};
+}
 
-export type Product = {
+export interface Product {
   _id: string;
   dishName: string;
   dishPrice: number;
@@ -16,21 +16,21 @@ export type Product = {
   slugName: string;
   createdAt?: string;
   updatedAt?: string;
-};
+}
 
-export type Menu = {
+export interface Menu {
   _id: string;
   menuName: string;
-};
+}
 
-export type ProductComment = {
+export interface ProductComment {
   _id?: string;
   content: string;
-  userId: string | null;
+  userId: string;
   dishId: string;
   rating: number;
   level: number;
   replies?: ProductComment[];
   createdAt?: string;
   updatedAt?: string;
-};
+}

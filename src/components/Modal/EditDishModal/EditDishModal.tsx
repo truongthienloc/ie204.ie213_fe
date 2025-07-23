@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import useDish from '~/hooks/useDish.hook';
-import { Menu } from '~/interfaces/product.type';
+import { Menu } from '~/interfaces/product';
 
 type LocalImage = {
   id: string;
