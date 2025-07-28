@@ -1,4 +1,5 @@
 'use client';
+
 import SendIcon from '@mui/icons-material/Send';
 import { memo, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -11,7 +12,6 @@ import { EMPTY_ARRAY, EMTPY_STRING, DEFAULT_USER_AVATAR_PATH } from '~/constants
 import { INT_ONE } from '~/constants/number';
 
 import CommentItem from './CommentItem';
-
 import styles from '~/styles/product_detail.module.scss';
 
 type Props = {

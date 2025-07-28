@@ -1,6 +1,5 @@
 import React, { useId } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
 
 type Props = {
   isOpen: boolean;
@@ -50,9 +49,7 @@ export default function AddTableModal({
                 value={tablePosition}
                 onChange={onChangeTablePosition}
               />
-              <label className="" htmlFor={tableFloorId}>
-                Vị trí:
-              </label>
+              <label htmlFor={tableFloorId}>Vị trí:</label>
               <Autocomplete
                 id={tableFloorId}
                 options={floorOptions ?? []}

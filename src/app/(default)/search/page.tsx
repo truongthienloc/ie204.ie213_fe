@@ -1,6 +1,8 @@
 'use client';
-import ProductCard from '~/components/ProductCard';
+import StarIcon from '@mui/icons-material/Star';
+
 import { Product } from '~/interfaces/product';
+import ProductCard from '~/components/ProductCard';
 import {
   getProductBySearching,
   getProductByNamePrice,
@@ -10,7 +12,6 @@ import { useSearchParams } from 'next/navigation';
 import styles from '~/styles/search.module.scss';
 import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
 import { useState, useEffect, Suspense } from 'react';
-import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { Spinner } from '~/components/Spinner';

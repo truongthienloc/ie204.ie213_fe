@@ -19,12 +19,12 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.slug;
   const blog: Blog = await getBlogDetail(slug);
-  const { seoKeywords } = defaultConfigs;
+  const { appMetadata } = defaultConfigs;
 
   return {
     title: blog?.title,
     description: blog?.description,
-    keywords: [...(seoKeywords?.defaults ?? []), ...blog?.keywords],
+    keywords: [...(appMetadata?.keywords ?? []), ...blog?.keywords],
     openGraph: {
       description: blog?.description,
       countryName: 'Việt Nam',

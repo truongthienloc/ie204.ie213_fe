@@ -1,12 +1,12 @@
 'use client';
 
+import { ProductComment } from '~/interfaces/product';
 import dayjs from 'dayjs';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 
-import { ProductComment } from '~/interfaces/product';
 import styles from '~/styles/product_detail.module.scss';
 import { memo, useEffect, useState } from 'react';
 import { useAuth } from '~/stores/auth';

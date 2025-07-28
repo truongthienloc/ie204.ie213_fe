@@ -14,13 +14,17 @@ import ProductDetailButtons from '~/components/ProductDetailButton';
 import ProductImageSlider from '~/components/ProductImageSlider';
 import SocialsShare from '~/components/SocialsShare';
 import CommentSection from '~/components/layouts/CommentSection';
+import CommentSection from '~/components/CommentSection';
+import formatCurrency from '~/utils/formatCurrency';
+import { Product, ProductComment } from '~/interfaces/product';
+import ProductCard from '~/components/ProductCard';
 import defaultConfigs from '~/configs/defaultConfigs';
 
 import styles from '~/styles/product_detail.module.scss';
 import RelativeProductSection from '~/components/layouts/RelativeProductsSection';
 import { DEFAULT_RELATIVE_PRODUCT_QUANTITY } from './constant';
 
-const { seoKeywords } = defaultConfigs;
+const { appMetadata } = defaultConfigs;
 
 type Props = {
   params: {
@@ -34,7 +38,7 @@ export async function generateMetadata({ params: { slug } }: Props): Promise<Met
     title: `Bếp UIT - ${product?.dishName}`,
     description: product?.dishDescription,
     keywords: [
-      ...(seoKeywords?.defaults ?? []),
+      ...(appMetadata?.keywords ?? []),
       product?.dishName.toLowerCase(),
       product?.dishName.toLowerCase() + ' uit',
       product?.dishName.toLowerCase() + ' UIT',
