@@ -1,6 +1,6 @@
 import { NavBar } from '~/components/NavBar';
 import { Footer } from '~/components/Footer';
-import { ScrollToTopButton } from '~/components/ScrollToTop';
+import { ScrollToTopButton } from '~/components/ui/ScrollToTop';
 
 type DefaultLayoutProps = Readonly<{
   children: React.ReactNode;

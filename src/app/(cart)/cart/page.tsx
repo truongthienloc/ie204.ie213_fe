@@ -16,7 +16,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { useCart } from '~/stores/cart/useCart';
 import { getProductsFromServer } from '~/services/axios/actions/product.action';
 import cartEmptyIMG from '../../../../public/images/empty-cart.webp';
-import { Spinner } from '~/components/Spinner';
+import { Spinner } from '~/components/ui/Spinner';
 import { removeCartProduct } from '~/services/axios/actions/cart.action';
 import { Product } from '~/interfaces/product';
 import styles from '~/styles/cart.module.scss';

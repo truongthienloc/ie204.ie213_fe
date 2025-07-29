@@ -1,7 +1,7 @@
 import { NavBar } from '~/components/NavBar';
 import { Metadata } from 'next';
 import { Footer } from '~/components/Footer';
-import { ScrollToTopButton } from '~/components/ScrollToTop';
+import { ScrollToTopButton } from '~/components/ui/ScrollToTop';
 
 type CartLayoutProps = Readonly<{
   children: React.ReactNode;

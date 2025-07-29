@@ -1,4 +1,4 @@
-import UserSidebar from '~/components/UserSidebar';
+import UserSidebar from '~/components/layouts/UserSidebar';
 import { Metadata } from 'next';
 
 type UserLayoutProps = Readonly<{

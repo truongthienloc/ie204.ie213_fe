@@ -14,7 +14,7 @@ import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlin
 import { useState, useEffect, Suspense } from 'react';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import { Spinner } from '~/components/Spinner';
+import { Spinner } from '~/components/ui/Spinner';
 import cn from '~/lib/cn';
 
 const priceFilters = [

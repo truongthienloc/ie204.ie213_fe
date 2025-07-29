@@ -3,9 +3,6 @@ import server from '../server';
 import useDish from '~/hooks/useDish.hook';
 import { api } from '..';
 import productEndpoint from '../endpoints/product.endpoint';
-import { EMPTY_ARRAY } from '~/constants';
-
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 type NonMethodNames<T> = {
   [K in keyof T]: T[K] extends Function ? never : K;
@@ -17,7 +14,7 @@ export const getProductsFromServer = () => {
   return new Promise<Product[]>(async (resolve, reject) => {
     try {
       const res = await server('/dishes', { cache: 'no-store' });
-      const products = (res?.data as Product[]) || EMPTY_ARRAY;
+      const products = (res?.data as Product[]) || [];
       resolve(products);
     } catch (err) {
       reject(err);

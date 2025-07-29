@@ -3,7 +3,6 @@ import { Metadata } from 'next';
 import { getProductsFromServer } from '~/services/axios/actions/product.action';
 import { Product } from '~/interfaces/product';
 import ProductCard from '~/components/ProductCard';
-import { EMPTY_ARRAY } from '~/constants';
 import { redirect } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
