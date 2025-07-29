@@ -1,14 +1,14 @@
 'use client';
+
 import { useState, useEffect, useMemo } from 'react';
 
 import ProductCard from '~/components/ProductCard';
-import { PaginationSection } from '~/components/PaginationSection';
-import { Spinner } from '~/components/Spinner';
+import ProductFilter from './ProductFilter';
+import PaginationSection from '~/components/layouts/PaginationSection';
+import { Spinner } from '~/components/ui/Spinner';
 import { Product } from '~/interfaces/product';
 import { filterDish, getProductsFromServer } from '~/services/axios/actions/product.action';
-import { INT_ONE } from '~/constants/number';
 
-import ProductFilter from './ProductFilter';
 import {
   DEFAULT_MAX_PRICE,
   DEFAULT_MIN_PRICE,
@@ -17,17 +17,16 @@ import {
   PAGE_SIZE,
   PRODUCT_FILTER_OPTIONS,
 } from './constant';
-import { EMPTY_ARRAY } from '~/constants';
 
 type Props = {
   initProducts: Product[];
 };
 
-function ProductPageComponent({ initProducts = EMPTY_ARRAY }: Props) {
+function ProductPageComponent({ initProducts = [] }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(INT_ONE);
-  const [choice, setChoice] = useState<number>(INT_ONE);
-  const [products, setProducts] = useState<Product[]>(EMPTY_ARRAY);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [choice, setChoice] = useState<number>(1);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     setProducts(initProducts);
@@ -47,9 +46,9 @@ function ProductPageComponent({ initProducts = EMPTY_ARRAY }: Props) {
         onClick: async () => {
           setIsLoading(true);
           setChoice(option.id);
-          setCurrentPage(INT_ONE);
+          setCurrentPage(1);
 
-          let newProducts: Product[] = EMPTY_ARRAY;
+          let newProducts: Product[] = [];
 
           if (option.menuId) {
             newProducts = await filterDish(
@@ -79,7 +78,7 @@ function ProductPageComponent({ initProducts = EMPTY_ARRAY }: Props) {
           <Spinner />
         </div>
       ) : (
-        <section>
+        <>
           <div className="row mt-10">
             {currentItemsProducts?.map((product) => (
               <div key={product?._id} className="col lg-3 md-6 sm-12">
@@ -88,15 +87,16 @@ function ProductPageComponent({ initProducts = EMPTY_ARRAY }: Props) {
             ))}
           </div>
 
-          <section>
+          {Boolean(currentItemsProducts.length) && (
             <PaginationSection
-              totalItems={products?.length}
-              itemsPerPage={PAGE_SIZE}
+              className="mx-auto my-8 flex w-full cursor-pointer justify-center text-4xl"
+              totalCount={products?.length}
+              perPage={PAGE_SIZE}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />
-          </section>
-        </section>
+          )}
+        </>
       )}
     </>
   );

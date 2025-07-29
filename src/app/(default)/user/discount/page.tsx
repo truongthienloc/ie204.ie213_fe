@@ -2,7 +2,7 @@
 import styles from '~/styles/user.module.scss';
 import { getCurrentUser } from '~/services/axios/actions/user.action';
 import { useEffect, useState } from 'react';
-import { Spinner } from '~/components/Spinner';
+import { Spinner } from '~/components/ui/Spinner';
 
 function DiscountPage() {
   const [discounts, setDiscounts] = useState([]);

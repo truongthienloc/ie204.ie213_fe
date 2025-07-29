@@ -1,19 +1,18 @@
 'use client';
 
+import { ProductComment } from '~/interfaces/product';
 import dayjs from 'dayjs';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 
-import { ProductComment } from '~/interfaces/product';
 import styles from '~/styles/product_detail.module.scss';
 import { memo, useEffect, useState } from 'react';
 import { useAuth } from '~/stores/auth';
 import { useRouter } from 'next/navigation';
 import { User } from '~/interfaces/user';
 import { getUserById } from '~/services/axios/actions/user.action';
-import { EMTPY_STRING } from '~/constants';
 
 type Props = {
   comment: ProductComment;
@@ -23,7 +22,7 @@ const CommentItem = memo(({ comment }: Props) => {
   const [isLike, setIsLike] = useState(false);
   const [isShowMore, setIsShowMore] = useState(false);
   const [isShowReply, setIsShowReply] = useState(false);
-  const [replyInput, setReplyInput] = useState(EMTPY_STRING);
+  const [replyInput, setReplyInput] = useState('');
   const [user, setUser] = useState<User>();
 
   const { isAuthenticated, user: authUser } = useAuth();
@@ -44,7 +43,7 @@ const CommentItem = memo(({ comment }: Props) => {
   }, [comment.userId]);
 
   const handleClearReply = () => {
-    setReplyInput(EMTPY_STRING);
+    setReplyInput('');
     setIsShowReply(false);
   };
 

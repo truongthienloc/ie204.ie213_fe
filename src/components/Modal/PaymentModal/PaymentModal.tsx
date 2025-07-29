@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { LoadingSpinner } from '~/components/Spinner';
+import { LoadingSpinner } from '~/components/ui/Spinner';
 import { useRouter } from 'next/navigation';
 import { checkOutCart, checkOutImmediately } from '~/services/axios/actions/payment.action';
 import { toast } from 'react-toastify';

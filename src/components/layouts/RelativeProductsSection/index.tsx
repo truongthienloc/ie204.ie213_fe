@@ -1,12 +1,12 @@
 'use client';
+
 import { isEmpty } from 'lodash';
 import { memo, useEffect, useState } from 'react';
-import ProductCard from '~/components/ProductCard';
-import { EMPTY_ARRAY } from '~/constants';
-import { Product } from '~/interfaces/product';
-import { getRelativeProducts } from '~/services/axios/actions/product.action';
 
 import styles from '~/styles/product_detail.module.scss';
+import ProductCard from '~/components/ProductCard';
+import { Product } from '~/interfaces/product';
+import { getRelativeProducts } from '~/services/axios/actions/product.action';
 
 type Props = {
   productId: string;
@@ -14,7 +14,7 @@ type Props = {
 };
 
 const RelativeProductSection = memo(({ productId, quantity }: Props) => {
-  const [relativeProducts, setRelativeProducts] = useState<Product[]>(EMPTY_ARRAY);
+  const [relativeProducts, setRelativeProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     getRelativeProducts(productId, quantity).then((products) => {
@@ -39,6 +39,7 @@ const RelativeProductSection = memo(({ productId, quantity }: Props) => {
     </section>
   );
 });
+
 RelativeProductSection.displayName = 'RelativeProductSection';
 
 export default RelativeProductSection;

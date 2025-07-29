@@ -1,17 +1,17 @@
 'use client';
+
 import SendIcon from '@mui/icons-material/Send';
 import { memo, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { Product, ProductComment } from '~/interfaces/product';
+import { ProductComment } from '~/interfaces/product';
 import { addComment, getProductComments } from '~/services/axios/actions/product.action';
 import { useAuth } from '~/stores/auth';
-import { EMPTY_ARRAY, EMTPY_STRING, DEFAULT_USER_AVATAR_PATH } from '~/constants';
-import { INT_ONE } from '~/constants/number';
+import { DEFAULT_USER_AVATAR_PATH } from '~/constants';
+import { BASE_COMMENT_LEVEL } from './constants';
 
 import CommentItem from './CommentItem';
-
 import styles from '~/styles/product_detail.module.scss';
 
 type Props = {
@@ -19,14 +19,14 @@ type Props = {
 };
 
 const CommentSection = memo(({ productId }: Props) => {
-  const [commentInput, setCommentInput] = useState<string>(EMTPY_STRING);
-  const [comments, setComments] = useState<ProductComment[]>(EMPTY_ARRAY);
+  const [commentInput, setCommentInput] = useState<string>('');
+  const [comments, setComments] = useState<ProductComment[]>([]);
   const { user, isAuthenticated } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     getProductComments(productId).then((comments) => {
-      setComments(comments || EMPTY_ARRAY);
+      setComments(comments || []);
     });
   }, [productId]);
 
@@ -42,13 +42,13 @@ const CommentSection = memo(({ productId }: Props) => {
         content: commentInput,
         dishId: productId,
         rating: 5,
-        userId: user?._id || EMTPY_STRING,
-        replies: EMPTY_ARRAY,
-        level: INT_ONE,
+        userId: user?._id || '',
+        replies: [],
+        level: BASE_COMMENT_LEVEL,
       };
 
       setComments([newComment, ...comments]);
-      setCommentInput(EMTPY_STRING);
+      setCommentInput('');
 
       try {
         await addComment(commentInput, productId);
@@ -92,6 +92,7 @@ const CommentSection = memo(({ productId }: Props) => {
     </>
   );
 });
+
 CommentSection.displayName = 'CommentSection';
 
 export default CommentSection;

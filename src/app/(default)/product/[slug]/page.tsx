@@ -2,25 +2,22 @@ import React, { memo } from 'react';
 import { isEmpty } from 'lodash';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-
 import Link from 'next/link';
 import StarIcon from '@mui/icons-material/Star';
 
-import { getProductBySlugname, getProductComments, getRelativeProducts } from '~/services/axios/actions/product.action';
-import { Product, ProductComment } from '~/interfaces/product';
+import styles from '~/styles/product_detail.module.scss';
+import { Product } from '~/interfaces/product';
+import { getProductBySlugname } from '~/services/axios/actions/product.action';
 import formatCurrency from '~/utils/formatCurrency';
-
 import ProductDetailButtons from '~/components/ProductDetailButton';
 import ProductImageSlider from '~/components/ProductImageSlider';
 import SocialsShare from '~/components/SocialsShare';
 import CommentSection from '~/components/layouts/CommentSection';
 import defaultConfigs from '~/configs/defaultConfigs';
-
-import styles from '~/styles/product_detail.module.scss';
 import RelativeProductSection from '~/components/layouts/RelativeProductsSection';
 import { DEFAULT_RELATIVE_PRODUCT_QUANTITY } from './constant';
 
-const { seoKeywords } = defaultConfigs;
+const { appMetadata } = defaultConfigs;
 
 type Props = {
   params: {
@@ -34,7 +31,7 @@ export async function generateMetadata({ params: { slug } }: Props): Promise<Met
     title: `Bếp UIT - ${product?.dishName}`,
     description: product?.dishDescription,
     keywords: [
-      ...(seoKeywords?.defaults ?? []),
+      ...(appMetadata?.keywords ?? []),
       product?.dishName.toLowerCase(),
       product?.dishName.toLowerCase() + ' uit',
       product?.dishName.toLowerCase() + ' UIT',
@@ -126,6 +123,7 @@ const ProductDetailPage = memo(async ({ params: { slug } }: Props) => {
     </>
   );
 });
+
 ProductDetailPage.displayName = 'ProductDetailPage';
 
 export default ProductDetailPage;

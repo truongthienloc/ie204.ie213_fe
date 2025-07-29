@@ -1,6 +1,6 @@
 import { NavBar } from '~/components/NavBar';
 import { Footer } from '~/components/Footer';
-import { ScrollToTopButton } from '~/components/ScrollToTop';
+import ScrollToTopButton from '~/components/ui/ScrollToTop';
 
 type DefaultLayoutProps = Readonly<{
   children: React.ReactNode;
@@ -10,7 +10,7 @@ function DefaultLayout({ children }: DefaultLayoutProps) {
   return (
     <>
       <NavBar />
-      <main className="inner mt-header-height box-border min-h-screen overflow-x-hidden text-second">{children}</main>
+      <main className="inner min-h-screen overflow-x-hidden text-second">{children}</main>
       <Footer />
       <ScrollToTopButton />
     </>

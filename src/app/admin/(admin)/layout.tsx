@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 import { UserRole } from '~/interfaces/user';
 import { AdminSidebar } from '~/components/AdminSidebar';
-import { ScrollToTopButton } from '~/components/ScrollToTop';
+import ScrollToTopButton from '~/components/ui/ScrollToTop';
 import { useAuth } from '~/stores/auth';
 
 type Props = {

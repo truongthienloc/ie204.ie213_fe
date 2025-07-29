@@ -1,4 +1,5 @@
 import styles from '~/styles/spinner.module.scss';
+
 const Spinner = () => {
   return (
     <div className={styles.spinner}>
@@ -6,4 +7,5 @@ const Spinner = () => {
     </div>
   );
 };
+
 export default Spinner;
