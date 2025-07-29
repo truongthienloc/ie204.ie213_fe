@@ -33,7 +33,6 @@ const PaginationSection: React.FC<PaginationProps> = ({
     <Pagination
       count={pageQuantity}
       page={currentPage}
-      defaultPage={DEFAULT_PAGE}
       shape="rounded"
       variant="text"
       sx={{
@@ -47,7 +46,7 @@ const PaginationSection: React.FC<PaginationProps> = ({
           backgroundColor: 'rgba(0,0,0,.05)',
           transition: 'all ease 0.2s',
         },
-        '& .MuiPaginationItem-page.Mui-selected': {
+        '& .MuiPaginationItem-page.Mui-selected, & .MuiPaginationItem-page.Mui-selected:hover': {
           backgroundColor: colors.primary.DEFAULT,
           color: 'white',
         },

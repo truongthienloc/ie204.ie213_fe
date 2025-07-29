@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 import ProductCard from '~/components/ProductCard';
 import ProductFilter from './ProductFilter';
-import { PaginationSection } from '~/components/layouts/PaginationSection';
+import PaginationSection from '~/components/layouts/PaginationSection';
 import { Spinner } from '~/components/ui/Spinner';
 import { Product } from '~/interfaces/product';
 import { filterDish, getProductsFromServer } from '~/services/axios/actions/product.action';
