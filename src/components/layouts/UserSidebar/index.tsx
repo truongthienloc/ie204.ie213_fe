@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import styles from '~/styles/user.module.scss';
 import { userSidebarItems, type NavbarItem } from '~/configs/navbar';
 import { useAuth } from '~/stores/auth';
-import { clientInstance } from '~/services/axios';
 import { useCart } from '~/stores/cart/useCart';
 import ROUTES from '~/constants/routes';
 
@@ -18,7 +17,6 @@ function UserSidebar() {
   const { removeAll } = useCart();
 
   const handleLogout = () => {
-    clientInstance.removeAccessToken();
     logout();
     removeAll();
     router.replace(ROUTES.HOME);
