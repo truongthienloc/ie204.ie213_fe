@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { LogoutModal } from '../Modal/LogoutModal';
-import { clientInstance } from '~/services/axios';
 import { useAuth } from '~/stores/auth';
 
 const menu = [
