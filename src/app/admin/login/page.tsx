@@ -6,10 +6,8 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { toast } from 'react-toastify';
 
-import { clientInstance } from '~/services/axios';
-import authAction, { LoginResponse } from '~/services/axios/actions/auth.action';
+import authAction, { LoginData } from '~/services/axios/actions/auth.action';
 import { useAuth } from '~/stores/auth';
-import { setAccessToken } from './action';
 import { UserRole } from '~/interfaces/user';
 import { getCurrentUser } from '~/services/axios/actions/user.action';
 
@@ -30,7 +28,7 @@ export default function LoginAdminPage() {
     if (auth.user?.role === UserRole.ADMIN) {
       router.replace('/admin/manage-sales');
     } else {
-      clientInstance.removeAccessToken();
+      auth.logout();
     }
   }, [auth, router]);
 
@@ -47,7 +45,7 @@ export default function LoginAdminPage() {
 
     try {
       const res = await toast.promise(
-        new Promise<LoginResponse>(async (resolve, reject) => {
+        new Promise<LoginData>(async (resolve, reject) => {
           try {
             const res = await authAction.loginAdminAccount(email, password);
 
@@ -65,7 +63,6 @@ export default function LoginAdminPage() {
 
       const user = await getCurrentUser();
 
-      setAccessToken(res.accessToken);
       auth.setAuth(user, res?.accessToken);
       router.replace('/admin/manage-sales');
     } catch (error: any) {

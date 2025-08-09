@@ -1,21 +1,19 @@
-import { api, clientInstance } from '..';
+import { api } from '..';
 import authEndpoint from '../endpoints/auth.endpoint';
 
-export type LoginResponse = {
+export type LoginData = {
   accessToken: string;
-  refreshToken: string;
 };
 
 function loginAdminAccount(email: string, password: string) {
-  return new Promise<LoginResponse>(async (resolve, reject) => {
+  return new Promise<LoginData>(async (resolve, reject) => {
     try {
       const res = await api.post(authEndpoint['admin-login'], {
         email,
         password,
       });
 
-      const data = res.data.data as LoginResponse;
-      clientInstance.setAccessToken(data.accessToken);
+      const data = res.data.data as LoginData;
       resolve(data);
     } catch (error) {
       reject(error);
@@ -24,21 +22,13 @@ function loginAdminAccount(email: string, password: string) {
 }
 
 // user login
-function loginUserAccount(email: string, password: string) {
-  return new Promise<LoginResponse>(async (resolve, reject) => {
-    try {
-      const res = await api.post(authEndpoint.login, {
-        email,
-        password,
-      });
-
-      const data = res.data.data as LoginResponse;
-      clientInstance.setAccessToken(data.accessToken);
-      resolve(data);
-    } catch (error) {
-      reject(error);
-    }
+export async function loginUserAccount(email: string, password: string): Promise<LoginData> {
+  const res = await api.post<LoginData>(authEndpoint.login, {
+    email,
+    password,
   });
+
+  return res.data as LoginData;
 }
 
 // user register

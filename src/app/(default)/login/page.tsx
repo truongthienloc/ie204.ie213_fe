@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { Metadata } from 'next';
 
-import LoginForm from '~/components/AuthForm/LoginForm';
-import styles from '~/styles/auth.module.scss';
+import LoginForm from '~/modules/auth/components/LoginForm';
+import { APP_LOGO_PATH } from '~/constants';
 
 export function generateMetadata(): Metadata {
   return {
@@ -13,11 +13,19 @@ export function generateMetadata(): Metadata {
 function UserLoginPage() {
   return (
     <>
-      <div className={styles.wrapper}>
-        <div className={styles['logo__section']}>
-          <Image className={styles.image} alt="Logo" src={'/logos/bepuit_logo.svg'} width={100} height={100} />
+      <div className="row row flex min-h-[100vh] items-center justify-center py-4">
+        <div className="col col-lg-6 col-md-4 col-sm-0">
+          <Image
+            className="w-full rounded-full object-cover object-center"
+            alt="Bếp UIT logo"
+            src={APP_LOGO_PATH}
+            width={100}
+            height={100}
+          />
         </div>
-        <LoginForm />
+        <div className="col col-lg-6 col-md-8 col-sm-12">
+          <LoginForm />
+        </div>
       </div>
     </>
   );

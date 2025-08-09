@@ -1,7 +1,9 @@
-import { clientInstance } from '~/services/axios';
 import blogImageEvent from '~/services/EventEmitter/blogImage.event';
+import { useAuth } from '~/stores/auth';
 
 function generateFroalaConfig() {
+  const { accessToken } = useAuth.getState();
+
   return {
     placeholderText: 'Edit Your Content Here!',
     // saveInterval: 2500,
@@ -13,7 +15,7 @@ function generateFroalaConfig() {
     imageUploadURL: `${process.env.NEXT_PUBLIC_API_URL}/cloudinary/upload-blog-image`,
 
     requestHeaders: {
-      Authorization: `Bearer ${clientInstance.getAccessToken()}`,
+      Authorization: `Bearer ${accessToken}`,
     },
 
     // Additional upload params.

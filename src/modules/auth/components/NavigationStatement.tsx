@@ -1,18 +1,18 @@
-import styles from '../../styles/form.module.scss';
 import Link from 'next/link';
+import ROUTES from '~/constants/routes';
 
 type Props = {
   question: string;
   content: string;
-  href: string;
+  href: (typeof ROUTES)[keyof typeof ROUTES];
 };
 
 function NavigationStatement({ question, content, href }: Props) {
   return (
     <>
-      <div className={styles.navigation}>
+      <div className="text-center text-base leading-normal tracking-wide">
         <span>{question}</span>
-        <Link href={href} className={styles.link}>
+        <Link href={href} className="font-semibold text-primary hover:opacity-80">
           {content}
         </Link>
       </div>

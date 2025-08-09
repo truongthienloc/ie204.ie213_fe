@@ -1,17 +1,19 @@
-import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, InternalAxiosRequestConfig, HttpStatusCode, AxiosError } from 'axios';
+import authEndpoint from './endpoints/auth.endpoint';
+import { useAuth } from '~/stores/auth';
 
-export default class ClientRequest {
-  static clientInstance?: ClientRequest;
+class ClientRequest {
+  static clientInstance: ClientRequest | null = null;
+  private client!: AxiosInstance;
+  private isRefreshing = false;
+  private refreshPromise: Promise<string | undefined> | null = null;
 
   static getInstance(): ClientRequest {
-    if (ClientRequest.clientInstance === undefined) {
-      ClientRequest.clientInstance = new ClientRequest();
+    if (this.clientInstance === null) {
+      this.clientInstance = new ClientRequest();
     }
-
-    return ClientRequest.clientInstance;
+    return this.clientInstance;
   }
-
-  private client!: AxiosInstance;
 
   constructor() {
     this.client = axios.create({
@@ -20,42 +22,62 @@ export default class ClientRequest {
     });
 
     const requestConfigHandler = (config: InternalAxiosRequestConfig) => {
-      if (this.hasAccessToken()) {
-        config.headers.setAuthorization(`Bearer ${this.getAccessToken()}`);
+      const { accessToken } = useAuth.getState();
+      if (accessToken && !config.url?.includes(authEndpoint.refreshToken)) {
+        config.headers.setAuthorization(`Bearer ${accessToken}`);
       }
-
       return config;
     };
 
-    const responseErrorHandler = (error: any) => {
-      if (error && error.statusCode === 401) {
-        // handle refresh token
+    const responseErrorHandler = async (error: AxiosError) => {
+      if (error.response?.status === HttpStatusCode.Unauthorized) {
+        const originalRequest = error.config!;
+
+        if (originalRequest.url?.includes(authEndpoint.refreshToken)) {
+          useAuth.getState().logout();
+          return Promise.reject(error);
+        }
+
+        if (!this.isRefreshing) {
+          this.isRefreshing = true;
+          this.refreshPromise = this.refreshAccessToken();
+        }
+
+        try {
+          const newToken = await this.refreshPromise;
+          const { user, setAuth } = useAuth.getState();
+
+          if (!newToken || !user) {
+            return useAuth.getState().logout();
+          }
+
+          setAuth(user, newToken);
+          originalRequest.headers.setAuthorization(`Bearer ${newToken}`);
+          return this.client(originalRequest);
+        } catch (error) {
+          useAuth.getState().logout();
+          return Promise.reject(error);
+        } finally {
+          this.isRefreshing = false;
+          this.refreshPromise = null;
+        }
       }
 
       return Promise.reject(error);
     };
 
     this.client.interceptors.request.use(requestConfigHandler.bind(this));
-    this.client.interceptors.response.use((config) => config, responseErrorHandler.bind(this));
+    this.client.interceptors.response.use((res) => res, responseErrorHandler.bind(this));
+  }
+
+  private async refreshAccessToken(): Promise<string | undefined> {
+    const res = await this.client.get(authEndpoint.refreshToken, { withCredentials: true });
+    return res.data?.accessToken;
   }
 
   public getClient(): AxiosInstance {
     return this.client;
   }
-
-  public setAccessToken(accessToken: string) {
-    localStorage.setItem('access_token', accessToken);
-  }
-
-  public hasAccessToken(): boolean {
-    return localStorage.getItem('access_token') !== null;
-  }
-
-  public getAccessToken(): string | null {
-    return localStorage.getItem('access_token');
-  }
-
-  public removeAccessToken(): void {
-    localStorage.removeItem('access_token');
-  }
 }
+
+export default ClientRequest;

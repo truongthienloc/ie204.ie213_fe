@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base, components, utilities;
+
 @layer base {
   :root {
     --primary: #fe5621;
@@ -47,29 +49,29 @@
 
   // desktop
   @media screen and (min-width: 1025px) {
-    .inner .col.lg-3 {
+    .row .col-lg-3 {
       flex: 0 0 25%;
       max-width: 25%;
     }
 
-    .inner .col.lg-9 {
+    .row .col-lg-9 {
       flex: 0 0 75%;
       max-width: 75%;
     }
 
-    .inner .col.lg-6 {
+    .row .col-lg-6 {
       flex: 0 0 50%;
       max-width: 50%;
     }
 
-    .inner .col.lg-4 {
+    .row .col-lg-4 {
       flex: 0 0 33.33333%;
       max-width: 33.33333%;
     }
 
-    .inner .col.lg-8 {
+    .row .col-lg-8 {
       flex: 0 0 66.66667%;
-      max-width: 0 0 66.66667%;
+      max-width: 66.66667%;
     }
   }
 
@@ -79,34 +81,34 @@
       width: 96vw;
     }
 
-    .inner .col.md-3 {
+    .row .col-md-3 {
       flex: 0 0 25%;
       max-width: 25%;
     }
 
-    .inner .col.md-9 {
-      flex: 0 0 75%;
-      max-width: 75%;
-    }
-
-    .inner .col.md-6 {
-      flex: 0 0 50%;
-      max-width: 50%;
-    }
-
-    .inner .col.md-12 {
-      flex: 0 0 100%;
-      max-width: 100%;
-    }
-
-    .inner .col.md-4 {
+    .row .col-md-4 {
       flex: 0 0 33.33333%;
       max-width: 33.33333%;
     }
 
-    .inner .col.md-8 {
+    .row .col-md-9 {
+      flex: 0 0 75%;
+      max-width: 75%;
+    }
+
+    .row .col-md-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+
+    .row .col-md-12 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    .row .col-md-8 {
       flex: 0 0 66.66667%;
-      max-width: 0 0 66.66667%;
+      max-width: 66.66667%;
     }
   }
 
@@ -116,17 +118,26 @@
       width: 94vw;
     }
 
-    .inner .col.sm-12 {
+    .row .col-sm-0 {
+      display: none;
+    }
+
+    .row .col-sm-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+
+    .row .col-sm-12 {
       flex: 0 0 100%;
       max-width: 100%;
     }
 
-    .inner .col.sm-3 {
+    .row .col-sm-3 {
       flex: 0 0 25%;
       max-width: 25%;
     }
 
-    .inner .col.sm-9 {
+    .row .col-sm-9 {
       flex: 0 0 75%;
       max-width: 75%;
     }

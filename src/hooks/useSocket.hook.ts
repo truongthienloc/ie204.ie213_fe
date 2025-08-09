@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
-import { clientInstance } from '~/services/axios';
+import { useAuth } from '~/stores/auth';
 
 export default function useSocket() {
   const [socket, setSocket] = useState<Socket | null>(null);
+  const { accessToken } = useAuth.getState();
 
   const connect = () => {
-    const token = clientInstance.getAccessToken();
+    const token = accessToken;
     if (!token) {
       return;
     }

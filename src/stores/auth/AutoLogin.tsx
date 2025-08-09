@@ -14,7 +14,7 @@ export default function AutoLogin() {
   const { loadProduct } = useCart();
 
   useEffect(() => {
-    const accessToken = clientInstance.getAccessToken();
+    const accessToken = auth.accessToken;
     if (!accessToken) {
       auth.logout();
       return;
