@@ -5,7 +5,6 @@ import { useAuth } from '~/stores/auth';
 class ClientRequest {
   static clientInstance: ClientRequest | null = null;
   private client!: AxiosInstance;
-  private isRefreshing = false;
   private refreshPromise: Promise<string | undefined> | null = null;
 
   static getInstance(): ClientRequest {
@@ -38,9 +37,10 @@ class ClientRequest {
           return Promise.reject(error);
         }
 
-        if (!this.isRefreshing) {
-          this.isRefreshing = true;
-          this.refreshPromise = this.refreshAccessToken();
+        if (!this.refreshPromise) {
+          this.refreshPromise = this.refreshAccessToken().finally(() => {
+            this.refreshPromise = null;
+          });
         }
 
         try {
@@ -52,14 +52,19 @@ class ClientRequest {
           }
 
           setAuth(user, newToken);
-          originalRequest.headers.setAuthorization(`Bearer ${newToken}`);
-          return this.client(originalRequest);
+
+          const retryRequest = {
+            ...originalRequest,
+            headers: {
+              ...originalRequest.headers,
+              Authorization: `Bearer ${newToken}`,
+            },
+          };
+
+          return this.client(retryRequest);
         } catch (error) {
           useAuth.getState().logout();
           return Promise.reject(error);
-        } finally {
-          this.isRefreshing = false;
-          this.refreshPromise = null;
         }
       }
 

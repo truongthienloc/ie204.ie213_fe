@@ -4,8 +4,6 @@ type Response = {
   message: string;
 };
 
-import { HttpResponse } from '~/types/http';
-
 export default function server(path: string, options?: RequestInit) {
   return new Promise<Response>(async (resolve, reject) => {
     try {

@@ -5,21 +5,21 @@ import Typography from '@mui/material/Typography';
 
 import AppInput from '~/components/ui/AppInput';
 import NavigationStatement from '~/modules/auth/components/NavigationStatement';
-import InputValue from '~/types/InputValue';
 import { EMAIL_REGEX } from '~/constants';
 import AppButton from '../ui/AppButton';
 import ROUTES from '~/constants/routes';
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState<string>('');
-  const [errors, setErrors] = useState<InputValue>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleValidateForm = (values: InputValue) => {
-    const errors: InputValue = {};
+  const handleValidateForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const errors: Record<string, string> = {};
 
-    if (!email.trim()) {
+    if (!email?.trim()) {
       errors.email = 'Vui lòng nhập email!';
-    } else if (!email.toLowerCase().match(EMAIL_REGEX)) {
+    } else if (!email?.toLowerCase().match(EMAIL_REGEX)) {
       errors.email = 'Email không hợp lệ!';
     }
 
@@ -32,15 +32,9 @@ function ForgotPasswordForm() {
   };
 
   const handleFocusInput = (key: string) => {
-    const newError: InputValue = { ...errors };
-    if (key === 'email') delete newError.email;
-    else if (key === 'password') delete newError.password;
+    const newError = { ...errors };
+    if (key === 'email') newError.email = '';
     setErrors(newError);
-  };
-
-  const handleSubmitForm = (event: FormEvent) => {
-    event.preventDefault();
-    handleValidateForm({ email });
   };
 
   return (
@@ -48,7 +42,7 @@ function ForgotPasswordForm() {
       <Typography component="h2" variant="h5" className="select-none text-center text-2xl font-semibold">
         QUÊN MẬT KHẨU
       </Typography>
-      <form action="#" method="POST" onSubmit={handleSubmitForm}>
+      <form action="#" method="POST" onSubmit={handleValidateForm}>
         <AppInput
           label="Email"
           isRequired
