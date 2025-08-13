@@ -1,24 +1,25 @@
 'use client';
+
 import { FormEvent, useState } from 'react';
-import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
 
-import styles from '~/styles/form.module.scss';
-import InputField from './InputField';
-import NavigationStatement from './NavigationStatement';
-import InputValue from '~/types/InputValue';
+import AppInput from '~/components/ui/AppInput';
+import NavigationStatement from '~/modules/auth/components/NavigationStatement';
+import { EMAIL_REGEX } from '~/constants';
+import AppButton from '../ui/AppButton';
+import ROUTES from '~/constants/routes';
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState<string>('');
-  const [errors, setErrors] = useState<InputValue>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleValidateForm = (values: InputValue) => {
-    const errors: InputValue = {};
-    const emailRegex = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
+  const handleValidateForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const errors: Record<string, string> = {};
 
-    if (!email.trim()) {
-      errors.email = 'Vui lòng nhập email';
-    } else if (!email.toLowerCase().match(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/)) {
+    if (!email?.trim()) {
+      errors.email = 'Vui lòng nhập email!';
+    } else if (!email?.toLowerCase().match(EMAIL_REGEX)) {
       errors.email = 'Email không hợp lệ!';
     }
 
@@ -31,49 +32,45 @@ function ForgotPasswordForm() {
   };
 
   const handleFocusInput = (key: string) => {
-    const newError: InputValue = { ...errors };
-    if (key === 'email') delete newError.email;
-    else if (key === 'password') delete newError.password;
+    const newError = { ...errors };
+    if (key === 'email') newError.email = '';
     setErrors(newError);
   };
 
-  const handleSubmitForm = (event: FormEvent) => {
-    event.preventDefault();
-    handleValidateForm({ email });
-  };
-
   return (
-    <div className={styles.form}>
-      <Typography component="h2" variant="h5" className={styles.heading}>
+    <div className="overflow-hidden rounded-lg border-2 border-solid border-primary bg-white p-4 shadow-md md:p-8">
+      <Typography component="h2" variant="h5" className="select-none text-center text-2xl font-semibold">
         QUÊN MẬT KHẨU
       </Typography>
-      <form action="#" method="POST" className={styles.wrapper} onSubmit={handleSubmitForm}>
-        <div className={styles.formGroup}>
-          <InputLabel htmlFor="email" className={styles.label}>
-            Email *
-          </InputLabel>
-          <InputField
-            id="email"
-            value={email}
-            type="text"
-            name="email"
-            className={`${styles.input}${errors?.email ? ' ' + styles.error : ''}`}
-            placeholder="Nhập email của bạn"
-            handleOnFocus={() => handleFocusInput('email')}
-            handleOnChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
-          />
-          {errors?.email && <span className={styles.error}>{errors?.email}</span>}
-          <p className="mt-4 select-none text-center text-lg">Mật khẩu mới sẽ được gửi đến email của bạn!</p>
-        </div>
+      <form action="#" method="POST" onSubmit={handleValidateForm}>
+        <AppInput
+          label="Email"
+          isRequired
+          errorMessage={errors.email}
+          id="email"
+          value={email}
+          type="text"
+          name="email"
+          placeholder="Nhập email của bạn"
+          onFocus={() => handleFocusInput('email')}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
+        />
 
-        <div className={styles.formGroup}>
-          <button type="submit" className={styles.btn}>
+        <p className="mt-4 select-none text-center text-lg">Mật khẩu mới sẽ được gửi đến email của bạn!</p>
+
+        <div className="mt-4 w-full">
+          <AppButton
+            type="submit"
+            variant="primary"
+            size="md"
+            className="w-full rounded-lg py-3 text-lg tracking-wider"
+          >
             Gửi mật khẩu
-          </button>
+          </AppButton>
         </div>
 
-        <div className={styles.formGroup}>
-          <NavigationStatement question="Đã nhớ mật khẩu? " content="Đăng nhập ngay" href="/login" />
+        <div className="mt-4 w-full">
+          <NavigationStatement question="Đã nhớ mật khẩu? " content="Đăng nhập ngay" href={ROUTES.LOGIN} />
         </div>
       </form>
     </div>

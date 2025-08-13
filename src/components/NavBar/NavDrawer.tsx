@@ -22,7 +22,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import styles from '../../styles/navbar.module.scss';
 import { type NavbarItem, navbarItems } from '~/configs/navbar';
 import { useAuth } from '~/stores/auth';
-import { clientInstance } from '~/services/axios';
 import { useCart } from '~/stores/cart/useCart';
 import cn from '~/lib/cn';
 import ROUTES from '~/constants/routes';
@@ -35,7 +34,6 @@ export default function NavDrawer() {
   const { removeAll } = useCart();
 
   const handleLogout = () => {
-    clientInstance.removeAccessToken();
     logout();
     removeAll();
     router.replace(ROUTES.HOME);

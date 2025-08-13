@@ -1,13 +1,13 @@
 'use client';
 
-import { InputLabel } from '@mui/material';
 import { FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
+import Typography from '@mui/material/Typography';
 
-import InputField from '~/components/AuthForm/InputField';
 import styles from '~/styles/user.module.scss';
-import formStyles from '~/styles/form.module.scss';
 import { changePassword } from '~/services/axios/actions/user.action';
+import AppInput from '~/components/ui/AppInput';
+import AppButton from '~/components/ui/AppButton';
 
 type Input = {
   oldPassword?: string;
@@ -78,61 +78,53 @@ function ChangePasswordPage() {
 
   return (
     <>
-      <h1 className={styles.heading}>Thay đổi mật khẩu</h1>
-      <div className="mt-4">
-        <form action="#" method="POST" className={styles.form} onSubmit={handleSubmitForm}>
-          <div className={formStyles.formGroup}>
-            <InputLabel htmlFor="email" className={formStyles.label}>
-              Mật khẩu cũ*
-            </InputLabel>
-            <InputField
-              id="oldPassword"
-              value={oldPassword}
-              type="text"
-              name="oldPassword"
-              className={`${formStyles.input}${errors?.oldPassword ? ' ' + formStyles.error : ''}`}
-              placeholder="Mật khẩu hiện tại"
-              handleOnFocus={() => handleFocusInput('oldPassword')}
-              handleOnChange={(event: React.ChangeEvent<HTMLInputElement>) => setOldPassword(event.target.value)}
-            />
-            {errors?.oldPassword && <span className={formStyles.error}>{errors?.oldPassword}</span>}
-          </div>
-          <div className={formStyles.formGroup}>
-            <InputLabel htmlFor="newPassword" className={formStyles.label}>
-              Mật khẩu mới*
-            </InputLabel>
-            <InputField
-              placeholder="Mật khẩu mới"
-              id="newPassword"
-              type="password"
-              name="newPassword"
-              className={`${formStyles.input}${errors?.newPassword ? ' ' + formStyles.error : ''}`}
-              handleOnFocus={() => handleFocusInput('newPassword')}
-              value={newPassword}
-              handleOnChange={(event: React.ChangeEvent<HTMLInputElement>) => setNewPassword(event.target.value)}
-            />
-            {errors?.newPassword && <span className={formStyles.error}>{errors?.newPassword}</span>}
-          </div>
-          <div className={formStyles.formGroup}>
-            <InputLabel htmlFor="confirmPassword" className={formStyles.label}>
-              Xác nhận mật khẩu mới*
-            </InputLabel>
-            <InputField
-              placeholder="Xác nhận mật khẩu mới"
-              id="confirmPassword"
-              type="password"
-              name="password"
-              className={`${formStyles.input}${errors?.confirmPassword ? ' ' + formStyles.error : ''}`}
-              handleOnFocus={() => handleFocusInput('confirmPassword')}
-              value={confirmPassword}
-              handleOnChange={(event: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(event.target.value)}
-            />
-            {errors?.confirmPassword && <span className={formStyles.error}>{errors?.confirmPassword}</span>}
-          </div>
-          <div className={formStyles.formGroup}>
-            <button type="submit" className={formStyles.btn}>
+      <div className="w-full overflow-hidden rounded-lg border-2 border-solid border-primary bg-white p-4 shadow-md md:p-8">
+        <Typography component="h2" className="select-none text-center text-2xl font-semibold">
+          ĐĂNG NHẬP
+        </Typography>
+
+        <form action="#" method="POST" onSubmit={handleSubmitForm}>
+          <AppInput
+            isRequired
+            errorMessage={errors?.oldPassword}
+            id="oldPassword"
+            label="Mật khẩu hiện tại"
+            value={oldPassword}
+            type="text"
+            name="oldPassword"
+            placeholder="Mật khẩu hiện tại"
+            onFocus={() => handleFocusInput('oldPassword')}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setOldPassword(event.target.value)}
+          />
+
+          <AppInput
+            placeholder="Mật khẩu mới"
+            id="newPassword"
+            isRequired
+            errorMessage={errors?.newPassword}
+            type="password"
+            name="newPassword"
+            onFocus={() => handleFocusInput('newPassword')}
+            value={newPassword}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setNewPassword(event.target.value)}
+          />
+
+          <AppInput
+            placeholder="Xác nhận mật khẩu mới"
+            errorMessage={errors?.confirmPassword}
+            isRequired
+            id="confirmPassword"
+            type="password"
+            name="confirmPassword"
+            onFocus={() => handleFocusInput('confirmPassword')}
+            value={confirmPassword}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(event.target.value)}
+          />
+
+          <div className="mt-4 w-full">
+            <AppButton variant="primary" size="md" type="submit">
               Đăng nhập
-            </button>
+            </AppButton>
           </div>
         </form>
       </div>

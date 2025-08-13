@@ -1,15 +1,17 @@
 'use client';
-import { FormEvent, useState } from 'react';
-import Typography from '@mui/material/Typography';
-import InputLabel from '@mui/material/InputLabel';
 
-import styles from '../../styles/form.module.scss';
-import InputField from './InputField';
-import NavigationStatement from './NavigationStatement';
+import { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import Typography from '@mui/material/Typography';
+
+import NavigationStatement from '~/modules/auth/components/NavigationStatement';
 import InputValue from '~/types/InputValue';
 import authAction from '~/services/axios/actions/auth.action';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
+import AppInput from '~/components/ui/AppInput';
+import AppButton from '~/components/ui/AppButton';
+import ROUTES from '~/constants/routes';
+import { EMAIL_REGEX } from '~/constants';
 
 function SignupForm() {
   const [email, setEmail] = useState('');
@@ -21,11 +23,10 @@ function SignupForm() {
 
   const handleValidateForm = async () => {
     const errors: InputValue = {};
-    const emailRegex = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
 
     if (!email.trim()) {
       errors.email = 'Vui lòng nhập email';
-    } else if (!email.toLowerCase().match(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/)) {
+    } else if (!email.toLowerCase().match(EMAIL_REGEX)) {
       errors.email = 'Email không hợp lệ!';
     }
 
@@ -84,82 +85,74 @@ function SignupForm() {
 
   return (
     <>
-      <div className={styles.form}>
-        <Typography component="h2" variant="h5" className={styles.heading}>
+      <div className="w-full overflow-hidden rounded-lg border-2 border-solid border-primary bg-white p-4 shadow-md md:p-8">
+        <Typography component="h2" variant="h5" className="select-none text-center text-2xl font-semibold">
           ĐĂNG KÝ
         </Typography>
-        <form action="#" method="POST" className={styles.wrapper} onSubmit={handleSubmitForm}>
-          <div className={styles.formGroup}>
-            <InputLabel htmlFor="email" className={styles.label}>
-              Email *
-            </InputLabel>
-            <InputField
-              id="email"
-              value={email}
-              type="text"
-              name="email"
-              className={`${styles.input}${errors?.email ? ' ' + styles.error : ''}`}
-              placeholder="Nhập email của bạn"
-              handleOnFocus={() => handleFocusInput('email')}
-              handleOnChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
-            />
-            {errors?.email && <span className={styles.error}>{errors?.email}</span>}
-          </div>
-          <div className={styles.formGroup}>
-            <InputLabel htmlFor="username" className={styles.label}>
-              Tên đăng nhập *
-            </InputLabel>
-            <InputField
-              placeholder="Nhập mật khẩu"
-              id="username"
-              type="text"
-              name="username"
-              className={`${styles.input}${errors?.username ? ' ' + styles.error : ''}`}
-              value={username}
-              handleOnFocus={() => handleFocusInput('username')}
-              handleOnChange={(event: React.ChangeEvent<HTMLInputElement>) => setUsername(event.target.value)}
-            />
-            {errors?.username && <span className={styles.error}>{errors?.username}</span>}
-          </div>
-          <div className={styles.formGroup}>
-            <InputLabel htmlFor="password" className={styles.label}>
-              Mật khẩu *
-            </InputLabel>
-            <InputField
-              placeholder="Nhập mật khẩu"
-              id="password"
-              type="password"
-              name="password"
-              className={`${styles.input}${errors?.password ? ' ' + styles.error : ''}`}
-              value={password}
-              handleOnFocus={() => handleFocusInput('password')}
-              handleOnChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
-            />
-            {errors?.password && <span className={styles.error}>{errors?.password}</span>}
-          </div>
-          <div className={styles.formGroup}>
-            <InputLabel htmlFor="confirmPassword" className={styles.label}>
-              Xác nhận mật khẩu *
-            </InputLabel>
-            <InputField
-              placeholder="Xác nhận mật khẩu"
-              id="confirmPassword"
-              type="password"
-              name="confirmPassword"
-              className={`${styles.input}${errors?.confirmPassword ? ' ' + styles.error : ''}`}
-              value={confirmPassword}
-              handleOnFocus={() => handleFocusInput('confirmPassword')}
-              handleOnChange={(event: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(event.target.value)}
-            />
-            {errors?.confirmPassword && <span className={styles.error}>{errors?.confirmPassword}</span>}
-          </div>
-          <div className={styles.formGroup}>
-            <button type="submit" className={styles.btn}>
+
+        <form action="#" method="POST" onSubmit={handleSubmitForm}>
+          <AppInput
+            id="email"
+            label="Email"
+            value={email}
+            type="text"
+            name="email"
+            errorMessage={errors?.email}
+            isRequired
+            placeholder="Nhập email của bạn"
+            onFocus={() => handleFocusInput('email')}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
+          />
+
+          <AppInput
+            label="Tên đăng nhập"
+            placeholder="Nhập tên đăng nhập"
+            id="username"
+            type="text"
+            name="username"
+            isRequired
+            errorMessage={errors?.username}
+            onFocus={() => handleFocusInput('username')}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUsername(event.target.value)}
+          />
+
+          <AppInput
+            label="Mật khẩu"
+            placeholder="Nhập mật khẩu"
+            id="password"
+            type="password"
+            name="password"
+            isRequired
+            errorMessage={errors?.password}
+            onFocus={() => handleFocusInput('password')}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
+          />
+
+          <AppInput
+            label="Xác nhận mật khẩu"
+            placeholder="Xác nhận mật khẩu"
+            id="confirmPassword"
+            type="password"
+            name="confirmPassword"
+            isRequired
+            errorMessage={errors?.confirmPassword}
+            onFocus={() => handleFocusInput('confirmPassword')}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(event.target.value)}
+          />
+
+          <div className="mt-4 w-full">
+            <AppButton
+              variant="primary"
+              size="md"
+              type="submit"
+              className="w-full rounded-lg py-3 text-lg font-semibold tracking-wider"
+            >
               Đăng ký
-            </button>
+            </AppButton>
           </div>
-          <div className={styles.formGroup}>
-            <NavigationStatement question="Bạn đã có tài khoản? " content="Đăng nhập ngay" href="/login" />
+
+          <div className="mt-4 w-full">
+            <NavigationStatement question="Bạn đã có tài khoản? " content="Đăng nhập ngay" href={ROUTES.LOGIN} />
           </div>
         </form>
       </div>

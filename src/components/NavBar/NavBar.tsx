@@ -22,7 +22,6 @@ function NavBar() {
   const router = useRouter();
 
   const handleLogout = () => {
-    clientInstance.removeAccessToken();
     logout();
     removeAll();
     router.replace('/');
