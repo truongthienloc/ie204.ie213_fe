@@ -81,7 +81,7 @@ function ProductPageComponent({ initProducts = [] }: Props) {
         <>
           <div className="row mt-10">
             {currentItemsProducts?.map((product) => (
-              <div key={product?._id} className="col lg-3 md-6 sm-12">
+              <div key={product?._id} className="col col-lg-3 col-md-6 col-sm-12">
                 <ProductCard product={product} />
               </div>
             ))}

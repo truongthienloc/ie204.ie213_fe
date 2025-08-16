@@ -11,6 +11,7 @@ import { getProductsFromServer } from '~/services/axios/actions/product.action';
 
 function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -33,7 +34,7 @@ function HomePage() {
         <h2 className={styles.title}>Thực Đơn Hôm Nay</h2>
         <div className="row mt-10">
           {products?.slice(0, 8).map((product) => (
-            <div key={product?._id} className="col lg-3 md-6 sm-12">
+            <div key={product?._id} className="col col-lg-3 col-md-6 col-sm-12">
               <ProductCard product={product} />
             </div>
           ))}

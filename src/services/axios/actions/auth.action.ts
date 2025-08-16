@@ -8,10 +8,16 @@ export type LoginData = {
 function loginAdminAccount(email: string, password: string) {
   return new Promise<LoginData>(async (resolve, reject) => {
     try {
-      const res = await api.post(authEndpoint['admin-login'], {
-        email,
-        password,
-      });
+      const res = await api.post(
+        authEndpoint['admin-login'],
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        },
+      );
 
       const data = res.data.data as LoginData;
       resolve(data);
@@ -23,12 +29,18 @@ function loginAdminAccount(email: string, password: string) {
 
 // user login
 export async function loginUserAccount(email: string, password: string): Promise<LoginData> {
-  const res = await api.post<LoginData>(authEndpoint.login, {
-    email,
-    password,
-  });
+  const res = await api.post(
+    authEndpoint.login,
+    {
+      email,
+      password,
+    },
+    {
+      withCredentials: true,
+    },
+  );
 
-  return res.data as LoginData;
+  return res.data.data as LoginData;
 }
 
 // user register

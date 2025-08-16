@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -30,9 +30,28 @@ function LoginForm() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<LoginFormState>({});
-  const { setAuth } = useAuth();
+  const { setAuth, accessToken } = useAuth();
   const { loadProduct } = useCart();
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (accessToken) {
+        try {
+          const user: User = await getCurrentUser();
+          setAuth(user, accessToken);
+
+          if (user.role === UserRole.USER) {
+            const cart: CartProduct[] = await getCart();
+            loadProduct(cart);
+          }
+        } catch (error) {
+          console.error('Error fetching user:', error);
+        }
+      }
+    };
+    fetchUser();
+  }, [accessToken, loadProduct, setAuth]);
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -53,14 +72,7 @@ function LoginForm() {
     if (!Object.keys(errors).length) {
       try {
         const data = await loginUserAccount(email, password);
-        const user: User = await getCurrentUser();
-
-        setAuth(user, data.accessToken);
-
-        if (user.role === UserRole.USER) {
-          const cart: CartProduct[] = await getCart();
-          loadProduct(cart);
-        }
+        setAuth(null, data.accessToken);
 
         router.replace(ROUTES.HOME);
       } catch (error: any) {
