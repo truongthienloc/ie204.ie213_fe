@@ -27,7 +27,7 @@ const useAuth = create<AuthState>()(
         set({ user, accessToken, isAuthenticated: !!user, isLoading: false });
       },
       logout: () => {
-        set({ ...initialState });
+        set({ ...initialState, isLoading: true });
       },
     }),
     {
@@ -36,7 +36,11 @@ const useAuth = create<AuthState>()(
         user: state.user,
         accessToken: state.accessToken,
         isAuthenticated: state.isAuthenticated,
+        isLoading: state.isLoading,
       }),
+      onRehydrateStorage: () => (state?: AuthState, error?: unknown) => {
+        useAuth.setState({ isLoading: false });
+      },
     },
   ),
 );

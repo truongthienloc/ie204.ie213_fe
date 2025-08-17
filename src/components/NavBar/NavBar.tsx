@@ -45,15 +45,9 @@ function NavBar() {
           </nav>
         </div>
 
-        {isAuthenticated ? (
-          <div className={styles.searchBoxLogin}>
-            <SearchBox />
-          </div>
-        ) : (
-          <div className={styles.searchBoxUnLogin}>
-            <SearchBox />
-          </div>
-        )}
+        <div className={isAuthenticated ? styles.searchBoxLogin : styles.searchBoxUnLogin}>
+          <SearchBox />
+        </div>
 
         <div className={styles.part}>
           <Link className={styles.cart} href={isAuthenticated ? ROUTES.CART : ROUTES.LOGIN}>
