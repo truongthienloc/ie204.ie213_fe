@@ -6,7 +6,7 @@ export const PRODUCT_FILTER_OPTIONS = [
 ];
 
 export const DEFAULT_MIN_PRICE = 1;
-export const DEFAULT_MAX_PRICE = Number.MAX_VALUE;
+export const DEFAULT_MAX_PRICE = Number.MAX_SAFE_INTEGER;
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 20;
 export const PAGE_SIZE = 8;

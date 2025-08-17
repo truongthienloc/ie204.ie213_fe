@@ -30,7 +30,7 @@ const RelativeProductSection = memo(({ productId, quantity }: Props) => {
       <div className="row">
         {relativeProducts.map((product) => {
           return (
-            <div key={product?._id} className="col lg-3 md-6 sm-12">
+            <div key={product?._id} className="col col-lg-3 col-md-6 col-sm-12">
               <ProductCard product={product} />
             </div>
           );

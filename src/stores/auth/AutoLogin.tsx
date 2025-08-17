@@ -1,22 +1,20 @@
 'use client';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+
 import useAuth from './useAuth';
-import { clientInstance } from '~/services/axios';
 import userAction from '~/services/axios/actions/user.action';
 import { useCart } from '../cart/useCart';
 import { getCart } from '~/services/axios/actions/cart.action';
 import { CartProduct } from '~/interfaces/cart.type';
 import { User, UserRole } from '~/interfaces/user';
 
-export default function AutoLogin() {
-  const auth = useAuth();
+const AutoLogin: React.FC = () => {
+  const { setAuth, accessToken, logout } = useAuth();
   const { loadProduct } = useCart();
 
   useEffect(() => {
-    const accessToken = auth.accessToken;
     if (!accessToken) {
-      auth.logout();
       return;
     }
 
@@ -24,7 +22,7 @@ export default function AutoLogin() {
       try {
         const user: User = await userAction.getCurrentUser();
 
-        auth.setAuth(user, accessToken as string);
+        setAuth(user, accessToken as string);
 
         // load user cart when login
         if (user.role === UserRole.USER) {
@@ -32,13 +30,15 @@ export default function AutoLogin() {
           loadProduct(cart);
         }
       } catch (error) {
-        auth.logout();
-        console.log('error: ', error);
+        logout();
+        console.error(error);
       }
     }
 
     fetchUser();
-  }, [loadProduct]);
+  }, [accessToken, logout, setAuth, loadProduct]);
 
   return null;
-}
+};
+
+export default AutoLogin;

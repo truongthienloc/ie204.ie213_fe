@@ -93,7 +93,7 @@ function SearchPage() {
         <>
           {isLoaded && (
             <div className={styles.wrapper}>
-              <div className="col lg-3">
+              <div className="col col-lg-3">
                 <div className="mb-8 flex items-center gap-3 text-xl font-bold">
                   <FilterAltOutlinedIcon />
                   <p>Bộ lọc tìm kiếm</p>
@@ -306,7 +306,7 @@ function SearchPage() {
                 </div>
               </div>
 
-              <div className={cn(styles.result, 'col lg-9')}>
+              <div className={cn(styles.result, 'col col-lg-9')}>
                 <div className="mb-8 flex gap-4 text-lg">
                   <TipsAndUpdatesOutlinedIcon />
                   <div>
@@ -320,7 +320,7 @@ function SearchPage() {
                   <div className="row">
                     {products?.map((product) => {
                       return (
-                        <div key={product?._id} className="col lg-4 mb">
+                        <div key={product?._id} className="col col-lg-4 mb">
                           <ProductCard product={product} />
                         </div>
                       );
@@ -342,12 +342,13 @@ function SearchPage() {
               </div>
             </div>
           )}
+
           {!products?.length && isLoaded && (
             <div className="my-12">
               <p className="text-left text-2xl text-primary">Có thể bạn sẽ thích đó nha</p>
               <div className="row mt-4">
                 {suggestProducts?.slice(0, 4).map((product) => (
-                  <div key={product?._id} className="col lg-3 md-6 sm-12">
+                  <div key={product?._id} className="col col-lg-3 col-md-6 col-sm-12">
                     <ProductCard product={product} />
                   </div>
                 ))}

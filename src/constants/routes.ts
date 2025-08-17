@@ -9,7 +9,7 @@ const ROUTES = {
   BLOG: '/blog',
   CART: '/cart',
   USER_PROFILE: '/user/profile',
-  ORDER: 'user/order',
+  ORDER: '/user/order',
   CHANGE_PASSWORD: '/user/change-password',
   DISCOUNT: '/user/discount',
   TABLE_ORDER: '/user/table-order',

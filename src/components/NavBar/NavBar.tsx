@@ -10,10 +10,10 @@ import { usePathname, useRouter } from 'next/navigation';
 import { navbarItems, type NavbarItem } from '~/configs/navbar';
 import styles from '../../styles/navbar.module.scss';
 import { useAuth } from '~/stores/auth';
-import { clientInstance } from '~/services/axios';
 import { useCart } from '~/stores/cart/useCart';
 import { SearchBox } from '../SearchBox';
 import ROUTES from '~/constants/routes';
+import { DEFAULT_USER_AVATAR_PATH, APP_LOGO_PATH } from '~/constants';
 
 function NavBar() {
   const pathname = usePathname();
@@ -24,7 +24,7 @@ function NavBar() {
   const handleLogout = () => {
     logout();
     removeAll();
-    router.replace('/');
+    router.replace(ROUTES.HOME);
   };
 
   return (
@@ -32,7 +32,7 @@ function NavBar() {
       <div className={styles.inner}>
         <div className={cn(styles.part)}>
           <Link href={ROUTES.HOME} className={styles.logoLink}>
-            <img loading="lazy" className={styles.logoImage} src={'/logos/bepuit_logo.svg'} alt="Logo của bếp UIT" />
+            <img loading="lazy" className={styles.logoImage} src={APP_LOGO_PATH} alt="Logo của bếp UIT" />
           </Link>
           <nav>
             <ul className={styles.navigation}>
@@ -44,15 +44,10 @@ function NavBar() {
             </ul>
           </nav>
         </div>
-        {isAuthenticated ? (
-          <div className={styles.searchBoxLogin}>
-            <SearchBox />
-          </div>
-        ) : (
-          <div className={styles.searchBoxUnLogin}>
-            <SearchBox />
-          </div>
-        )}
+
+        <div className={isAuthenticated ? styles.searchBoxLogin : styles.searchBoxUnLogin}>
+          <SearchBox />
+        </div>
 
         <div className={styles.part}>
           <Link className={styles.cart} href={isAuthenticated ? ROUTES.CART : ROUTES.LOGIN}>
@@ -66,7 +61,7 @@ function NavBar() {
                 <div className={styles.user}>
                   <img
                     loading="lazy"
-                    src={user?.avatar.link ?? '/images/default_user.png'}
+                    src={user?.avatar.link ?? DEFAULT_USER_AVATAR_PATH}
                     alt="User avatar"
                     width={10}
                     height={10}
@@ -74,10 +69,10 @@ function NavBar() {
                   />
                   <ul className={styles['option_box']}>
                     <li>
-                      <Link href={'/user/profile'}>Tài khoản của tôi</Link>
+                      <Link href={ROUTES.USER_PROFILE}>Tài khoản của tôi</Link>
                     </li>
                     <li>
-                      <Link href={'/user/order'}>Thông tin đơn hàng</Link>
+                      <Link href={ROUTES.ORDER}>Thông tin đơn hàng</Link>
                     </li>
                     <li>
                       <button onClick={handleLogout}>Đăng xuất</button>
@@ -89,7 +84,7 @@ function NavBar() {
               <>
                 <Link
                   className="rounded-lg px-4 py-2 text-center font-bold text-secondary hover:text-primary"
-                  href={'/login'}
+                  href={ROUTES.LOGIN}
                 >
                   Đăng nhập
                 </Link>

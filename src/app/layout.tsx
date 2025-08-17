@@ -35,8 +35,8 @@ export default function RootLayout({
         <TanstackProvider>{children}</TanstackProvider>
         <AutoLogin />
         <ToastContainer
-          position="top-right"
-          autoClose={3000}
+          position="bottom-right"
+          autoClose={2000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick={false}

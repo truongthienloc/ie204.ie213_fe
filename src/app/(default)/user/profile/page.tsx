@@ -12,7 +12,6 @@ function UserProfilePage() {
   useEffect(() => {
     const fetchUser = async () => {
       const user: User = await getCurrentUser();
-      console.log(user);
       setUser(user);
     };
     fetchUser();

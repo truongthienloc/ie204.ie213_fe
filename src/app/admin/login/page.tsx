@@ -9,9 +9,8 @@ import { toast } from 'react-toastify';
 import authAction, { LoginData } from '~/services/axios/actions/auth.action';
 import { useAuth } from '~/stores/auth';
 import { UserRole } from '~/interfaces/user';
-import { getCurrentUser } from '~/services/axios/actions/user.action';
 
-export default function LoginAdminPage() {
+const LoginAdminPage: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,7 +43,7 @@ export default function LoginAdminPage() {
     }
 
     try {
-      const res = await toast.promise(
+      const { accessToken } = await toast.promise(
         new Promise<LoginData>(async (resolve, reject) => {
           try {
             const res = await authAction.loginAdminAccount(email, password);
@@ -61,9 +60,7 @@ export default function LoginAdminPage() {
         },
       );
 
-      const user = await getCurrentUser();
-
-      auth.setAuth(user, res?.accessToken);
+      auth.setAuth(null, accessToken);
       router.replace('/admin/manage-sales');
     } catch (error: any) {
       if (error.response) {
@@ -126,4 +123,6 @@ export default function LoginAdminPage() {
       </div>
     </div>
   );
-}
+};
+
+export default LoginAdminPage;

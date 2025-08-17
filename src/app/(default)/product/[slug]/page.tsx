@@ -87,10 +87,10 @@ const ProductDetailPage = memo(async ({ params: { slug } }: Props) => {
         </p>
 
         <section className="row">
-          <div className="col lg-6 md-6 sm-12">
+          <div className="col col-lg-6 col-md-6 col-sm-12">
             <ProductImageSlider images={product?.dishImages} alt={product?.dishName + ' tại bếp UIT'} />
           </div>
-          <div className="col lg-6 md-6 sm-12">
+          <div className="col col-lg-6 col-md-6 col-sm-12">
             <div className={styles['product__info']}>
               <h1>{product?.dishName}</h1>
               <div className={styles.price}>

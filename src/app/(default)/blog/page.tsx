@@ -24,7 +24,7 @@ export default async function BlogsPage() {
           <h1 className={styles.heading}>Bài viết của chúng tôi</h1>
           <div className="row">
             {blogs.map((blog) => (
-              <div key={blog?._id} className="col lg-6 md-12 sm-12" style={{ marginTop: '16px' }}>
+              <div key={blog?._id} className="col col-lg-6 col-md-12 col-sm-12" style={{ marginTop: '16px' }}>
                 <ReadonlyBlogItem
                   id={blog._id}
                   header={blog.header}
