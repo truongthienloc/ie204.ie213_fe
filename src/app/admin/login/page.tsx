@@ -1,125 +1,65 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { toast } from 'react-toastify';
 
-import { LoginData } from '~/services/axios/actions/auth.action';
+import { loginAdminAccount, LoginData } from '~/services/axios/actions/auth.action';
 import { useAuth } from '~/stores/auth';
-import { UserRole } from '~/interfaces/user';
+import { SubmitHandler } from 'react-hook-form';
+import Form from '~/components/ui/Form';
+import Input from '~/components/ui/Form/Input';
+import AppButton from '~/components/ui/AppButton';
+import { schema } from './validation';
+import { ADMIN_LOGIN_FORM_FIELDS } from './constant';
+import { HttpStatusCode } from 'axios';
+import { getLoginData } from './service';
+import ROUTES from '~/constants/routes';
 
 const LoginAdminPage: React.FC = () => {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const auth = useAuth();
+  const { setAuth } = useAuth();
 
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-  const handleShowPasswordClick = () => {
-    setShowPassword(!showPassword);
-  };
+  const handleSubmit: SubmitHandler<Object> = useCallback(
+    async (values: Object) => {
+      try {
+        const loginData = getLoginData(values);
+        const { accessToken } = await loginAdminAccount(loginData);
 
-  useEffect(() => {
-    if (auth.user?.role === UserRole.ADMIN) {
-      router.replace('/admin/manage-sales');
-    } else {
-      auth.logout();
-    }
-  }, [auth, router]);
+        setAuth(null, accessToken);
+        toast.success('Đăng nhập thành công!');
 
-  const handleSubmit = async () => {
-    if (email === '') {
-      toast.error('Vui lòng không để trống email');
-      return;
-    }
+        router.push(ROUTES.ADMIN_LOGIN);
+      } catch (error: any) {
+        const statusCode: number = error?.response?.data?.statusCode;
 
-    if (password === '') {
-      toast.error('Vui lòng không để trống password');
-      return;
-    }
-
-    try {
-      const { accessToken } = await toast.promise(
-        new Promise<LoginData>(async (resolve, reject) => {
-          try {
-            const res = await authAction.loginAdminAccount(email, password);
-
-            resolve(res);
-          } catch (error) {
-            reject(error);
-          }
-        }),
-        {
-          pending: 'Đang đăng nhập',
-          success: 'Đăng nhập thành công',
-          error: 'Đăng nhập thất bại',
-        },
-      );
-
-      auth.setAuth(null, accessToken);
-      router.replace('/admin/manage-sales');
-    } catch (error: any) {
-      if (error.response) {
-        const status = error.response.status;
-        if (status === 400) {
-          toast.error('Email hoặc password sai');
-        } else if (status === 403) {
-          toast.error('Tài khoản của bạn không có quyền admin');
+        if (statusCode === HttpStatusCode.BadRequest) {
+          return toast.error('Email hoặc mật khẩu không chính xác!');
+        } else if (statusCode === HttpStatusCode.Forbidden) {
+          return toast.error('Tài khoản không có quyền admin');
         }
+
+        toast.error('Đăng nhập thất bại, vui lòng thử lại!');
       }
-    }
-  };
-
-  const handlePasswordKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== 'Enter') {
-      return;
-    }
-
-    e.preventDefault();
-    handleSubmit();
-  };
+    },
+    [router, setAuth],
+  );
 
   return (
-    <div className="flex min-h-screen w-full flex-col gap-48 bg-third">
+    <div className="flex min-h-screen w-full flex-col items-center gap-48 bg-third">
       <div className="mx-auto flex w-full max-w-full flex-row justify-center bg-primary text-white">
         <p>Bếp UIT&#39;s Administrator</p>
       </div>
-      <div className="flex w-full justify-center ">
-        <form className="flex h-[390px] w-[420px] flex-col items-center rounded-xl border-2 border-solid border-primary bg-[#FFEFD5]">
-          <p className="mb-11 pt-14 text-2xl font-medium text-second">ĐĂNG NHẬP</p>
-          <input
-            className="mb-11 h-[42px] w-[300px] rounded-md border-2 border-solid border-primary bg-third px-5 text-second outline-none"
-            type="text"
-            placeholder="Nhập tài khoản"
-            value={email}
-            onChange={handleChangeEmail}
-          />
-          <div className="flex h-[42px] w-[300px] cursor-text flex-row items-center justify-center rounded-md border-2 border-solid border-primary bg-third px-5 text-second">
-            <input
-              id="pass"
-              className="h-full w-full bg-third outline-none"
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Nhập mật khẩu"
-              value={password}
-              onChange={handleChangePassword}
-              onKeyDown={handlePasswordKeyDown}
-            />
-            <div className="cursor-pointer" id="eyeOpen" onClick={handleShowPasswordClick}>
-              {showPassword ? <RemoveRedEyeIcon /> : <VisibilityOffIcon />}
-            </div>
-          </div>
-          <button
-            className="mt-10 h-[50px] w-[150px] rounded-[10px] bg-primary text-third"
-            onClick={handleSubmit}
-            type="button"
-          >
+      <div className="min-w-[500px] overflow-hidden rounded-lg border-2 border-solid border-primary bg-white p-4 shadow-md md:p-8">
+        <Form className="mt-4" onSubmit={handleSubmit} validationSchema={schema}>
+          <Input id={ADMIN_LOGIN_FORM_FIELDS.EMAIL} label="Email" placeholder="Nhập email" />
+
+          <Input id={ADMIN_LOGIN_FORM_FIELDS.PASSWORD} label="Mật khẩu" type="password" placeholder="Nhập mật khẩu" />
+
+          <AppButton className="mt-10 w-full rounded-lg py-3 text-lg font-semibold tracking-wider" type="submit">
             Đăng nhập
-          </button>
-        </form>
+          </AppButton>
+        </Form>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const Input = ({ id = '', onFocus, ...restProps }: AppInputProps) => {
 
   const schema = useSchema();
 
-  const isRequired: boolean = !schema?.describe().fields[id]?.optional;
+  const isRequired: boolean = !schema?.describe()?.fields[id]?.optional;
 
   const handleFocus = useCallback(
     (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {

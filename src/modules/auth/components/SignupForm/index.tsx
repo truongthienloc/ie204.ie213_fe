@@ -63,12 +63,7 @@ const SignupForm = () => {
           />
 
           <div className="mt-4 w-full">
-            <AppButton
-              variant="primary"
-              size="md"
-              type="submit"
-              className="w-full rounded-lg py-3 text-lg font-semibold tracking-wider"
-            >
+            <AppButton type="submit" className="w-full rounded-lg py-3 text-lg font-semibold tracking-wider">
               Đăng ký
             </AppButton>
           </div>

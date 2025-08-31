@@ -32,8 +32,8 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 type AnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-  variant: ButtonVariant;
-  size: ButtonSize;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   href?: string;

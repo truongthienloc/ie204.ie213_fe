@@ -25,7 +25,7 @@ const LoginForm = () => {
   const { setAuth } = useAuth();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<Object> = useCallback(
+  const handleSubmit: SubmitHandler<Object> = useCallback(
     async (values: Object) => {
       try {
         const loginData = getLoginData(values);
@@ -33,7 +33,6 @@ const LoginForm = () => {
 
         setAuth(null, accessToken);
         toast.success('Đăng nhập thành công!');
-
         router.push(ROUTES.HOME);
       } catch (error: any) {
         const statusCode: number = error?.response?.data?.statusCode;
@@ -54,7 +53,7 @@ const LoginForm = () => {
         ĐĂNG NHẬP
       </Typography>
 
-      <Form className="mt-4" onSubmit={onSubmit} validationSchema={schema}>
+      <Form className="mt-4" onSubmit={handleSubmit} validationSchema={schema}>
         <Input label="Email" placeholder="Nhập email của bạn..." id={LOGIN_FORM_FIELDS.EMAIL} type="text" />
 
         <Input
@@ -91,7 +90,6 @@ const LoginForm = () => {
           <div className="flex items-center justify-between gap-4">
             <AppButton
               variant="outlined"
-              size="md"
               className="flex flex-1 select-none items-center justify-center gap-2 border border-secondary text-secondary"
             >
               <Image alt="facebook logo" src="/logos/facebook.svg" width={32} height={32} />
@@ -99,7 +97,6 @@ const LoginForm = () => {
             </AppButton>
             <AppButton
               variant="outlined"
-              size="md"
               className="flex flex-1 select-none items-center justify-center gap-2 border border-secondary text-secondary"
             >
               <Image alt="google logo" src="/logos/google.svg" width={32} height={32} />

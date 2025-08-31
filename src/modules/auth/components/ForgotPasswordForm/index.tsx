@@ -14,7 +14,7 @@ import { getForgotPasswordData } from './service';
 import { FORGOT_PASSWORD_FORM_FIELDS } from './constant';
 import { useCallback } from 'react';
 
-function ForgotPasswordForm() {
+const ForgotPasswordForm = () => {
   const handleSubmit: SubmitHandler<Object> = useCallback((values: Object) => {
     const forgotPasswordData = getForgotPasswordData(values);
     console.log(forgotPasswordData);
@@ -32,12 +32,7 @@ function ForgotPasswordForm() {
         <p className="mt-4 select-none text-center text-lg">Mật khẩu mới sẽ được gửi đến email của bạn!</p>
 
         <div className="mt-4 w-full">
-          <AppButton
-            type="submit"
-            variant="primary"
-            size="md"
-            className="w-full rounded-lg py-3 text-lg tracking-wider"
-          >
+          <AppButton type="submit" className="w-full rounded-lg py-3 text-lg tracking-wider">
             Gửi mật khẩu
           </AppButton>
         </div>
@@ -48,6 +43,6 @@ function ForgotPasswordForm() {
       </Form>
     </div>
   );
-}
+};
 
 export default ForgotPasswordForm;
