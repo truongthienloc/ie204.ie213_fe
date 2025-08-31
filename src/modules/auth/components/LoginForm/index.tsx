@@ -1,74 +1,52 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
-import AppInput from '~/components/ui/AppInput';
 import AppButton from '~/components/ui/AppButton';
-import NavigationStatement from './NavigationStatement';
+import NavigationStatement from '../../../../components/layouts/NavigationStatement';
 import { useAuth } from '~/stores/auth';
 import { loginUserAccount } from '~/services/axios/actions/auth.action';
-import { useCart } from '~/stores/cart/useCart';
-import { EMAIL_REGEX } from '~/constants';
 import ROUTES from '~/constants/routes';
 import { HttpStatusCode } from 'axios';
+import Input from '~/components/ui/Form/Input';
+import Form from '~/components/ui/Form';
 
-type LoginFormState = {
-  email?: string;
-  password?: string;
-};
+import { LOGIN_FORM_FIELDS } from './constant';
+import { SubmitHandler } from 'react-hook-form';
+import { getLoginData } from './service';
+import { schema } from './validation';
+import { useCallback } from 'react';
 
-function LoginForm() {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [errors, setErrors] = useState<LoginFormState>({});
+const LoginForm = () => {
   const { setAuth } = useAuth();
   const router = useRouter();
 
-  const onSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    const errors: LoginFormState = {};
-
-    if (!email.trim()) {
-      errors.email = 'Vui lòng nhập email!';
-    } else if (!email.toLowerCase().match(EMAIL_REGEX)) {
-      errors.email = 'Email không hợp lệ!';
-    }
-
-    if (!password.trim()) {
-      errors.password = 'Vui lòng nhập mật khẩu!';
-    }
-
-    setErrors(errors);
-
-    if (!Object.keys(errors).length) {
+  const onSubmit: SubmitHandler<Object> = useCallback(
+    async (values: Object) => {
       try {
-        const { accessToken } = await loginUserAccount(email, password);
+        const loginData = getLoginData(values);
+        const { accessToken } = await loginUserAccount(loginData);
+
         setAuth(null, accessToken);
         toast.success('Đăng nhập thành công!');
-        router.replace(ROUTES.HOME);
+
+        router.push(ROUTES.HOME);
       } catch (error: any) {
-        console.error('Login error:', error?.response?.data);
         const statusCode: number = error?.response?.data?.statusCode;
 
         if (statusCode === HttpStatusCode.BadRequest) {
-          return toast.error('Email hoặc password không chính xác!');
+          return toast.error('Email hoặc mật khẩu không chính xác!');
         }
 
-        toast.error('Đăng nhập thất bại, vui lòng thử lại sau!');
+        toast.error('Đăng nhập thất bại, vui lòng thử lại!');
       }
-    }
-  };
-
-  const handleFocusInput = (key: keyof LoginFormState) => {
-    const newError: LoginFormState = { ...errors };
-    delete newError[key];
-    setErrors(newError);
-  };
+    },
+    [router, setAuth],
+  );
 
   return (
     <div className="w-full overflow-hidden rounded-lg border-2 border-solid border-primary bg-white p-4 shadow-md md:p-8">
@@ -76,31 +54,14 @@ function LoginForm() {
         ĐĂNG NHẬP
       </Typography>
 
-      <form action="#" method="POST" className="mt-4" onSubmit={onSubmit}>
-        <AppInput
-          label="Email"
-          isRequired
-          placeholder="Nhập email của bạn..."
-          id="email"
-          value={email}
-          type="text"
-          name="email"
-          onFocus={() => handleFocusInput('email')}
-          errorMessage={errors?.email}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
-        />
+      <Form className="mt-4" onSubmit={onSubmit} validationSchema={schema}>
+        <Input label="Email" placeholder="Nhập email của bạn..." id={LOGIN_FORM_FIELDS.EMAIL} type="text" />
 
-        <AppInput
+        <Input
           label="Mật khẩu"
-          isRequired
           placeholder="Nhập mật khẩu của bạn..."
-          id="password"
+          id={LOGIN_FORM_FIELDS.PASSWORD}
           type="password"
-          name="password"
-          onFocus={() => handleFocusInput('password')}
-          errorMessage={errors?.password}
-          value={password}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
         />
 
         <div className={'mt-4 text-right font-medium hover:opacity-80'}>
@@ -150,9 +111,9 @@ function LoginForm() {
         <div className="mt-4 w-full">
           <NavigationStatement question="Bạn chưa có tài khoản? " content="Đăng ký ngay" href={ROUTES.SIGNUP} />
         </div>
-      </form>
+      </Form>
     </div>
   );
-}
+};
 
 export default LoginForm;

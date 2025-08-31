@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import SignupForm from '~/components/AuthForm/SignupForm';
+import SignupForm from '~/modules/auth/components/SignupForm';
 import Image from 'next/image';
 
 import styles from '~/styles/auth.module.scss';

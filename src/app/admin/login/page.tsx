@@ -6,7 +6,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { toast } from 'react-toastify';
 
-import authAction, { LoginData } from '~/services/axios/actions/auth.action';
+import { LoginData } from '~/services/axios/actions/auth.action';
 import { useAuth } from '~/stores/auth';
 import { UserRole } from '~/interfaces/user';
 
