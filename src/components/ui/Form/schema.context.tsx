@@ -1,9 +1,13 @@
 import { createContext, useContext, ReactNode } from 'react';
+import * as yup from 'yup';
 
-const SchemaContext = createContext<any>(null);
+type SchemaShape = Record<string, unknown>;
+type SchemaType<T extends SchemaShape = SchemaShape> = yup.ObjectSchema<T>;
+
+const SchemaContext = createContext<SchemaType | null>(null);
 
 type SchemaProviderProps = {
-  schema: any;
+  schema: SchemaType;
   children: ReactNode;
 };
 

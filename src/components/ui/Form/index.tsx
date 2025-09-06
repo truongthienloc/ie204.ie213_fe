@@ -1,12 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { ReactNode } from 'react';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+
+import { AppFormValue } from '~/types';
+
 import { SchemaProvider } from './schema.context';
 
 type FormProps = {
   defaultValues?: Object;
-  onSubmit: SubmitHandler<Object>;
+  onSubmit: SubmitHandler<AppFormValue>;
   children: ReactNode;
   className?: string;
   validationSchema: yup.ObjectSchema<any>;

@@ -1,21 +1,22 @@
 'use client';
 
 import Typography from '@mui/material/Typography';
+import { useCallback } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
 import NavigationStatement from '~/components/layouts/NavigationStatement';
-
-import AppButton from '../../../../components/ui/AppButton';
-import ROUTES from '~/constants/routes';
 import Form from '~/components/ui/Form';
-import { schema } from './validation';
 import Input from '~/components/ui/Form/Input';
-import { SubmitHandler } from 'react-hook-form';
-import { getForgotPasswordData } from './service';
+import ROUTES from '~/constants/routes';
+import { AppFormValue } from '~/types';
+
 import { FORGOT_PASSWORD_FORM_FIELDS } from './constant';
-import { useCallback } from 'react';
+import { getForgotPasswordData } from './service';
+import { schema } from './validation';
+import AppButton from '../../../../components/ui/AppButton';
 
 const ForgotPasswordForm = () => {
-  const handleSubmit: SubmitHandler<Object> = useCallback((values: Object) => {
+  const handleSubmit: SubmitHandler<AppFormValue> = useCallback((values: AppFormValue) => {
     const forgotPasswordData = getForgotPasswordData(values);
     console.log(forgotPasswordData);
     // TODO: call api

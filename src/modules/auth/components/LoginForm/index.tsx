@@ -1,32 +1,33 @@
 'use client';
 
 import Typography from '@mui/material/Typography';
-import Link from 'next/link';
+import { HttpStatusCode } from 'axios';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import AppButton from '~/components/ui/AppButton';
-import NavigationStatement from '../../../../components/layouts/NavigationStatement';
-import { useAuth } from '~/stores/auth';
-import { loginUserAccount } from '~/services/axios/actions/auth.action';
-import ROUTES from '~/constants/routes';
-import { HttpStatusCode } from 'axios';
-import Input from '~/components/ui/Form/Input';
 import Form from '~/components/ui/Form';
+import Input from '~/components/ui/Form/Input';
+import ROUTES from '~/constants/routes';
+import { loginUserAccount } from '~/services/axios/actions/auth.action';
+import { useAuth } from '~/stores/auth';
+import { AppFormValue } from '~/types';
 
 import { LOGIN_FORM_FIELDS } from './constant';
-import { SubmitHandler } from 'react-hook-form';
 import { getLoginData } from './service';
 import { schema } from './validation';
-import { useCallback } from 'react';
+import NavigationStatement from '../../../../components/layouts/NavigationStatement';
 
 const LoginForm = () => {
   const { setAuth } = useAuth();
   const router = useRouter();
 
-  const handleSubmit: SubmitHandler<Object> = useCallback(
-    async (values: Object) => {
+  const handleSubmit: SubmitHandler<AppFormValue> = useCallback(
+    async (values: AppFormValue) => {
       try {
         const loginData = getLoginData(values);
         const { accessToken } = await loginUserAccount(loginData);

@@ -1,27 +1,29 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 import Typography from '@mui/material/Typography';
+import { HttpStatusCode } from 'axios';
+import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+import { SubmitHandler } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import NavigationStatement from '~/components/layouts/NavigationStatement';
-import { registerUserAccount } from '~/services/axios/actions/auth.action';
 import AppButton from '~/components/ui/AppButton';
-import ROUTES from '~/constants/routes';
-import { getSignupFormData } from './service';
-import { SubmitHandler } from 'react-hook-form';
-import { SIGNUP_FORM_FIELDS } from './constant';
 import Form from '~/components/ui/Form';
 import Input from '~/components/ui/Form/Input';
+import ROUTES from '~/constants/routes';
+import { registerUserAccount } from '~/services/axios/actions/auth.action';
+import { AppFormValue } from '~/types';
+
+import { SIGNUP_FORM_FIELDS } from './constant';
+import { getSignupFormData } from './service';
 import { schema } from './validation';
-import { HttpStatusCode } from 'axios';
-import { useCallback } from 'react';
 
 const SignupForm = () => {
   const router = useRouter();
 
-  const handleSubmit: SubmitHandler<Object> = useCallback(
-    async (values: Object) => {
+  const handleSubmit: SubmitHandler<AppFormValue> = useCallback(
+    async (values: AppFormValue) => {
       try {
         const signupData = getSignupFormData(values);
         await registerUserAccount(signupData);

@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+
 import { LOGIN_FORM_FIELDS } from './constant';
 
 export const schema = yup

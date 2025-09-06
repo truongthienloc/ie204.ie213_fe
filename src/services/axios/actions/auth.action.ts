@@ -5,12 +5,12 @@ export type LoginData = {
   accessToken: string;
 };
 
-type LoginPayload = {
+export type LoginPayload = {
   email: string;
   password: string;
 };
 
-type SignupPayload = {
+export type SignupPayload = {
   email: string;
   username: string;
   password: string;
