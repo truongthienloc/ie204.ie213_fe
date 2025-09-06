@@ -1,15 +1,16 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import useDiscount from '~/hooks/useDiscount.hook';
-import { DiscountDetail } from '~/components/AdminPage/ManageDiscount/DiscountDetail';
-import { toast } from 'react-toastify';
-import { AddDiscountModal } from '~/components/Modal/AddDiscountModal';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
-import discountAction from '~/services/axios/actions/discount.action';
-import { Discount } from '~/interfaces/discount.type';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
+import { DiscountDetail } from '~/components/AdminPage/ManageDiscount/DiscountDetail';
+import { AddDiscountModal } from '~/components/Modal/AddDiscountModal';
 import { RemoveDiscountModal } from '~/components/Modal/RemoveDiscountModal';
+import useDiscount from '~/hooks/useDiscount.hook';
+import { Discount } from '~/interfaces/discount.type';
+import discountAction from '~/services/axios/actions/discount.action';
 
 type DiscountWithCheckbox = Discount & {
   isCheck: boolean;

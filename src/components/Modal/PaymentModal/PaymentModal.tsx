@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { LoadingSpinner } from '~/components/ui/Spinner';
 import { useRouter } from 'next/navigation';
-import { checkOutCart, checkOutImmediately } from '~/services/axios/actions/payment.action';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+
+import { LoadingSpinner } from '~/components/ui/Spinner';
 import { CartProduct } from '~/interfaces/cart.type';
+import { checkOutCart, checkOutImmediately } from '~/services/axios/actions/payment.action';
 import { useCart } from '~/stores/cart/useCart';
 import formatCurrency from '~/utils/formatCurrency';
 

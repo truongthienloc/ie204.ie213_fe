@@ -1,6 +1,7 @@
 import { Product } from '~/interfaces/product';
-import ClientRequest from '../ClientRequest';
+
 import { api } from '..';
+import ClientRequest from '../ClientRequest';
 import paymentEndpoint from '../endpoints/payment.endpoint';
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 

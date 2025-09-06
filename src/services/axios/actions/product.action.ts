@@ -1,8 +1,9 @@
-import { Product, Menu, ProductComment } from '~/interfaces/product';
-import server from '../server';
 import useDish from '~/hooks/useDish.hook';
+import { Product, Menu, ProductComment } from '~/interfaces/product';
+
 import { api } from '..';
 import productEndpoint from '../endpoints/product.endpoint';
+import server from '../server';
 
 type NonMethodNames<T> = {
   [K in keyof T]: T[K] extends Function ? never : K;

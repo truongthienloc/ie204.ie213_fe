@@ -1,19 +1,20 @@
 'use client';
 
-import Link from 'next/link';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-
-import cn from '~/lib/cn';
-import NavItem from './NavItem';
-import NavDrawer from './NavDrawer';
+import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+
 import { navbarItems, type NavbarItem } from '~/configs/navbar';
-import styles from '../../styles/navbar.module.scss';
+import { DEFAULT_USER_AVATAR_PATH, APP_LOGO_PATH } from '~/constants';
+import ROUTES from '~/constants/routes';
+import cn from '~/lib/cn';
 import { useAuth } from '~/stores/auth';
 import { useCart } from '~/stores/cart/useCart';
+
+import NavDrawer from './NavDrawer';
+import NavItem from './NavItem';
+import styles from '../../styles/navbar.module.scss';
 import { SearchBox } from '../SearchBox';
-import ROUTES from '~/constants/routes';
-import { DEFAULT_USER_AVATAR_PATH, APP_LOGO_PATH } from '~/constants';
 
 function NavBar() {
   const pathname = usePathname();

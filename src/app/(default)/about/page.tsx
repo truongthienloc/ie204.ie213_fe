@@ -3,8 +3,9 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
-import styles from '~/styles/about.module.scss';
+
 import cn from '~/lib/cn';
+import styles from '~/styles/about.module.scss';
 
 function AboutPage() {
   const [ref1, inView1] = useInView({ threshold: 0.3 });

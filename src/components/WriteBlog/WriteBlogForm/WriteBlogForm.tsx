@@ -2,20 +2,21 @@
 
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
-import React, { useEffect, useMemo, useState } from 'react';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
+import Chip from '@mui/material/Chip';
+import TextField from '@mui/material/TextField';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import TextField from '@mui/material/TextField';
-import Chip from '@mui/material/Chip';
+import React, { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import useBlog from '~/hooks/useBlog.hook';
-import blogAction from '~/services/axios/actions/blog.action';
-import { validateBlogData } from '~/helpers/validators/blog.validator';
+
 import generateFroalaConfig from '~/components/Froala/froala.config';
-import ClearAllIcon from '@mui/icons-material/ClearAll';
-import blogImageEvent from '~/services/EventEmitter/blogImage.event';
-import { CloudinaryImage } from '~/interfaces/image';
+import { validateBlogData } from '~/helpers/validators/blog.validator';
+import useBlog from '~/hooks/useBlog.hook';
 import type { Blog } from '~/interfaces/blog.type';
+import { CloudinaryImage } from '~/interfaces/image';
+import blogAction from '~/services/axios/actions/blog.action';
+import blogImageEvent from '~/services/EventEmitter/blogImage.event';
 
 const FroalaEditorComponent = dynamic(() => import('~/components/Froala/FroalaEditorComponent'));
 

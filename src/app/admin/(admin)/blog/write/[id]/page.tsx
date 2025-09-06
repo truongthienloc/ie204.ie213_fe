@@ -1,6 +1,8 @@
-import React from 'react';
 import { notFound } from 'next/navigation';
+import React from 'react';
+
 import { WriteBlogForm } from '~/components/WriteBlog/WriteBlogForm';
+
 import { getBlog } from './action';
 
 type Props = {

@@ -1,12 +1,13 @@
 'use client';
 
-import { useRef } from 'react';
-import styles from '~/styles/home.module.scss';
-import Slider from 'react-slick';
-import Image from 'next/image';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Image from 'next/image';
+import { useRef } from 'react';
+import Slider from 'react-slick';
+
 import sliderBanners from '~/configs/banner';
+import styles from '~/styles/home.module.scss';
 
 function HomeSlider() {
   const sliderRef = useRef<any>(null);

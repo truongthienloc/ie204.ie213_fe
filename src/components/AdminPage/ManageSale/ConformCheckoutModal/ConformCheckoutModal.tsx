@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Modal, ModalButton } from '~/components/Modal';
 
 type Props = {

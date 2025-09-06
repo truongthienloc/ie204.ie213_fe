@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { Roboto } from 'next/font/google';
+
 import { TableStatus } from '~/interfaces/table.type';
 import cn from '~/lib/cn';
 

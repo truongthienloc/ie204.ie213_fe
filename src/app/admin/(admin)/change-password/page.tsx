@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+
 import userAction from '~/services/axios/actions/user.action';
 
 export default function AdminChangePasswordPage() {

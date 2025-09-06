@@ -1,4 +1,5 @@
 import type { BlogData, Blogs } from '~/interfaces/blog.type';
+
 import { api } from '..';
 import blogEndpoint from '../endpoints/blog.endpoint';
 

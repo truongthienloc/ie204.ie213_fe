@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { LogoutModal } from '../Modal/LogoutModal';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+
 import { useAuth } from '~/stores/auth';
+
+import { LogoutModal } from '../Modal/LogoutModal';
 
 const menu = [
   {

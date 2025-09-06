@@ -3,10 +3,10 @@
 import { isEmpty } from 'lodash';
 import { memo, useEffect, useState } from 'react';
 
-import styles from '~/styles/product_detail.module.scss';
 import ProductCard from '~/components/ProductCard';
 import { Product } from '~/interfaces/product';
 import { getRelativeProducts } from '~/services/axios/actions/product.action';
+import styles from '~/styles/product_detail.module.scss';
 
 type Props = {
   productId: string;

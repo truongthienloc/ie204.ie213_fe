@@ -1,5 +1,6 @@
-import UserSidebar from '~/components/layouts/UserSidebar';
 import { Metadata } from 'next';
+
+import UserSidebar from '~/components/layouts/UserSidebar';
 
 type UserLayoutProps = Readonly<{
   children: React.ReactNode;

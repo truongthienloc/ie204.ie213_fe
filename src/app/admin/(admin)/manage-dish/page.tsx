@@ -1,15 +1,16 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+
 import { DishDetail } from '~/components/AdminPage/ManageDish/DishDetail';
 import { AddDishModal } from '~/components/Modal/AddDishModal';
-import { EditDishModal } from '~/components/Modal/EditDishModal';
 import { DeleteDishModal } from '~/components/Modal/DeleteDishModal';
+import { EditDishModal } from '~/components/Modal/EditDishModal';
 import useDish from '~/hooks/useDish.hook';
-import * as productAction from '~/services/axios/actions/product.action';
 import type { Product } from '~/interfaces/product';
+import * as productAction from '~/services/axios/actions/product.action';
 
 type ProductWithCheckbox = Product & {
   isCheck: boolean;

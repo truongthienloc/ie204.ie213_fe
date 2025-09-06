@@ -1,14 +1,16 @@
 'use client';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
+
 import { CartProduct } from '~/interfaces/cart.type';
 import { Product } from '~/interfaces/product';
+import { addProductToCart } from '~/services/axios/actions/cart.action';
 import { useAuth } from '~/stores/auth';
 import { useCart } from '~/stores/cart/useCart';
 import styles from '~/styles/product_detail.module.scss';
+
 import BuyNowModal from '../Modal/BuyNowModal/BuyNowModal';
-import { addProductToCart } from '~/services/axios/actions/cart.action';
 
 function ProductDetailButtons({ product }: { product: Product }) {
   const { cartList, addProduct, incQuantity } = useCart();

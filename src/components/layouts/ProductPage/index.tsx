@@ -2,9 +2,8 @@
 
 import { useState, useEffect, useMemo } from 'react';
 
-import ProductCard from '~/components/ProductCard';
-import ProductFilter from './ProductFilter';
 import PaginationSection from '~/components/layouts/PaginationSection';
+import ProductCard from '~/components/ProductCard';
 import { Spinner } from '~/components/ui/Spinner';
 import { Product } from '~/interfaces/product';
 import { filterDish, getProductsFromServer } from '~/services/axios/actions/product.action';
@@ -17,6 +16,7 @@ import {
   PAGE_SIZE,
   PRODUCT_FILTER_OPTIONS,
 } from './constant';
+import ProductFilter from './ProductFilter';
 
 type Props = {
   initProducts: Product[];

@@ -1,24 +1,25 @@
 'use client';
-import React, { useState, ChangeEvent, useEffect } from 'react';
-import Link from 'next/link';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PaymentsIcon from '@mui/icons-material/Payments';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import { CartProductItem } from '~/components/CartItem';
-import ShippingOptionButtons from '~/components/Payment/ShippingOptionButtons';
-import { Product } from '~/interfaces/product';
-import { CartProduct } from '~/interfaces/cart.type';
-import style from '~/styles/payment.module.scss';
-import placeholderImage from '../../../../../public/images/payment.png';
-import formatCurrency from '~/utils/formatCurrency';
-import { useSearchParams } from 'next/navigation';
-import { getProductById } from '~/services/axios/actions/product.action';
-import payAction, { checkOutImmediately } from '~/services/axios/actions/payment.action';
-import { useAuth } from '~/stores/auth';
-import PaymentOptionButtons from '~/components/Payment/PaymentOptionButton';
 import PaymentModal from '~/components/Modal/PaymentModal/PaymentModal';
+import PaymentOptionButtons from '~/components/Payment/PaymentOptionButton';
+import ShippingOptionButtons from '~/components/Payment/ShippingOptionButtons';
+import { CartProduct } from '~/interfaces/cart.type';
+import { Product } from '~/interfaces/product';
+import payAction, { checkOutImmediately } from '~/services/axios/actions/payment.action';
+import { getProductById } from '~/services/axios/actions/product.action';
+import { useAuth } from '~/stores/auth';
+import style from '~/styles/payment.module.scss';
+import formatCurrency from '~/utils/formatCurrency';
+
+import placeholderImage from '../../../../../public/images/payment.png';
 
 const VAT = 0.1;
 const shippingFee = 20000;

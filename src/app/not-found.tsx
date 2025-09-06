@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import styles from '~/styles/notfound.module.scss';
-import cn from '~/lib/cn';
 import ROUTES from '~/constants/routes';
+import cn from '~/lib/cn';
+import styles from '~/styles/notfound.module.scss';
 
 export default function NotFound() {
   return (

@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+
 import { CartProduct } from '~/interfaces/cart.type';
 
 interface CartState {

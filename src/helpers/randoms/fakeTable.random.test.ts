@@ -1,5 +1,6 @@
+import { Table } from '~/interfaces/table.type';
+
 import { generateTablesData } from './fakeTable.random';
-import { Tables, Table } from '~/interfaces/table.type';
 
 describe('generateTablesData', () => {
   it('should generate the specified number of tables', () => {

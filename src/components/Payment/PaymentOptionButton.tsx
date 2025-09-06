@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
-import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
+import React from 'react';
+
 import style from '~/styles/payment.module.scss';
 
 interface ChildProps {

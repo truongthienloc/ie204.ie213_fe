@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import ROUTES from '~/constants/routes';
 
 type Props = {

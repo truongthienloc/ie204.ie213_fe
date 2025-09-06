@@ -1,10 +1,11 @@
 'use client';
-import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { Product } from '~/interfaces/product';
 import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+
+import { Product } from '~/interfaces/product';
 import formatCurrency from '~/utils/formatCurrency';
 
 type slug = {

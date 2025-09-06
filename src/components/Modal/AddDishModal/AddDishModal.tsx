@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import React, { useState, useEffect } from 'react';
+
 import useDish from '~/hooks/useDish.hook';
-import type { Menu, ProductImage } from '~/interfaces/product';
+import type { Menu } from '~/interfaces/product';
 
 type LocalImage = {
   id: string;

@@ -1,14 +1,15 @@
-import { Metadata } from 'next';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import Link from 'next/link';
 import dayjs from 'dayjs';
+import { Metadata } from 'next';
+import Link from 'next/link';
+
+import SocialsShare from '~/components/SocialsShare';
+import defaultConfigs from '~/configs/defaultConfigs';
+import addLazyLoadingToImages from '~/helpers/convert/blogHTML.convert';
+import { Blog } from '~/interfaces/blog.type';
+import styles from '~/styles/blog.module.scss';
 
 import { getBlogDetail } from '../action';
-import { Blog } from '~/interfaces/blog.type';
-import SocialsShare from '~/components/SocialsShare';
-import styles from '~/styles/blog.module.scss';
-import addLazyLoadingToImages from '~/helpers/convert/blogHTML.convert';
-import defaultConfigs from '~/configs/defaultConfigs';
 
 type Props = {
   params: {

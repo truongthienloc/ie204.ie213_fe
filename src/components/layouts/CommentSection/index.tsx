@@ -1,18 +1,18 @@
 'use client';
 
 import SendIcon from '@mui/icons-material/Send';
-import { memo, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
+import { useRouter } from 'next/navigation';
+import { memo, useEffect, useState } from 'react';
 
+import { DEFAULT_USER_AVATAR_PATH } from '~/constants';
 import { ProductComment } from '~/interfaces/product';
 import { addComment, getProductComments } from '~/services/axios/actions/product.action';
 import { useAuth } from '~/stores/auth';
-import { DEFAULT_USER_AVATAR_PATH } from '~/constants';
-import { BASE_COMMENT_LEVEL } from './constants';
+import styles from '~/styles/product_detail.module.scss';
 
 import CommentItem from './CommentItem';
-import styles from '~/styles/product_detail.module.scss';
+import { BASE_COMMENT_LEVEL } from './constants';
 
 type Props = {
   productId: string;

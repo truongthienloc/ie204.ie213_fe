@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-import styles from '~/styles/home.module.scss';
 import Slider from '~/components/HomeSlider';
 import ProductCard from '~/components/ProductCard';
 import { Product } from '~/interfaces/product';
 import { getProductsFromServer } from '~/services/axios/actions/product.action';
+import styles from '~/styles/home.module.scss';
 
 function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);

@@ -1,17 +1,18 @@
 'use client';
-import React, { useEffect, useState } from 'react';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { decreaseQuantity } from '~/services/axios/actions/cart.action';
-import CartModal from '../CartModal';
+import TableRow from '@mui/material/TableRow';
+import React, { useEffect, useState } from 'react';
 
-import formatCurrency from '~/utils/formatCurrency';
 import { CartProduct } from '~/interfaces/cart.type';
-import styles from '~/styles/cart.module.scss';
-import { useCart } from '~/stores/cart/useCart';
+import { decreaseQuantity } from '~/services/axios/actions/cart.action';
 import { addProductToCart } from '~/services/axios/actions/cart.action';
+import { useCart } from '~/stores/cart/useCart';
+import styles from '~/styles/cart.module.scss';
+import formatCurrency from '~/utils/formatCurrency';
+
+import CartModal from '../CartModal';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

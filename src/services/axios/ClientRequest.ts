@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig, HttpStatusCode, AxiosError } from 'axios';
-import authEndpoint from './endpoints/auth.endpoint';
+
 import { useAuth } from '~/stores/auth';
+
+import authEndpoint from './endpoints/auth.endpoint';
 
 class ClientRequest {
   static clientInstance: ClientRequest | null = null;

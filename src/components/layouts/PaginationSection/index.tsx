@@ -4,7 +4,6 @@ import Pagination from '@mui/material/Pagination';
 import { useMemo } from 'react';
 
 import colors from '~/constants/colors';
-import { DEFAULT_PAGE } from '~/components/layouts/ProductPage/constant';
 
 type PaginationProps = {
   totalCount: number;

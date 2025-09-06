@@ -1,10 +1,11 @@
-import React from 'react';
-import { getBlogs } from './action';
-import { notFound } from 'next/navigation';
-import ReadonlyBlogItem from '~/components/BlogItem/ReadonlyBlogItem';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import React from 'react';
 
+import ReadonlyBlogItem from '~/components/BlogItem/ReadonlyBlogItem';
 import styles from '~/styles/blog.module.scss';
+
+import { getBlogs } from './action';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

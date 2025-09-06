@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+
 import { Table } from '~/interfaces/table.type';
 import cn from '~/lib/cn';
 

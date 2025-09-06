@@ -2,17 +2,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '~/styles/globals.scss';
-import type { Metadata } from 'next';
-import Script from 'next/script';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/react';
 import { Roboto } from 'next/font/google';
+import Script from 'next/script';
 import { ToastContainer } from 'react-toastify';
 
+import { TanstackProvider } from '~/components/TanstackProvider';
 import defaultConfigs from '~/configs/defaultConfigs';
 import { actions, contact } from '~/configs/jsonLD';
-import { TanstackProvider } from '~/components/TanstackProvider';
 import { AutoLogin } from '~/stores/auth';
+
+import type { Metadata } from 'next';
 
 const roboto = Roboto({ subsets: ['vietnamese'], weight: ['400'] });
 const { appMetadata } = defaultConfigs;

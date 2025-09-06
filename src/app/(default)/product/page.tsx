@@ -1,10 +1,11 @@
-import ProductPageComponent from '~/components/layouts/ProductPage';
-import { Metadata } from 'next';
-import { getProductsFromServer } from '~/services/axios/actions/product.action';
-import { Product } from '~/interfaces/product';
-import ProductCard from '~/components/ProductCard';
-import { redirect } from 'next/navigation';
 import { isEmpty } from 'lodash';
+import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+
+import ProductPageComponent from '~/components/layouts/ProductPage';
+import ProductCard from '~/components/ProductCard';
+import { Product } from '~/interfaces/product';
+import { getProductsFromServer } from '~/services/axios/actions/product.action';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return {

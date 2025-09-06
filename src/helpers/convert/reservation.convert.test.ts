@@ -1,5 +1,6 @@
+import { Tables } from '~/interfaces/table.type';
+
 import { groupDataByTableFloor } from './reservation.convert';
-import { Tables, Table } from '~/interfaces/table.type';
 
 describe('groupDataByTableFloor', () => {
   it('should return an empty array if input data is empty', () => {
