@@ -7,7 +7,7 @@ type Props = {
   href: (typeof ROUTES)[keyof typeof ROUTES];
 };
 
-function NavigationStatement({ question, content, href }: Props) {
+const NavigationStatement = ({ question, content, href }: Props) => {
   return (
     <>
       <div className="text-center text-base leading-normal tracking-wide">
@@ -18,6 +18,6 @@ function NavigationStatement({ question, content, href }: Props) {
       </div>
     </>
   );
-}
+};
 
 export default NavigationStatement;

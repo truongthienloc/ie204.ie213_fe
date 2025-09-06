@@ -5,67 +5,29 @@ export type LoginData = {
   accessToken: string;
 };
 
-function loginAdminAccount(email: string, password: string) {
-  return new Promise<LoginData>(async (resolve, reject) => {
-    try {
-      const res = await api.post(
-        authEndpoint['admin-login'],
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        },
-      );
-
-      const data = res.data.data as LoginData;
-      resolve(data);
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
-
-// user login
-export async function loginUserAccount(email: string, password: string): Promise<LoginData> {
-  const res = await api.post(
-    authEndpoint.login,
-    {
-      email,
-      password,
-    },
-    {
-      withCredentials: true,
-    },
-  );
-
-  return res.data.data as LoginData;
-}
-
-// user register
-function registerUserAccount(email: string, username: string, password: string) {
-  return new Promise<any>(async (resolve, reject) => {
-    try {
-      const res = await api.post(authEndpoint.register, {
-        email,
-        username,
-        password,
-      });
-
-      const data = res.data;
-      console.log(data);
-      resolve(data);
-    } catch (err) {
-      reject(err);
-    }
-  });
-}
-
-const authAction = {
-  loginAdminAccount,
-  loginUserAccount,
-  registerUserAccount,
+export type LoginPayload = {
+  email: string;
+  password: string;
 };
 
-export default authAction;
+export type SignupPayload = {
+  email: string;
+  username: string;
+  password: string;
+};
+
+export const loginAdminAccount = async (loginData: LoginPayload): Promise<LoginData> => {
+  const res = await api.post(authEndpoint['admin-login'], loginData);
+
+  return res.data.data as LoginData;
+};
+
+export const loginUserAccount = async (loginData: LoginPayload): Promise<LoginData> => {
+  const res = await api.post(authEndpoint.login, loginData);
+
+  return res.data.data as LoginData;
+};
+
+export const registerUserAccount = async (singupData: SignupPayload) => {
+  await api.post(authEndpoint.register, singupData);
+};

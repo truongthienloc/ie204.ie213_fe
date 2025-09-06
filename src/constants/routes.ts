@@ -13,6 +13,9 @@ const ROUTES = {
   CHANGE_PASSWORD: '/user/change-password',
   DISCOUNT: '/user/discount',
   TABLE_ORDER: '/user/table-order',
+
+  ADMIN_LOGIN: '/admin/login',
+  ADMIN_MANAGE_SALES: '/admin/manage-sales',
 };
 
 export default ROUTES;

@@ -56,9 +56,6 @@ function AppInput({
               '& fieldset': {
                 borderColor: COLORS.secondary.DEFAULT,
               },
-              '&:hover fieldset': {
-                borderColor: COLORS.secondary.DEFAULT,
-              },
               '&.Mui-focused fieldset': {
                 borderColor: COLORS.secondary.DEFAULT,
               },

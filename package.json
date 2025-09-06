@@ -18,6 +18,7 @@
     "@analytics/google-analytics": "^1.0.7",
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.0",
+    "@hookform/resolvers": "^5.2.1",
     "@mui/icons-material": "5.15.13",
     "@mui/material": "5.15.13",
     "@mui/x-charts": "6.19.5",
@@ -37,7 +38,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-froala-wysiwyg": "4.2.0",
-    "react-hook-form": "7.51.1",
+    "react-hook-form": "^7.51.1",
     "react-intersection-observer": "^9.8.2",
     "react-paginate": "^8.2.0",
     "react-slick": "^0.30.2",
@@ -50,6 +51,7 @@
     "socket.io-client": "^4.7.2",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
+    "yup": "^1.7.0",
     "zustand": "4.5.2"
   },
   "devDependencies": {
