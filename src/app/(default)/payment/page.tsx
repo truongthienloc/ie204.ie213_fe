@@ -1,23 +1,24 @@
 'use client';
 
-import Link from 'next/link';
-import React, { useState, ChangeEvent, useEffect, useCallback } from 'react';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { CartProductItem } from '~/components/CartItem';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import Link from 'next/link';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import formatCurrency from '~/utils/formatCurrency';
-import { useCart } from '~/stores/cart/useCart';
-import style from '../../../styles/payment.module.scss';
-import placeholderImage from '../../../../public/images/payment.png';
-import ShippingOptionButtons from '~/components/Payment/ShippingOptionButtons';
-import PaymentOptionButtons from '~/components/Payment/PaymentOptionButton';
+import { CartProductItem } from '~/components/CartItem';
 import PaymentModal from '~/components/Modal/PaymentModal/PaymentModal';
-import { useAuth } from '~/stores/auth';
-import payAction, { checkOutCart } from '~/services/axios/actions/payment.action';
-import PaymentsIcon from '@mui/icons-material/Payments';
+import PaymentOptionButtons from '~/components/Payment/PaymentOptionButton';
+import ShippingOptionButtons from '~/components/Payment/ShippingOptionButtons';
 import { CartProduct } from '~/interfaces/cart.type';
+import payAction, { checkOutCart } from '~/services/axios/actions/payment.action';
+import { useAuth } from '~/stores/auth';
+import { useCart } from '~/stores/cart/useCart';
+import formatCurrency from '~/utils/formatCurrency';
+
+import placeholderImage from '../../../../public/images/payment.png';
+import style from '../../../styles/payment.module.scss';
 
 const VAT = 0.1;
 const shippingFee = 20000;

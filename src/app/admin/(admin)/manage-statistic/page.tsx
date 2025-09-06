@@ -1,8 +1,8 @@
 'use client';
 
-import * as React from 'react';
-import { BarChart } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts';
+import { BarChart } from '@mui/x-charts/BarChart';
+import * as React from 'react';
 
 const chartSetting = {
   yAxis: [

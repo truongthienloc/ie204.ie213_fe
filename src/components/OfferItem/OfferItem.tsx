@@ -1,7 +1,8 @@
-import React from 'react';
-import Link from 'next/link';
-import GradeIcon from '@mui/icons-material/Grade';
 import CancelIcon from '@mui/icons-material/Cancel';
+import GradeIcon from '@mui/icons-material/Grade';
+import Link from 'next/link';
+import React from 'react';
+
 import { Product } from '~/interfaces/product';
 import formatCurrency from '~/utils/formatCurrency';
 

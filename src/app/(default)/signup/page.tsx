@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
-
-import SignupForm from '~/modules/auth/components/SignupForm';
 import Image from 'next/image';
 
+import SignupForm from '~/modules/auth/components/SignupForm';
 import styles from '~/styles/auth.module.scss';
 
 export function generateMetadata(): Metadata {

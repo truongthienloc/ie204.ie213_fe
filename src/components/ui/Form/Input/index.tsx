@@ -1,6 +1,8 @@
-import { useController, useFormContext } from 'react-hook-form';
-import BaseInput, { AppInputProps } from '../../AppInput';
 import { FocusEvent, useCallback } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
+import { SchemaDescription } from 'yup';
+
+import BaseInput, { AppInputProps } from '../../AppInput';
 import { useSchema } from '../schema.context';
 
 const Input = ({ id = '', onFocus, ...restProps }: AppInputProps) => {
@@ -15,7 +17,7 @@ const Input = ({ id = '', onFocus, ...restProps }: AppInputProps) => {
 
   const schema = useSchema();
 
-  const isRequired: boolean = !schema?.describe()?.fields[id]?.optional;
+  const isRequired: boolean = !(schema?.describe()?.fields[id] as SchemaDescription)?.optional;
 
   const handleFocus = useCallback(
     (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {

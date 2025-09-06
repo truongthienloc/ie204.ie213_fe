@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import styles from '~/styles/user.module.scss';
+import dayjs from 'dayjs';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
 import { Order } from '~/interfaces/order.type';
 import { getUserOrders } from '~/services/axios/actions/user.action';
-import dayjs from 'dayjs';
+import styles from '~/styles/user.module.scss';
 import formatCurrency from '~/utils/formatCurrency';
 
 function UserOrderPage() {

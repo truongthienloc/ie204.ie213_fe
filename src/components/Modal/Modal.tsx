@@ -1,6 +1,7 @@
-import * as React from 'react';
-import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
+import Modal from '@mui/material/Modal';
+import * as React from 'react';
+
 import cn from '~/lib/cn';
 
 type Props = {

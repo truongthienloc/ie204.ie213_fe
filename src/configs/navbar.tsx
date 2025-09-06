@@ -1,13 +1,13 @@
-import HomeIcon from '@mui/icons-material/Home';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import Book from '@mui/icons-material/Book';
-import InfoIcon from '@mui/icons-material/Info';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
-import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
-import TableRestaurantOutlinedIcon from '@mui/icons-material/TableRestaurantOutlined';
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import HomeIcon from '@mui/icons-material/Home';
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined';
+import InfoIcon from '@mui/icons-material/Info';
+import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import TableRestaurantOutlinedIcon from '@mui/icons-material/TableRestaurantOutlined';
 
 import ROUTES from '~/constants/routes';
 

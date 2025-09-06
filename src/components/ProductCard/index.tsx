@@ -1,9 +1,9 @@
-import Link from 'next/link';
 import StarIcon from '@mui/icons-material/Star';
+import Link from 'next/link';
 import React from 'react';
 
-import styles from '~/styles/product_card.module.scss';
 import { Product } from '~/interfaces/product';
+import styles from '~/styles/product_card.module.scss';
 import formatCurrency from '~/utils/formatCurrency';
 
 type Props = {

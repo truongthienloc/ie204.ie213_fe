@@ -1,4 +1,4 @@
-import type { Tables, Table, TableStatus } from '~/interfaces/table.type';
+import type { Tables, Table } from '~/interfaces/table.type';
 
 export function generateTablesData(numTables: number): Tables {
   const tables: Tables = [];

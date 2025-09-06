@@ -1,10 +1,11 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { Table } from '~/interfaces/table.type';
+import dayjs from 'dayjs';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+import { Table } from '~/interfaces/table.type';
 import { getUserTableOrder } from '~/services/axios/actions/user.action';
 import styles from '~/styles/user.module.scss';
-import dayjs from 'dayjs';
 
 function TableOrderPage() {
   const [table, setTable] = useState<Table | null>();

@@ -1,9 +1,10 @@
 'use client';
-import styles from '~/styles/product_detail.module.scss';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShareIcon from '@mui/icons-material/Share';
 import { useState } from 'react';
+
+import styles from '~/styles/product_detail.module.scss';
 
 function SocialsShare() {
   const [isLike, setIsLike] = useState(false);

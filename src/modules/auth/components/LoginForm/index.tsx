@@ -9,6 +9,7 @@ import { useCallback } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
+import NavigationStatement from '~/components/layouts/NavigationStatement';
 import AppButton from '~/components/ui/AppButton';
 import Form from '~/components/ui/Form';
 import Input from '~/components/ui/Form/Input';
@@ -20,7 +21,6 @@ import { AppFormValue } from '~/types';
 import { LOGIN_FORM_FIELDS } from './constant';
 import { getLoginData } from './service';
 import { schema } from './validation';
-import NavigationStatement from '../../../../components/layouts/NavigationStatement';
 
 const LoginForm = () => {
   const { setAuth } = useAuth();

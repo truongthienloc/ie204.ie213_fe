@@ -1,8 +1,9 @@
 'use client';
-import { useState } from 'react';
-import { ProductImage } from '~/interfaces/product';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useState } from 'react';
+
+import { ProductImage } from '~/interfaces/product';
 import styles from '~/styles/product_detail.module.scss';
 
 type Props = {

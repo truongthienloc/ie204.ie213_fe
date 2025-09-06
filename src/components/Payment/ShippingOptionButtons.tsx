@@ -1,8 +1,8 @@
 'use client';
-import React, { useState } from 'react';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import WhereToVoteIcon from '@mui/icons-material/WhereToVote';
+import React from 'react';
+
 import style from '~/styles/payment.module.scss';
 
 interface ChildProps {

@@ -1,8 +1,9 @@
-import { User } from '~/interfaces/user';
+import { Order } from '~/interfaces/order.type';
 import { Table } from '~/interfaces/table.type';
+import { User } from '~/interfaces/user';
+
 import { api } from '..';
 import userEndpoint from '../endpoints/user.endpoint';
-import { Order } from '~/interfaces/order.type';
 
 // get current user with token from client instance
 export async function getCurrentUser(): Promise<User> {

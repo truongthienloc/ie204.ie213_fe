@@ -1,13 +1,12 @@
 'use client';
 
+import Typography from '@mui/material/Typography';
 import { FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
-import Typography from '@mui/material/Typography';
 
-import styles from '~/styles/user.module.scss';
-import { changePassword } from '~/services/axios/actions/user.action';
-import AppInput from '~/components/ui/AppInput';
 import AppButton from '~/components/ui/AppButton';
+import AppInput from '~/components/ui/AppInput';
+import { changePassword } from '~/services/axios/actions/user.action';
 
 type Input = {
   oldPassword?: string;

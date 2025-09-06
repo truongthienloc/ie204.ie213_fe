@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-import styles from '~/styles/user.module.scss';
 import { userSidebarItems, type NavbarItem } from '~/configs/navbar';
+import ROUTES from '~/constants/routes';
 import { useAuth } from '~/stores/auth';
 import { useCart } from '~/stores/cart/useCart';
-import ROUTES from '~/constants/routes';
+import styles from '~/styles/user.module.scss';
 
 function UserSidebar() {
   const { user, logout } = useAuth();

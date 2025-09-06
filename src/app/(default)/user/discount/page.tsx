@@ -1,8 +1,9 @@
 'use client';
-import styles from '~/styles/user.module.scss';
-import { getCurrentUser } from '~/services/axios/actions/user.action';
 import { useEffect, useState } from 'react';
+
 import { Spinner } from '~/components/ui/Spinner';
+import { getCurrentUser } from '~/services/axios/actions/user.action';
+import styles from '~/styles/user.module.scss';
 
 function DiscountPage() {
   const [discounts, setDiscounts] = useState([]);

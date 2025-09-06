@@ -1,27 +1,28 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import Link from 'next/link';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { CartItem, RecommendedItem } from '~/components/CartItem';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
 
-import { useCart } from '~/stores/cart/useCart';
-import { getProductsFromServer } from '~/services/axios/actions/product.action';
-import cartEmptyIMG from '../../../../public/images/empty-cart.webp';
+import { CartItem, RecommendedItem } from '~/components/CartItem';
 import { Spinner } from '~/components/ui/Spinner';
-import { removeCartProduct } from '~/services/axios/actions/cart.action';
-import { Product } from '~/interfaces/product';
-import styles from '~/styles/cart.module.scss';
 import { CartProduct } from '~/interfaces/cart.type';
+import { Product } from '~/interfaces/product';
+import { removeCartProduct } from '~/services/axios/actions/cart.action';
+import { getProductsFromServer } from '~/services/axios/actions/product.action';
+import { useCart } from '~/stores/cart/useCart';
+import styles from '~/styles/cart.module.scss';
 import formatCurrency from '~/utils/formatCurrency';
+
+import cartEmptyIMG from '../../../../public/images/empty-cart.webp';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

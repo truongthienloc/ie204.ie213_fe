@@ -1,21 +1,21 @@
 'use client';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
+import { useSearchParams } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
 
-import { Product } from '~/interfaces/product';
 import ProductCard from '~/components/ProductCard';
+import { Spinner } from '~/components/ui/Spinner';
+import { Product } from '~/interfaces/product';
+import cn from '~/lib/cn';
 import {
   getProductBySearching,
   getProductByNamePrice,
   getProductsFromServer,
 } from '~/services/axios/actions/product.action';
-import { useSearchParams } from 'next/navigation';
 import styles from '~/styles/search.module.scss';
-import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
-import { useState, useEffect, Suspense } from 'react';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import { Spinner } from '~/components/ui/Spinner';
-import cn from '~/lib/cn';
 
 const priceFilters = [
   {

@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { toast } from 'react-toastify';
+
 // // import ClientDetail from '~/components/ClientDetail_ManageClient/ClientDetail'
 // // import iconNotification from '~/assets/images/icon_notification.svg'
-import Link from 'next/link';
-import { api } from '~/services/axios';
-import { toast } from 'react-toastify';
 
 export default function ManageClientPage() {
   // const [showModalAdd, setShowModalAdd] = React.useState(false)

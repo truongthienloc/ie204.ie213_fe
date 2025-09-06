@@ -1,7 +1,7 @@
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 
 import styles from '~/styles/blog.module.scss';
 

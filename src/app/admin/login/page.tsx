@@ -1,20 +1,21 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import { HttpStatusCode } from 'axios';
 import { useRouter } from 'next/navigation';
+import React, { useCallback } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { loginAdminAccount, LoginData } from '~/services/axios/actions/auth.action';
-import { useAuth } from '~/stores/auth';
-import { SubmitHandler } from 'react-hook-form';
+import AppButton from '~/components/ui/AppButton';
 import Form from '~/components/ui/Form';
 import Input from '~/components/ui/Form/Input';
-import AppButton from '~/components/ui/AppButton';
-import { schema } from './validation';
-import { ADMIN_LOGIN_FORM_FIELDS } from './constant';
-import { HttpStatusCode } from 'axios';
-import { getLoginData } from './service';
 import ROUTES from '~/constants/routes';
+import { loginAdminAccount } from '~/services/axios/actions/auth.action';
+import { useAuth } from '~/stores/auth';
+
+import { ADMIN_LOGIN_FORM_FIELDS } from './constant';
+import { getLoginData } from './service';
+import { schema } from './validation';
 
 const LoginAdminPage: React.FC = () => {
   const router = useRouter();

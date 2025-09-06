@@ -1,4 +1,5 @@
 import { OriginTableData, Table } from '~/interfaces/table.type';
+
 import { api } from '..';
 import tableEndpoint from '../endpoints/table.endpoint';
 

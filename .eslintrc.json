@@ -1,7 +1,34 @@
-{
-    "extends": ["next/core-web-vitals"],
-    "plugins": ["@tanstack/eslint-plugin-query"],
-    "rules": {
-        "@next/next/no-img-element": "off"
-    }
+{ 
+  "extends": ["next/core-web-vitals"],
+  "plugins": ["@tanstack/eslint-plugin-query", "import", "unused-imports"],
+  "rules": {
+    "@next/next/no-img-element": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling", "index"],
+          "object",
+          "type"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "~/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "unused-imports/no-unused-imports": "error"
+  }
 }

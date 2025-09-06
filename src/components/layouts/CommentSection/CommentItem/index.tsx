@@ -1,18 +1,17 @@
 'use client';
 
-import { ProductComment } from '~/interfaces/product';
-import dayjs from 'dayjs';
-
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
-
-import styles from '~/styles/product_detail.module.scss';
-import { memo, useEffect, useState } from 'react';
-import { useAuth } from '~/stores/auth';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
+import { memo, useEffect, useState } from 'react';
+
+import { ProductComment } from '~/interfaces/product';
 import { User } from '~/interfaces/user';
 import { getUserById } from '~/services/axios/actions/user.action';
+import { useAuth } from '~/stores/auth';
+import styles from '~/styles/product_detail.module.scss';
 
 type Props = {
   comment: ProductComment;

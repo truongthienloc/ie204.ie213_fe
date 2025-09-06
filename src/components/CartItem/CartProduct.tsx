@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { CartProduct } from '~/interfaces/cart.type';
 
 const CartProductItem = ({ dish, quantity }: { dish: CartProduct; quantity: number }) => {

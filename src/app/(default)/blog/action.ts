@@ -1,6 +1,6 @@
+import type { Blog, Blogs } from '~/interfaces/blog.type';
 import blogEndpoint from '~/services/axios/endpoints/blog.endpoint';
 import server from '~/services/axios/server';
-import type { Blog, Blogs } from '~/interfaces/blog.type';
 
 export function getBlogs() {
   return new Promise<Blogs>(async (resolve, reject) => {

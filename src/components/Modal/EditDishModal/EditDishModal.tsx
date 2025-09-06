@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import React, { useState, useEffect } from 'react';
+
 import useDish from '~/hooks/useDish.hook';
 import { Menu } from '~/interfaces/product';
 

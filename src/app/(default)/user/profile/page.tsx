@@ -1,10 +1,11 @@
 'use client';
 
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
-import styles from '~/styles/user.module.scss';
-import { getCurrentUser } from '~/services/axios/actions/user.action';
 import { useEffect, useState } from 'react';
+
 import { User } from '~/interfaces/user';
+import { getCurrentUser } from '~/services/axios/actions/user.action';
+import styles from '~/styles/user.module.scss';
 
 function UserProfilePage() {
   const [user, setUser] = useState<User>();

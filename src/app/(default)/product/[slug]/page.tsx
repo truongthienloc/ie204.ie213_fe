@@ -1,20 +1,21 @@
-import React, { memo } from 'react';
+import StarIcon from '@mui/icons-material/Star';
 import { isEmpty } from 'lodash';
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import StarIcon from '@mui/icons-material/Star';
+import { redirect } from 'next/navigation';
+import React, { memo } from 'react';
 
-import styles from '~/styles/product_detail.module.scss';
-import { Product } from '~/interfaces/product';
-import { getProductBySlugname } from '~/services/axios/actions/product.action';
-import formatCurrency from '~/utils/formatCurrency';
+import CommentSection from '~/components/layouts/CommentSection';
+import RelativeProductSection from '~/components/layouts/RelativeProductsSection';
 import ProductDetailButtons from '~/components/ProductDetailButton';
 import ProductImageSlider from '~/components/ProductImageSlider';
 import SocialsShare from '~/components/SocialsShare';
-import CommentSection from '~/components/layouts/CommentSection';
 import defaultConfigs from '~/configs/defaultConfigs';
-import RelativeProductSection from '~/components/layouts/RelativeProductsSection';
+import { Product } from '~/interfaces/product';
+import { getProductBySlugname } from '~/services/axios/actions/product.action';
+import styles from '~/styles/product_detail.module.scss';
+import formatCurrency from '~/utils/formatCurrency';
+
 import { DEFAULT_RELATIVE_PRODUCT_QUANTITY } from './constant';
 
 const { appMetadata } = defaultConfigs;

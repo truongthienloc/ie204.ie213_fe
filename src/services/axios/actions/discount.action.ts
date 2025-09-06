@@ -1,4 +1,5 @@
 import { Discount, DiscountData } from '~/interfaces/discount.type';
+
 import { api } from '..';
 import discountEndpoint from '../endpoints/discount.endpoint';
 

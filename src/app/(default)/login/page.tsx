@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import { Metadata } from 'next';
+import Image from 'next/image';
 
-import LoginForm from '~/modules/auth/components/LoginForm';
 import { APP_LOGO_PATH } from '~/constants';
+import LoginForm from '~/modules/auth/components/LoginForm';
 
 export function generateMetadata(): Metadata {
   return {

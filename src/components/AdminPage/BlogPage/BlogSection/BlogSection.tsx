@@ -1,10 +1,12 @@
 'use client';
 
-import React from 'react';
+import Skeleton from '@mui/material/Skeleton';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import React from 'react';
+
 import blogAction from '~/services/axios/actions/blog.action';
-import Skeleton from '@mui/material/Skeleton';
+
 import BlogItem from '../../../BlogItem/BlogItem';
 
 type Props = {};

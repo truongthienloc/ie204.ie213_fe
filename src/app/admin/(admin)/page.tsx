@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '~/stores/auth';
+import { useEffect } from 'react';
+
 import { UserRole } from '~/interfaces/user';
+import { useAuth } from '~/stores/auth';
 
 export default function AdminPage() {
   const { user } = useAuth();

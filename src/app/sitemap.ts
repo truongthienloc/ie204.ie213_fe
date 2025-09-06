@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
-import { getBlogs } from './(default)/blog/action';
+
 import { getProductsFromServer } from '~/services/axios/actions/product.action';
-import { url } from 'inspector';
+
+import { getBlogs } from './(default)/blog/action';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogs = await getBlogs();
